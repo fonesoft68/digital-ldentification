@@ -1,24 +1,20 @@
-#include </usr/include/opencv/cv.h>
-#include </usr/include/opencv/highgui.h>
-
-//¶ÁÈ¡Í¼Æ¬²¢±£´æµ½Ò»¸öcharÊı×éÖĞ£¬rgbµÄÍ¼Æ¬×ª»»Îª256½×µÄ»Ò¶È¼¶Í¼Æ¬
 unsigned char* readImageFromFile(unsigned char *res, char *filePath);
 
 unsigned char* readImageFromDataBase(unsigned char *res, char *filePath, int index);
 
-//½«Í¼Æ¬¶şÖµ»¯£¬res±£´æ¶şÖµ»¯ºóµÄÍ¼Æ¬£¬originÎªÔ­À´µÄ»Ò¶È½×Í¼Æ¬
+//å°†å›¾ç‰‡äºŒå€¼åŒ–ï¼Œresä¿å­˜äºŒå€¼åŒ–åçš„å›¾ç‰‡ï¼Œoriginä¸ºåŸæ¥çš„ç°åº¦é˜¶å›¾ç‰‡
 unsigned char* binaryImage(unsigned char *res);
 
-//¶şÖµ»¯Í¼Æ¬³ıÔë£¬»ùÓÚÁ¬Í¨ĞÔ
+//äºŒå€¼åŒ–å›¾ç‰‡é™¤å™ªï¼ŒåŸºäºè¿é€šæ€§
 unsigned char* remoceNoise(unsigned char *res);
 
-//Æ½»¬´¦Àí
+//å¹³æ»‘å¤„ç†
 unsigned char* smoothImage(unsigned char *res);
 
-//Í¼Æ¬Ï¸»¯
+//å›¾ç‰‡ç»†åŒ–
 unsigned char* thinImage(unsigned char *res);
 
-//10¸öÊı×ÖµÄÊ¶±ğ£¬·µ»ØÊ¶±ğµÄÊı×Ö¡£·µ»Ø-1±íÊ¾Î´Ê¶±ğ¡£
+//10ä¸ªæ•°å­—çš„è¯†åˆ«ï¼Œè¿”å›è¯†åˆ«çš„æ•°å­—ã€‚è¿”å›-1è¡¨ç¤ºæœªè¯†åˆ«ã€‚
 int isNun_0(unsigned char *pic);
 int isNun_1(unsigned char *pic);
 int isNun_2(unsigned char *pic);
@@ -30,8 +26,8 @@ int isNun_7(unsigned char *pic);
 int isNun_8(unsigned char *pic);
 int isNun_9(unsigned char *pic);
 
-//Êä³öÍ¼Æ¬
+//è¾“å‡ºå›¾ç‰‡
 int outImage(unsigned char *res);
 
 extern int widthOfImage;
-extern int heightOfImage;
+extern int heightOfImage;        
