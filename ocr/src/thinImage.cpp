@@ -4,12 +4,200 @@
 #include <string.h>
 
 #define DEBUG
+unsigned char* thinImage_1(unsigned char*);
+unsigned char* thinImage_2(unsigned char*);
 
 unsigned char* thinImage(unsigned char *origin)
 {
+	thinImage_1(origin);
+	thinImage_2(origin);
+	return origin;
+}
+
+unsigned char* thinImage_1(unsigned char *origin)
+{
 	unsigned char *res;
-	res = (unsigned char*) malloc (sizeof(unsigned char) * 28 * 28);
-	memset(res, 0, sizeof(unsigned char) * 28 * 28);
+	res = (unsigned char*) malloc (sizeof(unsigned char) * widthOfImage * heightOfImage);
+	memset(res, 0, sizeof(unsigned char) * widthOfImage * heightOfImage);
+	int flag = 1;
+	int i;
+	int j;
+	int skip = 0;
+	while(flag==1) //flag=0时迭代结束
+    {
+
+        flag=0;
+        for( i=2;i<heightOfImage-2;i++)
+        {
+                for(j=2;j<widthOfImage-2;j++)
+                {
+                        //模板a
+                        if(origin[(i-1)*(widthOfImage+skip)+j-1]==0
+                        && origin[(i-1)*(widthOfImage+skip)+j+1]>0
+                        && origin[(i)*(widthOfImage+skip)+j-1]==0
+                        && origin[(i)*(widthOfImage+skip)+j-0]>0
+                        && origin[(i)*(widthOfImage+skip)+j+1]>0
+                        && origin[(i)*(widthOfImage+skip)+j+2]>0
+                        && origin[(i+1)*(widthOfImage+skip)+j-1]==0
+                        && origin[(i+1)*(widthOfImage+skip)+j+1]>0)
+                        {
+                                res[(i)*(widthOfImage+skip)+j]=1;
+                                flag=1;
+                                continue;
+                        }
+
+                        //模板b
+                        if(origin[(i-1)*(widthOfImage+skip)+j-0]>0
+                        && origin[(i-1)*(widthOfImage+skip)+j+1]>0
+                        && origin[(i)*(widthOfImage+skip)+j-1]==0
+                        && origin[(i)*(widthOfImage+skip)+j-0]>0
+                        && origin[(i)*(widthOfImage+skip)+j+1]>0
+                        && origin[(i)*(widthOfImage+skip)+j+2]>0
+                        && origin[(i+1)*(widthOfImage+skip)+j-1]==0
+                        && origin[(i+1)*(widthOfImage+skip)+j-0]==0)
+                        {
+                                res[(i)*(widthOfImage+skip)+j]=1;
+                                flag=1;
+                                continue;
+                        }
+                        //模板c
+                        if(origin[(i-1)*(widthOfImage+skip)+j-1]==0
+                        && origin[(i-1)*(widthOfImage+skip)+j-0]==0
+                        && origin[(i)*(widthOfImage+skip)+j-1]==0
+                        && origin[(i)*(widthOfImage+skip)+j-0]>0
+                        && origin[(i)*(widthOfImage+skip)+j+1]>0
+                        && origin[(i)*(widthOfImage+skip)+j+2]>0
+                        && origin[(i+1)*(widthOfImage+skip)+j-0]>0
+                        && origin[(i+1)*(widthOfImage+skip)+j+1]>0)
+                        {
+                                res[(i)*(widthOfImage+skip)+j]=1;
+                                flag=1;
+                                continue;
+                        }
+
+                        //模板d
+                        if(origin[(i-1)*(widthOfImage+skip)+j-1]==0
+                        && origin[(i-1)*(widthOfImage+skip)+j-0]==0
+                        && origin[(i-1)*(widthOfImage+skip)+j+1]==0
+                        && origin[(i)*(widthOfImage+skip)+j-0]>0
+                        && origin[(i+1)*(widthOfImage+skip)+j-1]>0
+                        && origin[(i+1)*(widthOfImage+skip)+j-0]>0
+                        && origin[(i+1)*(widthOfImage+skip)+j+1]>0)
+                        {
+                                res[(i)*(widthOfImage+skip)+j]=1;
+                                flag=1;
+                                continue;
+                        }
+
+                        //模板e
+                        if(origin[(i-1)*(widthOfImage+skip)+j-1]>0
+                        && origin[(i-1)*(widthOfImage+skip)+j+1]==0
+                        && origin[(i)*(widthOfImage+skip)+j-1]>0
+                        && origin[(i)*(widthOfImage+skip)+j-0]>0
+                        && origin[(i)*(widthOfImage+skip)+j+1]==0
+                        && origin[(i+1)*(widthOfImage+skip)+j-1]>0
+                        && origin[(i+1)*(widthOfImage+skip)+j+1]==0)
+                        {
+                                res[(i)*(widthOfImage+skip)+j]=1;
+                                flag=1;
+                                continue;
+                        }
+
+                        //模板f
+                        if(origin[(i-1)*(widthOfImage+skip)+j-0]>0
+                        && origin[(i)*(widthOfImage+skip)+j-1]>0
+                        && origin[(i)*(widthOfImage+skip)+j-0]>0
+                        && origin[(i)*(widthOfImage+skip)+j+1]==0
+                        && origin[(i+1)*(widthOfImage+skip)+j-0]==0
+                        && origin[(i+1)*(widthOfImage+skip)+j+1]==0)
+                        {
+                                res[(i)*(widthOfImage+skip)+j]=1;
+                                flag=1;
+                                continue;
+                        }
+
+                        //模板g
+                        if(origin[(i-1)*(widthOfImage+skip)+j-0]==0
+                        && origin[(i-1)*(widthOfImage+skip)+j+1]==0
+                        && origin[(i)*(widthOfImage+skip)+j-1]>0
+                        && origin[(i)*(widthOfImage+skip)+j-0]>0
+                        && origin[(i)*(widthOfImage+skip)+j+1]==0
+                        && origin[(i+1)*(widthOfImage+skip)+j-0]>0)
+                        {
+                                res[(i)*(widthOfImage+skip)+j]=1;
+                                flag=1;
+                                continue;
+                        }
+
+                        //模板h
+                        if(origin[(i-2)*(widthOfImage+skip)+j-0]>0
+                        && origin[(i-1)*(widthOfImage+skip)+j-1]>0
+                        && origin[(i-1)*(widthOfImage+skip)+j-0]>0
+                        && origin[(i-1)*(widthOfImage+skip)+j+1]>0
+                        && origin[(i)*(widthOfImage+skip)+j-0]>0
+                        && origin[(i+1)*(widthOfImage+skip)+j-1]==0
+                        && origin[(i+1)*(widthOfImage+skip)+j-0]==0
+                        && origin[(i+1)*(widthOfImage+skip)+j+1]==0)
+                        {
+                                res[(i)*(widthOfImage+skip)+j]=1;
+                                flag=1;
+                                continue;
+                        }
+                }
+        }
+        for(i=0;i<widthOfImage * heightOfImage;i++)
+        {
+                if(res[i]==1)
+                {
+                        origin[i]=0;
+                }
+        }
+
+    }
+
+ //-------------第二次串行细化
+        for( i=2;i<heightOfImage-2;i++)
+        {
+                for(j=2;j<widthOfImage-2;j++)
+                {
+                        //缩小后的模板a
+                        if(origin[(i-1)*(widthOfImage+skip)+j-1]==0
+                        && origin[(i-1)*(widthOfImage+skip)+j+1]>0
+                        && origin[(i)*(widthOfImage+skip)+j-1]==0
+                        && origin[(i)*(widthOfImage+skip)+j-0]>0
+                        && origin[(i)*(widthOfImage+skip)+j+1]>0
+                        && origin[(i+1)*(widthOfImage+skip)+j-1]==0
+                        && origin[(i+1)*(widthOfImage+skip)+j+1]>0)
+                        {
+                                origin[(i)*(widthOfImage+skip)+j]=0;
+                                flag=1;
+                                continue;
+                        }
+                        //缩小后的模板h
+                        if(origin[(i-1)*(widthOfImage+skip)+j-1]>0
+                        && origin[(i-1)*(widthOfImage+skip)+j-0]>0
+                        && origin[(i-1)*(widthOfImage+skip)+j+1]>0
+                        && origin[(i)*(widthOfImage+skip)+j-0]>0
+                        && origin[(i+1)*(widthOfImage+skip)+j-1]==0
+                        && origin[(i+1)*(widthOfImage+skip)+j-0]==0
+                        && origin[(i+1)*(widthOfImage+skip)+j+1]==0)
+                        {
+                                origin[(i)*(widthOfImage+skip)+j]=0;
+                                flag=1;
+                                continue;
+                        }
+                }
+        }
+	
+	//memcpy(origin, res, sizeof(unsigned char) * widthOfImage * heightOfImage);
+	return origin;
+}
+
+unsigned char * thinImage_2(unsigned char *origin)
+{
+	unsigned char *res;
+	res = (unsigned char*) malloc (sizeof(unsigned char) * widthOfImage * heightOfImage);
+	memset(res, 0, sizeof(unsigned char) * widthOfImage * heightOfImage);
 	int flag = 0;
 	int check = 0;
 	for (int i = 0; i < heightOfImage; ++ i) {
@@ -74,5 +262,5 @@ unsigned char* thinImage(unsigned char *origin)
 
 	}
 	memcpy(origin, res, sizeof(unsigned char) * widthOfImage * heightOfImage);
-	return res;
+	return origin;
 }
