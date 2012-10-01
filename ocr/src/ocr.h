@@ -6,7 +6,7 @@ unsigned char* readImageFromDataBase(unsigned char *res, char *filePath, int ind
 unsigned char* binaryImage(unsigned char *res);
 
 //二值化图片除噪，基于连通性
-unsigned char* remoceNoise(unsigned char *res);
+unsigned char* remoteNoise(unsigned char *res);
 
 //平滑处理
 unsigned char* smoothImage(unsigned char *res);
