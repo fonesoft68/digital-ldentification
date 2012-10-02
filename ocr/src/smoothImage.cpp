@@ -9,6 +9,7 @@ unsigned char * smoothImage(unsigned char *origin)
 	int i;
 	int j;
 	res = (unsigned char *) malloc (sizeof(unsigned char) * widthOfImage * heightOfImage);
+	memset(res, 0, widthOfImage * heightOfImage);
 
 	//实现部分，origin是原来的图片，res是处理过后的
 	 for( i=2;i<heightOfImage-2;i++)

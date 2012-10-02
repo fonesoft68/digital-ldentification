@@ -41,6 +41,7 @@ int isNun_1(unsigned char *res) {
 	int judge = 0;
 
 	//实现部分，返回1表示识别出，0表示识别不出
-	
+	if(least_squares_method(res)<=5)
+          judge=1;
 	return judge;
 }
