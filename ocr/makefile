@@ -14,7 +14,7 @@ OBJ=object/readImage.o object/thinImage.o object/binaryImage.o object/smoothImag
 	object/remoteNoise.o object/inNun_0.o object/inNun_1.o object/inNun_2.o object/inNun_3.o object/inNun_4.o object/inNun_5.o object/inNun_6.o object/inNun_7.o object/inNun_8.o object/inNun_9.o
 
 #################################### for c unit test
-test:$(OBJ) src/test.cpp src/ocr.h
+ts:$(OBJ) src/test.cpp src/ocr.h
 	g++ -o $@ $^
 ####################################
 

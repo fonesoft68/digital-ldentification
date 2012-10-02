@@ -11,5 +11,5 @@ unsigned char * remoteNoise(unsigned char *origin)
 	//实现部分，origin是原来的图片，res是处理过后的
 	
 	memcpy(origin, res, sizeof(unsigned char) * widthOfImage * heightOfImage);
-	return res;
+	return origin;
 }
