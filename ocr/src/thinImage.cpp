@@ -12,7 +12,6 @@ unsigned char* thinImage(unsigned char *origin)
 {
 	thinImage_1(origin);
 	thinImage_2(origin);
-	thinImage_3(origin);
 	return origin;
 }
 
