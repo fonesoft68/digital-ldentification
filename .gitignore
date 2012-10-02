@@ -1,3 +1,5 @@
 *.[oa]
 *~
 test.cpp
+*.jpeg
+*.jpg
