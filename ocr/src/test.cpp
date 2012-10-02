@@ -18,6 +18,19 @@ int main(int args, char *argv[])
 			}
 		}
 
+		if (memcmp(argv[1], "readImage", strlen(argv[1])) == 0) {
+			printf("test for readImage from file\n");
+
+			if (args > 2) {
+				readImageFromFile(res, argv[2]);
+			}
+			else {
+				readImageFromFile(res, "res/hub_image/hub_image_1.jpeg");
+			}
+			outPixel(res);
+			exit(0);
+		}
+
 		readImageFromDataBase(res, "res/database", index);
 
 		if (memcmp(argv[1], "thinImage", strlen(argv[1]) * sizeof(char)) == 0) {

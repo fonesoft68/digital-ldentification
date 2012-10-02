@@ -1,6 +1,10 @@
 #include "ocr.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <cv.h>
+#include <highgui.h>
+#include <math.h>
 #define MAXLEN 4
 #define DEBUG
 
@@ -21,6 +25,18 @@ int outImage(unsigned char *res)
 	for (int i = 0; i < widthOfImage * heightOfImage; ) {
 		printf("%c", res[i] > 0 ? '.' : '0');
 		printf("%s", (++ i) % widthOfImage ? "" : "\n");
+	}
+
+	return 0;
+}
+
+int outPixel(unsigned char *res)
+{
+	for (int i = 0; i < heightOfImage; ++ i) {
+		for (int j = 0; j < widthOfImage; ++ j) {
+			printf ("%000d ", res[i * widthOfImage + j]);
+		}
+		printf("\n");
 	}
 
 	return 0;
@@ -52,3 +68,41 @@ unsigned char *readImageFromDataBase(unsigned char *res, char *fileName, int ind
 #endif
 	return res;
 }
+
+unsigned char* readImageFromFile(unsigned char *res, char *fileName)
+{
+	IplImage *img;
+	img = cvLoadImage(fileName);
+	if (!img) {
+		printf("Can not read the Image !\n");
+		exit(1);
+	}
+
+	widthOfImage = img->width;
+	heightOfImage  = img->height;
+	int step = img->widthStep;
+	int channels = img->nChannels;
+	unsigned char *data = (unsigned char *)img->imageData;
+
+	res = (unsigned char*) malloc (sizeof(unsigned char) * widthOfImage * heightOfImage);
+	memset(res, 0, sizeof(unsigned char) * widthOfImage * heightOfImage);
+	
+	cvNamedWindow("mainWin", CV_WINDOW_AUTOSIZE);
+	cvMoveWindow("mainWin", 100, 100);
+	cvShowImage("mainWin", img);
+	cvWaitKey(0);
+
+	for (int i = 0; i < heightOfImage; ++ i) {
+		for (int j = 0; j < widthOfImage; ++ j) {
+			for (int x = 0; x < channels; ++ x) {
+				res[i * widthOfImage + j] += data[i * step + j * channels + x] / 3;
+			}
+		}
+	}
+	
+
+	cvReleaseImage(&img);
+
+	return res;
+}
+

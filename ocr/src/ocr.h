@@ -29,5 +29,8 @@ int isNun_9(unsigned char *pic);
 //输出图片
 int outImage(unsigned char *res);
 
+//输出像素
+int outPixel(unsigned char *res);
+
 extern int widthOfImage;
 extern int heightOfImage;        

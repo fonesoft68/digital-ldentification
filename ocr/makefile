@@ -15,11 +15,11 @@ OBJ=object/readImage.o object/thinImage.o object/binaryImage.o object/smoothImag
 
 #################################### for c unit test
 ts:$(OBJ) src/test.cpp src/ocr.h
-	g++ -o $@ $^
+	g++ -o $@ $^ $(opencv)
 ####################################
 
 object/readImage.o:src/readImage.cpp src/ocr.h
-	g++ -c $< -o object/readImage.o
+	g++ -c $< -o object/readImage.o $(opencv)
 
 object/thinImage.o:src/thinImage.cpp src/ocr.h
 	g++ -c $< -o object/thinImage.o
@@ -55,7 +55,7 @@ object/inNun_9.o:src/isNun_9.cpp src/ocr.h
 	g++ -c $< -o $@
 
 ocr:$(OBJ) src/ocr.cpp src/ocr.h
-	g++ -o $@ $^
+	g++ -o $@ $^ $(opencv)
 
 clean:
 	rm *.o
