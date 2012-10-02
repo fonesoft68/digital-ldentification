@@ -22,6 +22,7 @@ int ByteToInt(unsigned char *buf)
 
 int outImage(unsigned char *res)
 {
+	printf("\n");
 	for (int i = 0; i < widthOfImage * heightOfImage; ) {
 		printf("%c", res[i] > 0 ? '.' : '0');
 		printf("%s", (++ i) % widthOfImage ? "" : "\n");
@@ -34,7 +35,7 @@ int outPixel(unsigned char *res)
 {
 	for (int i = 0; i < heightOfImage; ++ i) {
 		for (int j = 0; j < widthOfImage; ++ j) {
-			printf ("%000d ", res[i * widthOfImage + j]);
+			printf("%u ", res[i * widthOfImage + j]);
 		}
 		printf("\n");
 	}
@@ -65,11 +66,12 @@ unsigned char *readImageFromDataBase(unsigned char *res, char *fileName, int ind
 #ifdef DEBUG
 	printf("\n%d %d %d %d\n", magicNumber, numberOfImages, numberOfRows, numberOfColunms);
 	outImage(res);
+	fclose(fileIn);
 #endif
 	return res;
 }
 
-unsigned char* readImageFromFile(unsigned char *res, char *fileName)
+unsigned char* readImageFromFile(unsigned char *res, char *fileName, int x)
 {
 	IplImage *img;
 	img = cvLoadImage(fileName);
@@ -84,24 +86,25 @@ unsigned char* readImageFromFile(unsigned char *res, char *fileName)
 	int channels = img->nChannels;
 	unsigned char *data = (unsigned char *)img->imageData;
 
-	res = (unsigned char*) malloc (sizeof(unsigned char) * widthOfImage * heightOfImage);
-	memset(res, 0, sizeof(unsigned char) * widthOfImage * heightOfImage);
 	
 	cvNamedWindow("mainWin", CV_WINDOW_AUTOSIZE);
 	cvMoveWindow("mainWin", 100, 100);
 	cvShowImage("mainWin", img);
 	cvWaitKey(0);
+	cvReleaseImage(&img);
 
 	for (int i = 0; i < heightOfImage; ++ i) {
 		for (int j = 0; j < widthOfImage; ++ j) {
-			for (int x = 0; x < channels; ++ x) {
-				res[i * widthOfImage + j] += data[i * step + j * channels + x] / 3;
+			int tmp = 0;
+			for (int k = 0; k < channels; ++ k) {
+				tmp += data[i * step + j * channels + k];
 			}
+			res[i * widthOfImage + j] = tmp / 3 > x ? 1 : 0;
 		}
 	}
+
 	
 
-	cvReleaseImage(&img);
 
 	return res;
 }

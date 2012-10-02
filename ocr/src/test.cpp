@@ -21,14 +21,19 @@ int main(int args, char *argv[])
 		if (memcmp(argv[1], "readImage", strlen(argv[1])) == 0) {
 			printf("test for readImage from file\n");
 
-			if (args > 2) {
-				readImageFromFile(res, argv[2]);
+			res = (unsigned char*) malloc (sizeof(unsigned char) * widthOfImage * heightOfImage);
+			if (args > 32) {
+				readImageFromFile(res, argv[2],2);
 			}
 			else {
-				readImageFromFile(res, "res/hub_image/hub_image_1.jpeg");
+				int tmp = 0;
+				for (int i = 0; argv[2][i]; ++ i) {
+					tmp = tmp * 10 + (int) (argv[2][i] - '0');
+				}
+				readImageFromFile(res, "res/hub_image/hub_image_1.jpeg", tmp);
 			}
-			outPixel(res);
-			exit(0);
+			outImage(res);
+			return 0;
 		}
 
 		readImageFromDataBase(res, "res/database", index);
