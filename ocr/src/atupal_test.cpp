@@ -30,17 +30,20 @@ int main(int args, char *argv[])
 
 			res = (unsigned char*) malloc (sizeof(unsigned char) * maxImage);
 			memset(res, 0, sizeof(unsigned char) * maxImage);
-			
 			readImageFromFile(res, name);
-
 			outPixel(res);
 
 
 			return 0;
 		}
-
-		readImageFromDataBase(res, "res/database", index);
-
+                for(int i=0;i!=index;++i){
+                  readImageFromDataBase(res, "res/database", i);
+                  if (memcmp(argv[1], "is_Num1", strlen(argv[1]) *sizeof(char))==0) {
+                    printf("test for least_square\n");
+                    thinImage(res);
+                    outImage(res);
+                    printf("%d\n",isNun_1(res));
+                }}
 		if (memcmp(argv[1], "thinImage", strlen(argv[1]) * sizeof(char)) == 0) {
 			printf("test for thinImage\n");
 			thinImage(res);
