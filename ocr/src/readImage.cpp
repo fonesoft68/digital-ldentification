@@ -99,10 +99,12 @@ unsigned char* readImageFromFile(unsigned char *res, char *fileName, int x)
 			for (int k = 0; k < channels; ++ k) {
 				tmp += data[i * step + j * channels + k];
 			}
-			res[i * widthOfImage + j] = tmp / 3 > x ? 1 : 0;
+			res[i * widthOfImage + j] = tmp / 3;
+                        //                        int min=binaryImage(res);
+                        //                        printf("%d",min);
 		}
 	}
-
+        res=binaryImage(res);
 	
 
 

@@ -9,7 +9,177 @@ unsigned char * smoothImage(unsigned char *origin)
 	res = (unsigned char *) malloc (sizeof(unsigned char) * widthOfImage * heightOfImage);
 
 	//实现部分，origin是原来的图片，res是处理过后的
-	
+	 for( i=2;i<heightOfImage-2;i++)
+        {
+                for(j=2;j<widthOfImage-2;j++)
+                {
+                        //模板1
+                        if(origin[(i-1)*widthOfImage+j-1]>=0
+                        && origin[(i-1)*widthOfImage+j]>0
+                        && origin[(i-1)*widthOfImage+j+1]>=0
+                        && origin[(i)*widthOfImage+j-1]>0
+                        && origin[(i)*widthOfImage+j+1]>0
+                        && origin[(i+1)*widthOfImage+j-1]>=0
+                        && origin[(i+1)*widthOfImage+j]>0
+                        && origin[(i+1)*widthOfImage+j+1]>=0)
+                        {
+                                res[(i)*widthOfImage+j]=1;
+                                continue;
+                        }
+                        
+                        //模板2
+                        if(origin[(i-1)*widthOfImage+j-1]>=0
+                        && origin[(i-1)*widthOfImage+j]>0
+                        && origin[(i-1)*widthOfImage+j+1]>=0
+                        && origin[(i)*widthOfImage+j-1]>0
+                        && origin[(i)*widthOfImage+j+1]>0
+                        && origin[(i+1)*widthOfImage+j-1]=0
+                        && origin[(i+1)*widthOfImage+j]=0
+                        && origin[(i+1)*widthOfImage+j+1]>0)
+                       {
+                                res[(i)*widthOfImage+j]=1;
+                                continue;
+                       }
+                       else if(origin[(i-1)*widthOfImage+j-1]>=0
+                        && origin[(i-1)*widthOfImage+j]>0
+                        && origin[(i-1)*widthOfImage+j+1]>0
+                        && origin[(i)*widthOfImage+j-1]>0
+                        && origin[(i)*widthOfImage+j+1]=0
+                        && origin[(i+1)*widthOfImage+j-1]>=0
+                        && origin[(i+1)*widthOfImage+j]>0
+                        && origin[(i+1)*widthOfImage+j+1]=0)
+                       {
+                                res[(i)*widthOfImage+j]=1;
+                                continue;
+                       }
+                        else if(origin[(i-1)*widthOfImage+j-1]>0
+                        && origin[(i-1)*widthOfImage+j]=0
+                        && origin[(i-1)*widthOfImage+j+1]=0
+                        && origin[(i)*widthOfImage+j-1]>0
+                        && origin[(i)*widthOfImage+j+1]>0
+                        && origin[(i+1)*widthOfImage+j-1]>=0
+                        && origin[(i+1)*widthOfImage+j]>0
+                        && origin[(i+1)*widthOfImage+j+1]>=0)
+                       {
+                                res[(i)*widthOfImage+j]=1;
+                                continue;
+                       }
+                       else if(origin[(i-1)*widthOfImage+j-1]=0
+                        && origin[(i-1)*widthOfImage+j]>0
+                        && origin[(i-1)*widthOfImage+j+1]>=0
+                        && origin[(i)*widthOfImage+j-1]=0
+                        && origin[(i)*widthOfImage+j+1]>0
+                        && origin[(i+1)*widthOfImage+j-1]>0
+                        && origin[(i+1)*widthOfImage+j]>0
+                        && origin[(i+1)*widthOfImage+j+1]>=0)
+                       {
+                                res[(i)*widthOfImage+j]=1;
+                                continue;
+                       }
+                       
+                       //模板3
+                       if(origin[(i-1)*widthOfImage+j-1]=0
+                        && origin[(i-1)*widthOfImage+j]=0
+                        && origin[(i-1)*widthOfImage+j+1]>=0
+                        && origin[(i)*widthOfImage+j-1]=0
+                        && origin[(i)*widthOfImage+j+1]>0
+                        && origin[(i+1)*widthOfImage+j-1]=0
+                        && origin[(i+1)*widthOfImage+j]=0
+                        && origin[(i+1)*widthOfImage+j+1]>0)
+                        {
+                                res[(i)*widthOfImage+j]=0;
+                                continue;
+                        }
+                         else if(origin[(i-1)*widthOfImage+j-1]>=0
+                        && origin[(i-1)*widthOfImage+j]>0
+                        && origin[(i-1)*widthOfImage+j+1]>0
+                        && origin[(i)*widthOfImage+j-1]=0
+                        && origin[(i)*widthOfImage+j+1]=0
+                        && origin[(i+1)*widthOfImage+j-1]=0
+                        && origin[(i+1)*widthOfImage+j]=0
+                        && origin[(i+1)*widthOfImage+j+1]=0)
+                       {
+                                res[(i)*widthOfImage+j]=0;
+                                continue;
+                       }
+                       else if(origin[(i-1)*widthOfImage+j-1]>0
+                        && origin[(i-1)*widthOfImage+j]=0
+                        && origin[(i-1)*widthOfImage+j+1]=0
+                        && origin[(i)*widthOfImage+j-1]>0
+                        && origin[(i)*widthOfImage+j+1]=0
+                        && origin[(i+1)*widthOfImage+j-1]>=0
+                        && origin[(i+1)*widthOfImage+j]=0
+                        && origin[(i+1)*widthOfImage+j+1]=0)
+                       {
+                                res[(i)*widthOfImage+j]=0;
+                                continue;
+                       }
+                       else if(origin[(i-1)*widthOfImage+j-1]=0
+                        && origin[(i-1)*widthOfImage+j]=0
+                        && origin[(i-1)*widthOfImage+j+1]=0
+                        && origin[(i)*widthOfImage+j-1]=0
+                        && origin[(i)*widthOfImage+j+1]=0
+                        && origin[(i+1)*widthOfImage+j-1]>0
+                        && origin[(i+1)*widthOfImage+j]>0
+                        && origin[(i+1)*widthOfImage+j+1]>=0)
+                       {
+                                res[(i)*widthOfImage+j]=0;
+                                continue;
+                       }
+                       
+                       //模板4
+                        if(origin[(i-1)*widthOfImage+j-1]=0
+                        && origin[(i-1)*widthOfImage+j]=0
+                        && origin[(i-1)*widthOfImage+j+1]=0
+                        && origin[(i)*widthOfImage+j-1]=0
+                        && origin[(i)*widthOfImage+j+1]>0
+                        && origin[(i+1)*widthOfImage+j-1]=0
+                        && origin[(i+1)*widthOfImage+j]=0
+                        && origin[(i+1)*widthOfImage+j+1]>=0)
+                        {
+                                res[(i)*widthOfImage+j]=0;
+                                continue;
+                        }
+                        else if(origin[(i-1)*widthOfImage+j-1]=0
+                        && origin[(i-1)*widthOfImage+j]>0
+                        && origin[(i-1)*widthOfImage+j+1]>=0
+                        && origin[(i)*widthOfImage+j-1]=0
+                        && origin[(i)*widthOfImage+j+1]=0
+                        && origin[(i+1)*widthOfImage+j-1]=0
+                        && origin[(i+1)*widthOfImage+j]=0
+                        && origin[(i+1)*widthOfImage+j+1]=0)
+                       {
+                                res[(i)*widthOfImage+j]=0;
+                                continue;
+                       }
+                        else if(origin[(i-1)*widthOfImage+j-1]>=0
+                        && origin[(i-1)*widthOfImage+j]=0
+                        && origin[(i-1)*widthOfImage+j+1]=0
+                        && origin[(i)*widthOfImage+j-1]>0
+                        && origin[(i)*widthOfImage+j+1]=0
+                        && origin[(i+1)*widthOfImage+j-1]=0
+                        && origin[(i+1)*widthOfImage+j]=0
+                        && origin[(i+1)*widthOfImage+j+1]=0)
+                       {
+                                res[(i)*widthOfImage+j]=0;
+                                continue;
+                       }
+                        else if(origin[(i-1)*widthOfImage+j-1]=0
+                        && origin[(i-1)*widthOfImage+j]=0
+                        && origin[(i-1)*widthOfImage+j+1]=0
+                        && origin[(i)*widthOfImage+j-1]=0
+                        && origin[(i)*widthOfImage+j+1]=0
+                        && origin[(i+1)*widthOfImage+j-1]>=0
+                        && origin[(i+1)*widthOfImage+j]>0
+                        && origin[(i+1)*widthOfImage+j+1]=0)
+                       {
+                                res[(i)*widthOfImage+j]=0;
+                                continue;
+                       }
+                       
+                       res[(i)*widthOfImage+j]=origin[(i)*widthOfImage+j];
+                }
+         }       
 	memcpy(origin, res, sizeof(unsigned char) * widthOfImage * heightOfImage);                                                                         
 	return origin;
 }

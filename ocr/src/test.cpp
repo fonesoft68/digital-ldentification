@@ -30,7 +30,7 @@ int main(int args, char *argv[])
 				for (int i = 0; argv[2][i]; ++ i) {
 					tmp = tmp * 10 + (int) (argv[2][i] - '0');
 				}
-				readImageFromFile(res, "res/hub_image/hub_image_1.jpeg", tmp);
+				readImageFromFile(res, "res/hub_image/hub_image_6.jpeg", tmp);
 			}
 			outImage(res);
 			return 0;
