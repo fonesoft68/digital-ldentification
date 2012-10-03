@@ -1,4 +1,4 @@
-unsigned char* readImageFromFile(unsigned char *res, char *filePath, int x);
+unsigned char* readImageFromFile(unsigned char *res, char *filePath);
 
 unsigned char* readImageFromDataBase(unsigned char *res, char *filePath, int index);
 

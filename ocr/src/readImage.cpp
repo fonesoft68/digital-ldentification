@@ -71,7 +71,7 @@ unsigned char *readImageFromDataBase(unsigned char *res, char *fileName, int ind
 	return res;
 }
 
-unsigned char* readImageFromFile(unsigned char *res, char *fileName, int x)
+unsigned char* readImageFromFile(unsigned char *res, char *fileName)
 {
 	IplImage *img;
 	img = cvLoadImage(fileName);
