@@ -44,7 +44,8 @@ int outVisual(unsigned char *res)
 
 	for (int i = 0; i < heightOfImage; ++ i) {
 		for (int j = 0; j < widthOfImage; ++ j) {
-			data[i * step + j] = res[i * widthOfImage + j] > 0 ? 255 : 0;
+			char tm = res[i * widthOfImage + j];
+			data[i * step + j] = tm > 0 ? 40 * tm : 0;
 		}
 	}
 
@@ -58,15 +59,15 @@ int outVisual(unsigned char *res)
 int outPixel(unsigned char *res)
 {
 	for (int i = 0; i < heightOfImage; ++ i) {
-		for (int j = 0; j < 50; ++ j) {
+		for (int j = 0; j < widthOfImage; ++ j) {
 			if (res[i * widthOfImage + j] == 0) {
 				printf(". ");
 			}
 			else {
 				printf("%u ", res[i * widthOfImage + j]);
 			}
-				printf("\n");
 		}
+		printf("\n");
 	}
 
 	return 0;
@@ -114,6 +115,7 @@ unsigned char* readImageFromFile(unsigned char *res, char *fileName)
 	int step = img->widthStep;
 	int channels = img->nChannels;
 	unsigned char *data = (unsigned char *)img->imageData;
+	printf("w: %d h:%d\n", widthOfImage, heightOfImage);
 
 	
 	cvNamedWindow("mainWin", CV_WINDOW_AUTOSIZE);

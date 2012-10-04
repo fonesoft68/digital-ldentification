@@ -60,7 +60,7 @@ int main(int args, char *argv[])
 			readImageFromFile(res, name);
 			binaryImage(res);
 			thinImage(res);
-			//findCircle(res);
+			findCircle(res);
 			//smoothImage(res);
 			//remoteNoise(res);
 			outVisual(res);
