@@ -28,6 +28,8 @@ int isNun_7(unsigned char *pic);
 int isNun_8(unsigned char *pic);
 int isNun_9(unsigned char *pic);
 
+int Num_Cir(unsigned char *bg);
+float Length(unsigned char *res);
 //输出图片
 int outImage(unsigned char *res);
 
