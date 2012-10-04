@@ -84,20 +84,20 @@ int isNun_2(unsigned char *res) {
   memcpy(src, res, widthOfImage * heightOfImage);
   circle_count = findCircle(src);
   printf("**********************%d**********************",circle_count);
-  outImage(res);
-  outImage(src);
+  outPixel(res);
+  outPixel(src);
   if(circle_count){
     unsigned char *back = (unsigned char *)malloc(sizeof(unsigned char) * widthOfImage *heightOfImage);
     memset(back, 0, sizeof(unsigned char) * widthOfImage * heightOfImage);
     FindBorder(src, res, back, 2);
-    outImage(back);
+    outPixel(back);
     for(int i = 0;i != widthOfImage * heightOfImage;++ i)
       if(*(src + i) == *(back + i))
         *(back + i) = 0;
       else
         *(back + i) = 1;
     printf("back!!!!!!!!!!!!!!!!!!\n");
-    outImage(back);
+    outPixel(back);
     //    isNun_2(back);
   }
   int *p = (int *)malloc(sizeof(int) * 8);

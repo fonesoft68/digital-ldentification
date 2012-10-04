@@ -76,7 +76,7 @@ int main(int args, char *argv[])
 	
 	if (memcmp(argv[1], "findCircle", strlen(argv[1])) == 0) {
 		printf("test for findCircle\n");
-		binaryImage(res);
+		//binaryImage(res);
 		thinImage(res);
 		findCircle(res);
 		outPixel(res);
