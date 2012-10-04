@@ -32,6 +32,8 @@ int isNun_7(unsigned char *pic);
 int isNun_8(unsigned char *pic);
 int isNun_9(unsigned char *pic);
 
+int Num_Cir(unsigned char *bg); //数圈圈^_^
+float Length(unsigned char *res);//算总线条长度
 //输出图片
 int outImage(unsigned char *res);
 
