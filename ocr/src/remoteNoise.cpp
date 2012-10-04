@@ -3,7 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-unsigned char * classifyImage(unsigned char *origin);
+int classifyImage(unsigned char *origin);
+int findCircle(unsigned char *origin);
+int find(unsigned char *origin, unsigned char *res, int index, int color);
 
 unsigned char * remoteNoise(unsigned char *origin)
 {
@@ -13,6 +15,15 @@ unsigned char * remoteNoise(unsigned char *origin)
 	classifyImage(origin);
 	
 	return origin;
+}
+
+int findCircle(unsigned char *origin)
+{
+	int color = 0;
+	for (int i = 0; i < widthOfImage * heightOfImage; ++ i) {
+		origin[i] = !origin[i];
+	}
+	return classifyImage(origin);
 }
 
 int find(unsigned char *origin, unsigned char *res, int index, int color)
@@ -56,7 +67,7 @@ int find(unsigned char *origin, unsigned char *res, int index, int color)
 	return 0;
 }
 
-unsigned char * classifyImage(unsigned char *origin)
+int classifyImage(unsigned char *origin)
 {
 	unsigned char *res;
 	res = (unsigned char*) malloc (sizeof(unsigned char) * widthOfImage * heightOfImage);
@@ -69,6 +80,6 @@ unsigned char * classifyImage(unsigned char *origin)
 	}
 
 	printf("\nthe sum of color is %d\n", color);
-	return origin;
+	return color - 1;
 }
 

@@ -17,6 +17,10 @@ unsigned char* thinImage(unsigned char *res);
 //10个数字的识别，返回识别的数字。返回-1表示未识别。
 float least_squares_method(unsigned char *res);
 
+//找数字当中的圈圈
+
+int findCircle(unsigned char *);
+
 int isNun_0(unsigned char *pic);
 int isNun_1(unsigned char *pic);
 int isNun_2(unsigned char *pic);
