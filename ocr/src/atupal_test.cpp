@@ -58,8 +58,8 @@ int main(int args, char *argv[])
 			}
 			printf("%s", name);
 			readImageFromFile(res, name);
-			//binaryImage(res);
-			//thinImage(res);
+			binaryImage(res);
+			thinImage(res);
 			//smoothImage(res);
 			//remoteNoise(res);
 			outVisual(res);

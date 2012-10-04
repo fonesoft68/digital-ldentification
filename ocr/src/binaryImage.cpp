@@ -43,7 +43,7 @@ unsigned char * binaryImage(unsigned char *origin)
   printf("\nthe yuzhi is %d\n",threshold);
   for(int i=0;i!=widthOfImage * heightOfImage;++i)
     if(*(origin+i)<=threshold)
-      *(origin+i)=1;
+      *(origin+i)=255;
     else
       *(origin+i)=0;
   return origin;
