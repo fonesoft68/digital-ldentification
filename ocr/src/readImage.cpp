@@ -34,14 +34,19 @@ int outImage(unsigned char *res)
 int outVisual(unsigned char *res)
 {
 	IplImage* img=cvCreateImage(cvSize(widthOfImage, heightOfImage),IPL_DEPTH_8U,1);
-	char *mat = (char *) malloc (sizeof(char) * widthOfImage * heightOfImage + heightOfImage * 3);
-	memset(mat, 0, sizeof(char) * widthOfImage * heightOfImage + heightOfImage * 3);
-	for (int i = 5; i < heightOfImage * widthOfImage + 3; ++ i) {
-		mat[i] = res[i - 5];
-	}
-	img->imageData = mat;
+
 	cvNamedWindow("mainWin", CV_WINDOW_AUTOSIZE); 
 	cvMoveWindow("mainWin", 100, 100);
+
+	unsigned char *data = (unsigned char*)img->imageData;
+
+	int step = img->widthStep;
+
+	for (int i = 0; i < heightOfImage; ++ i) {
+		for (int j = 0; j < widthOfImage; ++ j) {
+			data[i * step + j] = res[i * widthOfImage + j] > 0 ? 255 : 0;
+		}
+	}
 
 	cvShowImage("mainWin", img );
 	cvWaitKey(0);
