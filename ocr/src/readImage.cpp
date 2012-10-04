@@ -31,13 +31,37 @@ int outImage(unsigned char *res)
 	return 0;
 }
 
+int outVisual(unsigned char *res)
+{
+	IplImage* img=cvCreateImage(cvSize(widthOfImage, heightOfImage),IPL_DEPTH_8U,1);
+	char *mat = (char *) malloc (sizeof(char) * widthOfImage * heightOfImage + heightOfImage * 3);
+	memset(mat, 0, sizeof(char) * widthOfImage * heightOfImage + heightOfImage * 3);
+	for (int i = 5; i < heightOfImage * widthOfImage + 3; ++ i) {
+		mat[i] = res[i - 5];
+	}
+	img->imageData = mat;
+	cvNamedWindow("mainWin", CV_WINDOW_AUTOSIZE); 
+	cvMoveWindow("mainWin", 100, 100);
+
+	cvShowImage("mainWin", img );
+	cvWaitKey(0);
+
+
+	return 0;
+}
+
 int outPixel(unsigned char *res)
 {
 	for (int i = 0; i < heightOfImage; ++ i) {
-		for (int j = 0; j < widthOfImage; ++ j) {
-			printf("%u ", res[i * widthOfImage + j]);
+		for (int j = 0; j < 50; ++ j) {
+			if (res[i * widthOfImage + j] == 0) {
+				printf(". ");
+			}
+			else {
+				printf("%u ", res[i * widthOfImage + j]);
+			}
+				printf("\n");
 		}
-		printf("\n");
 	}
 
 	return 0;
@@ -100,14 +124,8 @@ unsigned char* readImageFromFile(unsigned char *res, char *fileName)
 				tmp += data[i * step + j * channels + k];
 			}
 			res[i * widthOfImage + j] = tmp / 3;
-                        //                        int min=binaryImage(res);
-                        //                        printf("%d",min);
 		}
 	}
-        res=binaryImage(res);
-	
-
-
 	return res;
 }
 

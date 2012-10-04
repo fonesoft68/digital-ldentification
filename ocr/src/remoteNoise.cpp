@@ -43,7 +43,6 @@ int find(unsigned char *origin, unsigned char *res, int index, int color)
 					res[xx * widthOfImage + yy] = color;
 
 					++ tail;
-					printf("\n%d\n", tail);
 				}
 			}
 		}
@@ -69,6 +68,7 @@ unsigned char * classifyImage(unsigned char *origin)
 		}
 	}
 
+	printf("\nthe sum of color is %d\n", color);
 	return origin;
 }
 

@@ -40,12 +40,12 @@ unsigned char * binaryImage(unsigned char *origin)
         threshold=i;
       }
   }
-  printf("%d\n",threshold);
+  printf("\nthe yuzhi is %d\n",threshold);
   for(int i=0;i!=widthOfImage * heightOfImage;++i)
     if(*(origin+i)<=threshold)
-      *(origin+i)=0;
-    else
       *(origin+i)=1;
+    else
+      *(origin+i)=0;
   return origin;
 }
 

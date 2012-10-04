@@ -9,8 +9,8 @@ int main(int args, char *argv[])
 {
 	printf("test for c unit\n");
 	unsigned char *res;
-	res = (unsigned char *) malloc (sizeof(unsigned char) * 28 * 28);
-	memset(res, 0, sizeof(unsigned char) * 28 * 28);
+	res = (unsigned char *) malloc (sizeof(unsigned char) * maxImage);
+	memset(res, 0, sizeof(unsigned char) * maxImage);
 	if (args > 1) {
 
 		int index = 0;
@@ -31,19 +31,20 @@ int main(int args, char *argv[])
 			res = (unsigned char*) malloc (sizeof(unsigned char) * maxImage);
 			memset(res, 0, sizeof(unsigned char) * maxImage);
 			readImageFromFile(res, name);
+			binaryImage(res);
 			outPixel(res);
-
-
 			return 0;
 		}
-                for(int i=0;i!=index;++i){
-                  readImageFromDataBase(res, "res/database", i);
-                  if (memcmp(argv[1], "is_Num1", strlen(argv[1]) *sizeof(char))==0) {
-                    printf("test for least_square\n");
-                    thinImage(res);
-                    outImage(res);
-                    printf("%d\n",isNun_1(res));
-                }}
+
+        readImageFromDataBase(res, "res/database", index);
+
+        if (memcmp(argv[1], "is_Num1", strlen(argv[1]) *sizeof(char))==0) {
+              printf("test for least_square\n");
+              thinImage(res);
+              outImage(res);
+              printf("%d\n",isNun_1(res));
+		}
+
 		if (memcmp(argv[1], "thinImage", strlen(argv[1]) * sizeof(char)) == 0) {
 			printf("test for thinImage\n");
 			thinImage(res);
@@ -51,8 +52,18 @@ int main(int args, char *argv[])
 		}
 		if (memcmp(argv[1], "remoteNoise", strlen(argv[1]) * sizeof(char)) == 0) {
 			printf("test for remoteNoise\n");
-			remoteNoise(res);
-			outPixel(res);
+			char name[50] = "res/hub_image/hub_image_1.jpeg";
+			if (args > 2) {
+				strcpy(name, argv[2]);
+			}
+			printf("%s", name);
+			readImageFromFile(res, name);
+			//binaryImage(res);
+			//thinImage(res);
+			//smoothImage(res);
+			//remoteNoise(res);
+			outVisual(res);
+			
 		}
 
 		if (memcmp(argv[1], "smoothImage", strlen(argv[1])) == 0) {

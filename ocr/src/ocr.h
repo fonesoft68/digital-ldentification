@@ -34,5 +34,8 @@ int outImage(unsigned char *res);
 //输出像素
 int outPixel(unsigned char *res);
 
+//用opencv输出图像
+int outVisual(unsigned char *res);
+
 extern int widthOfImage;
 extern int heightOfImage;        
