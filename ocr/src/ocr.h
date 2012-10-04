@@ -32,8 +32,10 @@ int isNun_7(unsigned char *pic);
 int isNun_8(unsigned char *pic);
 int isNun_9(unsigned char *pic);
 
-int Num_Cir(unsigned char *bg); //数圈圈^_^
+//int Num_Cir(unsigned char *bg); //数圈圈^_^
 float Length(unsigned char *res);//算总线条长度
+int JudgePoint(unsigned char*bg,int position,int num);
+void FindBorder(unsigned char*bg,unsigned char*res,unsigned char*back,int num); //在back中用1标记指定连通域bg num的边缘
 //输出图片
 int outImage(unsigned char *res);
 
