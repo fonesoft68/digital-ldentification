@@ -45,5 +45,11 @@ int outPixel(unsigned char *res);
 //用opencv输出图像
 int outVisual(unsigned char *res);
 
+//分类
+int classifyImage(unsigned char*, int);
+
+//8邻域内的目标像素
+int getN(unsigned char *res, int x, int y);
+
 extern int widthOfImage;
 extern int heightOfImage;        

@@ -60,9 +60,9 @@ int main(int args, char *argv[])
 			readImageFromFile(res, name);
 			binaryImage(res);
 			thinImage(res);
-			findCircle(res);
+			//findCircle(res);
 			//smoothImage(res);
-			//remoteNoise(res);
+			remoteNoise(res);
 			outVisual(res);
 			
 		}
@@ -82,6 +82,16 @@ int main(int args, char *argv[])
 
 		if (memcmp(argv[1], "readImage", strlen(argv[1])) == 0) {
 			printf("test for binaryImage\n");
+		}
+
+		if (memcmp(argv[1], "isNun_0", strlen(argv[1])) == 0) {
+			printf("test for 0\n");
+			binaryImage(res);
+			thinImage(res);
+			smoothImage(res);
+			outVisual(res);
+			int tm = isNun_0(res);
+			printf("**************%d*************\n", tm);
 		}
 
 	}

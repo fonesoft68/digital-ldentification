@@ -120,12 +120,12 @@ int classifyImage(unsigned char *origin, int liantong)
 		if (i / widthOfImage == 0 || i / widthOfImage == heightOfImage - 1 || i % widthOfImage == 0 || i / widthOfImage == widthOfImage - 1) {
 			continue;
 		}
-		if (origin[i] && res[i] == 0 && getN(origin, i / widthOfImage, i % widthOfImage) > 2) {
+		if (origin[i] && res[i] == 0 && getN(origin, i / widthOfImage, i % widthOfImage) > 0) {
 			find(origin, res, i, ++ color, liantong);
 		}
 	}
 
 	printf("\nthe sum of color is %d\n", color);
-	return color - 1;
+	return color;
 }
 
