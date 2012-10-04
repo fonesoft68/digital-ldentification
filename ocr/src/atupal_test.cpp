@@ -63,6 +63,7 @@ int main(int args, char *argv[])
         strcpy(name, argv[2]);
       }
       printf("%s", name);
+
       readImageFromFile(res, name);
       binaryImage(res);
       thinImage(res);

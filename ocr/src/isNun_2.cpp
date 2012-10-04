@@ -76,6 +76,7 @@ int is_C(unsigned char *res,int start,int end,int cnt,int k){
   return flag;
 }
 int isNun_2(unsigned char *res) {
+  outPixel(res);
   printf("get into isnum2\n");
   int judge = 0;
   int circle_count = 0;
@@ -85,24 +86,22 @@ int isNun_2(unsigned char *res) {
   printf("**********************%d**********************",circle_count);
   outImage(res);
   outImage(src);
-  if(circle_count <= 1){
-    if(circle_count){
-      unsigned char *back = (unsigned char *)malloc(sizeof(unsigned char) * widthOfImage *heightOfImage);
-      memset(back, 0, sizeof(unsigned char) * widthOfImage * heightOfImage);
-      outImage(back);
-      FindBorder(src, res, back, 2);
-      printf("before\n");
-      outImage(back);
-      for(int i = 0;i != widthOfImage * heightOfImage;++ i)
-        if(*(src + i) == *(back + i))
-          *(back + i) = 0;
-        else
-          *(back + i) = 1;
-      outImage(back);
-      isNun_2(back);
-    }
-    int *p = (int *)malloc(sizeof(int) * 8);
-    int count = 0;
+  if(circle_count){
+    unsigned char *back = (unsigned char *)malloc(sizeof(unsigned char) * widthOfImage *heightOfImage);
+    memset(back, 0, sizeof(unsigned char) * widthOfImage * heightOfImage);
+    FindBorder(src, res, back, 2);
+    outImage(back);
+    for(int i = 0;i != widthOfImage * heightOfImage;++ i)
+      if(*(src + i) == *(back + i))
+        *(back + i) = 0;
+      else
+        *(back + i) = 1;
+    printf("back!!!!!!!!!!!!!!!!!!\n");
+    outImage(back);
+    //    isNun_2(back);
+  }
+  int *p = (int *)malloc(sizeof(int) * 8);
+  int count = 0;
   for(int i = 0;i != widthOfImage * heightOfImage;++ i)
     if(*(res + i) && borderPoint(res, i)){
       *(p+count)=i;
@@ -132,7 +131,6 @@ int isNun_2(unsigned char *res) {
       if(is_C(res,start,mid,cnt,1)&&is_C(res,mid,end,cnt,2))
         judge=1;
     //实现部分，返回1表示识别出，0表示识别不出
-  }
   }
   return judge;
 }
