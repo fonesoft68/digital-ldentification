@@ -45,7 +45,7 @@ int outVisual(unsigned char *res)
 	for (int i = 0; i < heightOfImage; ++ i) {
 		for (int j = 0; j < widthOfImage; ++ j) {
 			char tm = res[i * widthOfImage + j];
-			data[i * step + j] = tm > 0 ? 40 * tm : 0;
+			data[i * step + j] = tm > 0 ? 255 * tm : 0;
 		}
 	}
 

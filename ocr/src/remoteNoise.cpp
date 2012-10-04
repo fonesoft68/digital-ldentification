@@ -126,6 +126,6 @@ int classifyImage(unsigned char *origin, int liantong)
 	}
 
 	printf("\nthe sum of color is %d\n", color);
-	return color;
+	return color - 1;
 }
 
