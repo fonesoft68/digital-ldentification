@@ -6,7 +6,14 @@
 int borderPoint(unsigned char *res,int i){
   return getN(res, i/widthOfImage, i%widthOfImage)==1;
 }
-
+int countPoint(unsigned char *res){
+  int cnt = 0;
+  for(int i = 0;i != widthOfImage * heightOfImage;++ i){
+    if(*(res + i))
+      ++ cnt;
+  }
+  return cnt;
+}
 int lower_left_exist(unsigned char *res,int i){
   int flag=0;
   if(*(res+i-1)||*(res+i+widthOfImage-1)||*(res+i+widthOfImage))
@@ -56,7 +63,7 @@ int is_C(unsigned char *res,int start,int end,int cnt,int k){
   float y1=start/widthOfImage,y2=end/widthOfImage;
   a=(y2-y1)/(x2-x1);
   b=y1-a*x1;
-  printf("%f %f %f %f %f %f\n",x1,y1,x2,y2,a,b);
+  //  printf("%f %f %f %f %f %f\n",x1,y1,x2,y2,a,b);
   float cnt1=0;
   for(int i=start;i!=end;++i)
     if(*(res+i)){
@@ -84,53 +91,71 @@ int isNun_2(unsigned char *res) {
   memcpy(src, res, widthOfImage * heightOfImage);
   circle_count = findCircle(src);
   printf("**********************%d**********************",circle_count);
-  outPixel(res);
-  outPixel(src);
   if(circle_count){
-    unsigned char *back = (unsigned char *)malloc(sizeof(unsigned char) * widthOfImage *heightOfImage);
-    memset(back, 0, sizeof(unsigned char) * widthOfImage * heightOfImage);
-    FindBorder(src, res, back, 2);
-    outPixel(back);
     for(int i = 0;i != widthOfImage * heightOfImage;++ i)
-      if(*(src + i) == *(back + i))
-        *(back + i) = 0;
-      else
-        *(back + i) = 1;
-    printf("back!!!!!!!!!!!!!!!!!!\n");
-    outPixel(back);
-    //    isNun_2(back);
+      if(*(src + i) > 1)
+        *(src + i) = 0;
+    outPixel(src);
+    for(int i = 0;i != widthOfImage * heightOfImage;++ i){
+      *(src + i) = 1 - *(src + i);
+    }
+    thinImage(src);
+    outPixel(src);
+    int mid;
+    int cnt = countPoint(src);
+    for(int i = 0;i != widthOfImage * heightOfImage;++ i){
+      if(*(src + i) &&  getN(src, i / widthOfImage, i % widthOfImage) == 3){
+        mid = i;
+        break;
+      }
+    }
+    int *p = (int *)malloc(sizeof(int) * 8);
+    int top = 0;
+    for(int i = 0;i != widthOfImage * heightOfImage;++ i){
+      if(*(src + i) && borderPoint(src, i)){
+        *(p + top) = i;
+        ++ top;
+      }
+    }
+    printf("%d\n",top);
+    printf("%d %d %d %d\n",p[0],p[1],p[2],mid);
+    //    printf("%d  %d\n\n\n",cnt,is_C(src, p[0], mid, cnt, 1));
+    //    is_C(src, p[1], p[2], cnt, 1);
+    //    printf("%f %f\n\n",least_squares_method(res, p[0], mid),least_squares_method(res, mid, end));
+    if(top == 3){
+      if(is_C(src, p[0], mid, cnt, 1) && is_C(src, p[1], p[2], cnt, 1))
+        judge = 1;
+    }
+    free(src);
   }
-  int *p = (int *)malloc(sizeof(int) * 8);
-  int count = 0;
-  for(int i = 0;i != widthOfImage * heightOfImage;++ i)
-    if(*(res + i) && borderPoint(res, i)){
-      *(p+count)=i;
-      ++ count;
-    }
-  if(count == 2){
-    int i=0;
-    int j;
-    int cnt=0;
-    int mid=0,start=0,end=0;
-    while(*(res+i)==0)
-      ++i;
-    for(j=0;j!=widthOfImage * heightOfImage;++j)
-      if(*(res+j))
-        ++cnt;
-    mid=cnt/2+1;
-    j=0;
-    while(mid){
-      if(*(res+j))
-        --mid;
-      ++j;
-    }
-    mid=j-1;
-    start = p[0];
-    end = p[1];
-    if(p[1] == DFS(res, start, cnt))
-      if(is_C(res,start,mid,cnt,1)&&is_C(res,mid,end,cnt,2))
+  else{
+    int *p = (int *)malloc(sizeof(int) * 8);
+    int count = 0;
+    for(int i = 0;i != widthOfImage * heightOfImage;++ i)
+      if(*(res + i) && borderPoint(res, i)){
+        *(p+count)=i;
+        ++ count;
+      }
+    if(count == 2){
+      int j;
+      int cnt = countPoint(res);
+      int mid=0,start=0,end=0;
+      mid=cnt/2+1;
+      j=0;
+      while(mid){
+        if(*(res+j))
+          --mid;
+        ++j;
+      }
+      mid=j-1;
+      start = p[0];
+      end = p[1];
+      //      if(p[1] == DFS(res, start, cnt))
+      printf("%f %f\n\n",least_squares_method(res, start, mid),least_squares_method(res, mid, end));
+      if(is_C(res,start,mid,cnt,1)&&is_C(res,mid,end,cnt,2) && least_squares_method(res, start, mid) >= 10 && least_squares_method(res, mid,end) >= 10)
         judge=1;
-    //实现部分，返回1表示识别出，0表示识别不出
+      //实现部分，返回1表示识别出，0表示识别不出
+    }
   }
   return judge;
 }
