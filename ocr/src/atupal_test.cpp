@@ -73,6 +73,14 @@ int main(int args, char *argv[])
       outVisual(res);
 			
     }
+	
+	if (memcmp(argv[1], "findCircle", strlen(argv[1])) == 0) {
+		printf("test for findCircle\n");
+		binaryImage(res);
+		thinImage(res);
+		findCircle(res);
+		outPixel(res);
+	}
 
     if (memcmp(argv[1], "smoothImage", strlen(argv[1])) == 0) {
       printf("test for smoothImage\n");

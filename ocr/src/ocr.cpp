@@ -59,8 +59,8 @@ char* distinguishImage(unsigned char *res)
 
 	const int MAX_OF_LEN = (int)((float)widthOfImage / 11 * 1.2);
 	const int MIN_OF_LEN = (int)((float)widthOfImage / 11 * 0.2);
-	const int MIN_OF_PIX = (int)((float)sum[widthOfImage - 3] / 11 * 0.4);
-	const int MAX_OF_PIX = (int)((float)sum[widthOfImage - 3] / 11 * 1.2);
+	const int MIN_OF_PIX = (int)((float)sum[widthOfImage - 3] / 11 * 0.6);
+	const int MAX_OF_PIX = (int)((float)sum[widthOfImage - 3] / 11 * 1.5);
 
 
 	for (int i = 0; i < widthOfImage; ++ i) {
@@ -100,7 +100,7 @@ char* distinguishImage(unsigned char *res)
 			}
 
 			for (int i = 1; i <= tm1[0]; ++ i) {
-				if (tm1[i] - left < MAX_OF_LEN && tm1[i] - left > MIN_OF_LEN && sum[tm1[i]] - sum[left] > MIN_OF_PIX && sum[tm1[i]] - sum[left] < MAX_OF_PIX) {
+				if (tm1[i] - left < MAX_OF_LEN && tm1[i] - left > MIN_OF_LEN && sum[tm1[i]] - sum[left] > (int)((float)MIN_OF_PIX * 0.8)&& sum[tm1[i]] - sum[left] < MAX_OF_PIX) {
 					flag = 1;
 					printf("                      the tm1 is function\n");
 					right = tm1[i];
