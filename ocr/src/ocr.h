@@ -21,6 +21,7 @@ float least_squares_method(unsigned char *res, int start, int end);
 
 int findCircle(unsigned char *);
 int countPoint(unsigned char *);
+int is_C(unsigned char *, int start, int end, int cnt, int k);
 int isNun_0(unsigned char *pic);
 int isNun_1(unsigned char *pic);
 int isNun_2(unsigned char *pic);
