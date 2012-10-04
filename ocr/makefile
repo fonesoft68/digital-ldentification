@@ -11,7 +11,7 @@ ts.o:ts.cpp
 
 opencv=-I /usr/include/opencv -L /usr/lib -lm -lopencv_core -lopencv_highgui
 OBJ=object/readImage.o object/thinImage.o object/binaryImage.o object/smoothImage.o \
-	object/remoteNoise.o object/inNun_1.o object/inNun_1.o object/inNun_2.o object/inNun_3.o object/inNun_4.o object/inNun_5.o object/inNun_6.o object/inNun_7.o object/inNun_8.o object/inNun_9.o
+	object/remoteNoise.o object/inNun_0.o object/inNun_1.o object/inNun_2.o object/inNun_3.o object/inNun_4.o object/inNun_5.o object/inNun_6.o object/inNun_7.o object/inNun_8.o object/inNun_9.o
 
 #################################### for c unit test
 ts:$(OBJ) src/atupal_test.cpp src/ocr.h
@@ -33,8 +33,8 @@ object/smoothImage.o:src/smoothImage.cpp src/ocr.h
 object/remoteNoise.o:src/remoteNoise.cpp src/ocr.h
 	g++ -c $< -o $@
 
-#object/inNun_0.o:src/isNun_0.cpp src/ocr.h
-#	g++ -c $< -o $@
+object/inNun_0.o:src/isNun_0.cpp src/ocr.h
+	g++ -c $< -o $@
 object/inNun_1.o:src/isNun_1.cpp src/ocr.h
 	g++ -c $< -o $@
 object/inNun_2.o:src/isNun_2.cpp src/ocr.h
