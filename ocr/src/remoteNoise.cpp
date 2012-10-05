@@ -5,7 +5,7 @@
 
 int classifyImage(unsigned char *origin, int liantong);
 int findCircle(unsigned char *origin);
-int find(unsigned char *origin, unsigned char *res, int index, int color);
+int find(unsigned char *origin, unsigned char *res, int index, int color, int liantong);
 
 unsigned char * remoteNoise(unsigned char *origin)
 {
@@ -25,10 +25,12 @@ int findCircle(unsigned char *origin)
 	return classifyImage(origin, 4);
 }
 
-int find(unsigned char *origin, unsigned char *res, int index, int &color, int liantong)
+int find(unsigned char *origin, unsigned char *res, int index, int color, int liantong)
 {
 	char x[] = {0,0,1,-1,1,1,-1,-1};
 	char y[] = {1,-1,0,0,1,-1,1,-1};
+	origin[index] = color;
+	res[index] = color;
 		for (int i = 0; i < liantong; ++ i) {
 			int xx = index / widthOfImage + x[i];
 			int yy = index % widthOfImage + y[i];
@@ -44,7 +46,13 @@ int find(unsigned char *origin, unsigned char *res, int index, int &color, int l
 
 }
 
-int finid(unsigned char *origin, unsigned char *res, int index, int &color, int liantong)
+unsigned char * fullHole(unsigned char *res) 
+{
+	
+	return res;
+}
+
+int finid(unsigned char *origin, unsigned char *res, int index, int color, int liantong)
 {
 	unsigned char queue_x[widthOfImage * heightOfImage];
 	unsigned char queue_y[widthOfImage * heightOfImage];
@@ -120,7 +128,7 @@ int classifyImage(unsigned char *origin, int liantong)
 		if (i / widthOfImage == 0 || i / widthOfImage == heightOfImage - 1 || i % widthOfImage == 0 || i / widthOfImage == widthOfImage - 1) {
 			continue;
 		}
-		if (origin[i] && res[i] == 0 && getN(origin, i / widthOfImage, i % widthOfImage) > 0) {
+		if (origin[i] && res[i] == 0 && getN(origin, i / widthOfImage, i % widthOfImage) >= 0) {
 			find(origin, res, i, ++ color, liantong);
 		}
 	}

@@ -64,7 +64,7 @@ int outPixel(unsigned char *res)
 				printf(". ");
 			}
 			else {
-				printf("%u ", res[i * widthOfImage + j]);
+				printf("%d ", res[i * widthOfImage + j]);
 			}
 		}
 		printf("\n");
