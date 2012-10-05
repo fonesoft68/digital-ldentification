@@ -4,16 +4,16 @@
 #include <string.h>
 #include <math.h>
 
-float least_squares_method(unsigned char *res){
+float least_squares_method(unsigned char *res, int start, int end){
   int i;
   int cnt=0;
-  for(i=0;i!=widthOfImage * heightOfImage;++i)
+  for(i = start;i != end;++ i)
     if(*(res+i))
-      ++cnt;
+      ++ cnt;
   float *p1=(float *)malloc(sizeof(float)*cnt);
   float *p2=(float *)malloc(sizeof(float)*cnt);
   cnt=0;
-  for(i=0;i!=widthOfImage * heightOfImage;++i)
+  for(i = start;i != end;++ i)
     if(*(res+i))
       {
         *(p1+cnt)=i/widthOfImage;
@@ -41,7 +41,7 @@ int isNun_1(unsigned char *res) {
 	int judge = 0;
 
 	//实现部分，返回1表示识别出，0表示识别不出
-	if(least_squares_method(res)<=5)
+	if(least_squares_method(res ,0 ,widthOfImage * heightOfImage)<=5)
           judge=1;
 	return judge;
 }

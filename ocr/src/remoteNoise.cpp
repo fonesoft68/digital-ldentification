@@ -98,8 +98,13 @@ int finid(unsigned char *origin, unsigned char *res, int index, int &color, int 
 int getN(unsigned char *res, int x, int y)
 {
 	int cnt = 0;
+<<<<<<< HEAD
 	int xx[] = {-1, -1, 0,1,1,1, 0, -1};
 	int yy[] = {0,-1,-1,-1, 0,1,1,1};
+=======
+	int xx[] = {-1,-1,0,1,1,1,0,-1};
+	int yy[] = {0,-1,-1,-1,0,1,1,1};
+>>>>>>> cb49da9b16bcb45c0b3aca2511fa52d2af2867d5
 	for (int i = 0; i < 8; ++ i) {
 		if (res[(xx[i] + x) * widthOfImage + y + yy[i]] > 0) {
 			++ cnt;
