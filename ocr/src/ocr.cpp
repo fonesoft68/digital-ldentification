@@ -58,9 +58,9 @@ char* distinguishImage(unsigned char *res)
 	}
 
 	const int MAX_OF_LEN = (int)((float)widthOfImage / 11 * 1.2);
-	const int MIN_OF_LEN = (int)((float)widthOfImage / 11 * 0.8);
-	const int MIN_OF_PIX = (int)((float)sum[widthOfImage - 3] / 11 * 0.3);
-	const int MAX_OF_PIX = (int)((float)sum[widthOfImage - 3] / 11 * 1.5);
+	const int MIN_OF_LEN = (int)((float)widthOfImage / 11 * 0.2);
+	const int MIN_OF_PIX = (int)((float)sum[widthOfImage - 3] / 11 * 0.4);
+	const int MAX_OF_PIX = (int)((float)sum[widthOfImage - 3] / 11 * 1.2);
 
 
 	for (int i = 0; i < widthOfImage; ++ i) {
@@ -124,7 +124,7 @@ char* distinguishImage(unsigned char *res)
 				res[i * widthOfImage + right] = 1;
 			}
 			++ ct;
-			printf("(%d)***%d***(%d)\n", ct, right, sum[right] - sum[left]);
+			printf("(%d):  nu: %d  (len: %d,pix: %d)\n", ct, right, right - left, sum[right] - sum[left]);
 		}
 
 		left = right + 1;
