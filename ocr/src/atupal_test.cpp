@@ -17,6 +17,7 @@ int main(int args, char *argv[])
     if (args > 2) {
       for (int i = 0; argv[2][i]; ++ i) {
         index = index * 10 + (int) (argv[2][i] - '0');
+ 
       }
     }
 
@@ -37,8 +38,24 @@ int main(int args, char *argv[])
     }
 
     readImageFromDataBase(res, "res/database", index);
-	
-    if (memcmp(argv[1], "is_Num2", strlen(argv[1]) *sizeof(char))==0) {
+    if (memcmp(argv[1], "is_Num7", strlen(argv[1]) * sizeof(char)) == 0) {
+      printf("test for isNum7\n");
+      thinImage(res);
+      outImage(res);
+      printf("%d\n",isNun_7(res));
+    }
+    if (memcmp(argv[1], "isNum5", strlen(argv[1]) * sizeof(char)) == 0) {
+      printf("test for isNum5\n");
+      thinImage(res);
+      printf("%d\n",isNun_5(res));
+    }
+    if (memcmp(argv[1], "is_Num3", strlen(argv[1]) * sizeof(char)) == 0) {
+      printf("test for is_Num3\n");
+      thinImage(res);
+      outImage(res);
+      printf("%d\n",isNun_3(res));
+    }
+    if (memcmp(argv[1], "is_Num2", strlen(argv[1]) * sizeof(char))==0) {
       printf("test for is_Num2\n");
       thinImage(res);
       outImage(res);
@@ -73,14 +90,6 @@ int main(int args, char *argv[])
       outVisual(res);
 			
     }
-	
-	if (memcmp(argv[1], "findCircle", strlen(argv[1])) == 0) {
-		printf("test for findCircle\n");
-		//binaryImage(res);
-		thinImage(res);
-		findCircle(res);
-		outPixel(res);
-	}
 
     if (memcmp(argv[1], "smoothImage", strlen(argv[1])) == 0) {
       printf("test for smoothImage\n");
