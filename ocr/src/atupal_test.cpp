@@ -38,18 +38,26 @@ int main(int args, char *argv[])
 
     readImageFromDataBase(res, "res/database", index);
 	
-    if (memcmp(argv[1], "is_Num2", strlen(argv[1]) *sizeof(char))==0) {
+    if (memcmp(argv[1], "isNum2", strlen(argv[1]) *sizeof(char))==0) {
       printf("test for is_Num2\n");
       thinImage(res);
       outImage(res);
       printf("%d\n",isNun_2(res));
     }
-    if (memcmp(argv[1], "is_Num1", strlen(argv[1]) *sizeof(char))==0) {
+    if (memcmp(argv[1], "isNum1", strlen(argv[1]) *sizeof(char))==0) {
       printf("test for least_square\n");
       thinImage(res);
       outImage(res);
       printf("%d\n",isNun_1(res));
     }
+	if (memcmp(argv[1], "isNum6", strlen(argv[1])) == 0) {
+		printf("test for 6\n");
+		thinImage(res);
+		outImage(res);
+		printf("This is %d\n", isNun_6(res));
+	}
+
+
 
     if (memcmp(argv[1], "thinImage", strlen(argv[1]) * sizeof(char)) == 0) {
       printf("test for thinImage\n");

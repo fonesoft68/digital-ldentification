@@ -31,8 +31,8 @@ char* distinguishImage(unsigned char *res)
 	memset(sum, 0, sizeof(int) * widthOfImage);
 	memset(cnt, 0, sizeof(cnt));
 
-	for (int i = 2; i < widthOfImage - 2; ++ i) {
-		for (int j = 2; j < heightOfImage - 2; ++ j) {
+	for (int i = 0; i < widthOfImage - 2; ++ i) {
+		for (int j = 0; j < heightOfImage - 2; ++ j) {
 			if (res[j * widthOfImage + i] >= 1) {
 				++ cnt[i];
 			}
@@ -58,7 +58,7 @@ char* distinguishImage(unsigned char *res)
 	}
 
 	const int MAX_OF_LEN = (int)((float)widthOfImage / 11 * 1.2);
-	const int MIN_OF_LEN = (int)((float)widthOfImage / 11 * 0.2);
+	const int MIN_OF_LEN = (int)((float)widthOfImage / 11 * 0.25);
 	const int MIN_OF_PIX = (int)((float)sum[widthOfImage - 3] / 11 * 0.6);
 	const int MAX_OF_PIX = (int)((float)sum[widthOfImage - 3] / 11 * 1.5);
 
@@ -76,6 +76,7 @@ char* distinguishImage(unsigned char *res)
 		}
 		
 		right = left + 1;
+		-- left;
 		while (right < widthOfImage - 4 && cnt[right] > 0) {
 			++ right;
 		}
@@ -86,9 +87,10 @@ char* distinguishImage(unsigned char *res)
 		memset(tm1, 0, sizeof(tm1));
 		memset(tm2, 0, sizeof(tm2));
 		if (right - left > MAX_OF_LEN || sum[right] - sum[left] > MAX_OF_PIX) {
+			printf("***********************jin tu fen ge \n");
 
 			for (int i = left; i < right; ++ i) {
-				if (cnt[i] >= 1 && cnt[i] <= 1) {
+				if (cnt[i]  == 1) {
 					tm1[++ tm1[0]] = i;
 				}
 			}
@@ -100,24 +102,29 @@ char* distinguishImage(unsigned char *res)
 			}
 
 			for (int i = 1; i <= tm1[0]; ++ i) {
-				if (tm1[i] - left < MAX_OF_LEN && tm1[i] - left > MIN_OF_LEN && sum[tm1[i]] - sum[left] > (int)((float)MIN_OF_PIX * 0.8)&& sum[tm1[i]] - sum[left] < MAX_OF_PIX) {
+				if (tm1[i] - left < MAX_OF_LEN && tm1[i] - left > MIN_OF_LEN && sum[tm1[i]] - sum[left] > (int)((float)MIN_OF_PIX * 0.35) && sum[tm1[i]] - sum[left] < MAX_OF_PIX) {
 					flag = 1;
 					printf("                      the tm1 is function\n");
 					right = tm1[i];
+					break;
+				}
+				if (right == 358) {
+					printf("##%d ", tm1[i]);
 				}
 			}
 
 			for (int i = 1; i <= tm2[0]; ++ i) {
-				if (!flag && tm2[i] - left < MAX_OF_LEN && tm2[i] - left > MIN_OF_LEN && sum[tm2[i]] - sum[left] > MIN_OF_PIX && sum[tm2[i]] - sum[left] < MAX_OF_PIX) {
+				if (!flag && tm2[i] - left < MAX_OF_LEN && tm2[i] - left > MIN_OF_LEN && sum[tm2[i]] - sum[left] > MIN_OF_PIX && sum[tm2[i]] - sum[left] < MAX_OF_PIX * 2) {
 					flag = 1;
 					printf("                      the tm2 is function\n");
 					right = tm2[i];
+					break;
 				}
 			}
 
 		}
 
-		if (right - left > MIN_OF_LEN || !flag)
+		if (right - left > MIN_OF_LEN || (!flag && (sum[right] - sum[left] > MIN_OF_PIX / 2 || right - left > MAX_OF_LEN / 2)) || sum[right] - sum[left] > MIN_OF_PIX)
 		{
 
 			for (int i = 0; i < heightOfImage; ++ i) {
@@ -149,6 +156,7 @@ int main(int args, char *argv[])
 	binaryImage(res);
 	outVisual(res);
 	thinImage(res);
+	printf("ok\n");
 	outVisual(res);
 	distinguishImage(res);
 
