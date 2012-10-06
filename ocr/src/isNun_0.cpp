@@ -64,7 +64,7 @@ int isNun_0(unsigned char *res) {
 				int temp=0;
 				for(j=1;j<=widthOfImage;j++)
 				{
-					 if(res[i*widthOfImage+j]) temp++;
+					 if(res[i*widthOfImage+j]==1&&res[i*widthOfImage+j-1]==0) temp++;
 				}
 				if(temp==2)
 				{
