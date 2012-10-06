@@ -41,12 +41,40 @@ unsigned char * binaryImage(unsigned char *origin)
       }
   }
   printf("\nthe yuzhi is %d\n",threshold);
-  for(int i=0;i!=widthOfImage * heightOfImage;++i)
+  for(int i=0;i < widthOfImage * heightOfImage;++i)
     if(*(origin+i)<=threshold)
-      *(origin+i)=0;
-    else
       *(origin+i)=1;
+    else
+      *(origin+i)=0;
   return origin;
 }
 
+unsigned char * binaryImage_1(unsigned char *origin)
+{
+	unsigned char *res = (unsigned char*) malloc (sizeof(unsigned char) * widthOfImage * heightOfImage);
+	memset(res, 0, sizeof(unsigned char) * widthOfImage * heightOfImage);
+	
+	int x[] = {0,0,1,1,1,-1,-1,-1};
+	int y[] = {1,-1,0,1,-1,0,1,-1};
+
+
+	for (int i = 1; i < heightOfImage - 1; ++ i) {
+		for (int j = 1; j < widthOfImage - 1; ++ j) {
+			int sum = 0;
+			for (int k = 0; k < 8; ++ k) {
+				sum += origin[(x[k] + i) * widthOfImage + j + y[k]];
+			}
+			if (155 < ((float) sum / 8.0)) {
+				res[i * widthOfImage + j] = 0;
+			}
+			else {
+				res[i * widthOfImage + j] = 1;
+			}
+		}
+
+	}
+
+	memcpy(origin, res, sizeof(unsigned char) * widthOfImage * heightOfImage);
+	return origin;
+}
 
