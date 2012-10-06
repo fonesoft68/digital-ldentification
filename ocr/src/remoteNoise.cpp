@@ -109,9 +109,9 @@ int getN(unsigned char *res, int x, int y)
 	int xx[] = {-1, -1, 0,1,1,1, 0, -1};
 	int yy[] = {0,-1,-1,-1, 0,1,1,1};
 	for (int i = 0; i < 8; ++ i) {
-		if (res[(xx[i] + x) * widthOfImage + y + yy[i]] > 0) {
-			++ cnt;
-		}
+          if ((xx[i] + x) * widthOfImage + y + yy[i] >=0 && res[(xx[i] + x) * widthOfImage + y + yy[i]] > 0) {
+            ++ cnt;
+          }
 	}
 
 	return cnt;
