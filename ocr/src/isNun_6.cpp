@@ -28,7 +28,7 @@ int isNun_6(unsigned char *res) {
 	{
 		for(j=l;j<=r;j++)
 		{
-			if((float)(((b+t)/2-i)/(r-l))>=((float)((b+t)/2-t)/(r-j))
+			if((float)(((b+t)/2-i)/(r-j))>=((float)((b+t)/2-t)/(r-l))
 				&&(res[i*widthOfImage+j]==1
 				&&(res[(i-1)*widthOfImage+j-1]
 				+res[(i-1)*widthOfImage+j]
