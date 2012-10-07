@@ -7,6 +7,8 @@
 
 #define maxImage 1000 * 1000
 
+int cutPoint[12];
+
 
 int getLength(char *cnt, int index) {
 	int left, right;
@@ -19,7 +21,7 @@ int getLength(char *cnt, int index) {
 }
 
 
-char* distinguishImage(unsigned char *res)
+char* distinguishImage(unsigned char *res, int num)
 {
 
 	int left = 0;
@@ -57,10 +59,10 @@ char* distinguishImage(unsigned char *res)
 		}
 	}
 
-	const int MAX_OF_LEN = (int)((float)widthOfImage / 11 * 1.2);
-	const int MIN_OF_LEN = (int)((float)widthOfImage / 11 * 0.25);
-	const int MIN_OF_PIX = (int)((float)sum[widthOfImage - 3] / 11 * 0.6);
-	const int MAX_OF_PIX = (int)((float)sum[widthOfImage - 3] / 11 * 1.5);
+	const int MAX_OF_LEN = (int)((float)widthOfImage / num * 1.2);
+	const int MIN_OF_LEN = (int)((float)widthOfImage / num * 0.25);
+	const int MIN_OF_PIX = (int)((float)sum[widthOfImage - 3] / num * 0.6);
+	const int MAX_OF_PIX = (int)((float)sum[widthOfImage - 3] / num * 1.5);
 
 
 	for (int i = 0; i < widthOfImage; ++ i) {
@@ -126,22 +128,77 @@ char* distinguishImage(unsigned char *res)
 
 		if (right - left > MIN_OF_LEN || (!flag && (sum[right] - sum[left] > MIN_OF_PIX / 2 || right - left > MAX_OF_LEN / 2)) || sum[right] - sum[left] > MIN_OF_PIX)
 		{
-
+/*
 			for (int i = 0; i < heightOfImage; ++ i) {
 				res[i * widthOfImage + right] = 1;
 			}
+			*/
 			++ ct;
+			cutPoint[ct] = right;
 			printf("(%d):  nu: %d  (len: %d,pix: %d)\n", ct, right, right - left, sum[right] - sum[left]);
 		}
 
 		left = right + 1;
 	}
 	printf("the sum is %d\n", ct);
-	outVisual(res);
-
+	cutPoint[0] = ct;
 	return NULL;
 }
 
+int outCutImage(unsigned char *res)
+{
+
+	for (int i = 1; i <= cutPoint[0]; ++ i) {
+		for (int j = 1; j < heightOfImage; ++ j) {
+			res[j * widthOfImage + cutPoint[i]] = 1;
+		}
+	}
+
+	outVisual(res);
+
+	for (int i = 1; i <= cutPoint[0]; ++ i) {
+		for (int j = 1; j < heightOfImage; ++ j) {
+			res[i * widthOfImage + cutPoint[i]] = 0;
+		}
+	}
+	return 0;
+}
+
+unsigned char *single = (unsigned char *) malloc (sizeof(unsigned char) * 1000 * 1000);
+
+int spot(unsigned char *res, int left, int right)
+{
+	int tmp = widthOfImage;
+	widthOfImage = right - left + 4;
+
+	memset(single, 0, sizeof(unsigned char) * widthOfImage * heightOfImage);
+
+	for (int i = 0; i < right - left; ++ i) {
+		for (int j = 0; j <= heightOfImage; ++ j) {
+			single[j * widthOfImage + i + 2] = res[tmp * j + left + i + 1];
+		}
+	}
+
+	outVisual(single);
+
+	widthOfImage = tmp;
+	return 0;
+}
+
+int getNum(unsigned char *res, int num)
+{
+	distinguishImage(res, num);
+	outCutImage(res);
+
+	int cnt = cutPoint[0];
+	cutPoint[0] = 0;
+
+	for (int i = 1; i <= cnt; ++ i) {
+		spot(res, cutPoint[i - 1], cutPoint[i]);
+	}
+
+	return 0;
+}
 
 int main(int args, char *argv[])
 {
@@ -158,7 +215,7 @@ int main(int args, char *argv[])
 	thinImage(res);
 	printf("ok\n");
 	outVisual(res);
-	distinguishImage(res);
+	getNum(res, 8);
 
 	return 0;
 }
