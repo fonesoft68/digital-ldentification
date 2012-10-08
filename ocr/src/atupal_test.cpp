@@ -1,3 +1,4 @@
+
 #include "ocr.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,7 +39,6 @@ int main(int args, char *argv[])
     }
 
     readImageFromDataBase(res, "res/database", index);
-<<<<<<< HEAD
     if (memcmp(argv[1], "is_Num7", strlen(argv[1]) * sizeof(char)) == 0) {
       printf("test for isNum7\n");
       thinImage(res);
@@ -56,11 +56,7 @@ int main(int args, char *argv[])
       outImage(res);
       printf("%d\n",isNun_3(res));
     }
-    if (memcmp(argv[1], "is_Num2", strlen(argv[1]) * sizeof(char))==0) {
-=======
-	
     if (memcmp(argv[1], "isNum2", strlen(argv[1]) *sizeof(char))==0) {
->>>>>>> 510ef9a4d9704b2a323ac76090d978f3718235fd
       printf("test for is_Num2\n");
       thinImage(res);
       outImage(res);
@@ -132,6 +128,5 @@ int main(int args, char *argv[])
     }
 
   }
-
   return 0;
 }
