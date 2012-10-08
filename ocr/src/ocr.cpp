@@ -8,6 +8,7 @@
 #define maxImage 1000 * 1000
 
 int cutPoint[12];
+unsigned char *single = (unsigned char *) malloc (sizeof(unsigned char) * 1000 * 1000);
 
 
 int getLength(char *cnt, int index) {
@@ -59,7 +60,7 @@ char* distinguishImage(unsigned char *res, int num)
 		}
 	}
 
-	const int MAX_OF_LEN = (int)((float)widthOfImage / num * 1.2);
+	const int MAX_OF_LEN = (int)((float)widthOfImage / num * 0.9);
 	const int MIN_OF_LEN = (int)((float)widthOfImage / num * 0.25);
 	const int MIN_OF_PIX = (int)((float)sum[widthOfImage - 3] / num * 0.6);
 	const int MAX_OF_PIX = (int)((float)sum[widthOfImage - 3] / num * 1.5);
@@ -116,7 +117,7 @@ char* distinguishImage(unsigned char *res, int num)
 			}
 
 			for (int i = 1; i <= tm2[0]; ++ i) {
-				if (!flag && tm2[i] - left < MAX_OF_LEN && tm2[i] - left > MIN_OF_LEN && sum[tm2[i]] - sum[left] > MIN_OF_PIX && sum[tm2[i]] - sum[left] < MAX_OF_PIX * 2) {
+				if (!flag && tm2[i] - left < MAX_OF_LEN && tm2[i] - left > MIN_OF_LEN && sum[tm2[i]] - sum[left] > MIN_OF_PIX && sum[tm2[i]] - sum[left] < MAX_OF_PIX * 1) {
 					flag = 1;
 					printf("                      the tm2 is function\n");
 					right = tm2[i];
@@ -145,6 +146,17 @@ char* distinguishImage(unsigned char *res, int num)
 	return NULL;
 }
 
+int point[13];
+
+int findBreakPoint(unsigned char *res)
+{
+	memset(point, 0, sizeof(point));
+
+	for (int i = 0; i < )
+
+	return 0;
+}
+
 int outCutImage(unsigned char *res)
 {
 
@@ -158,13 +170,12 @@ int outCutImage(unsigned char *res)
 
 	for (int i = 1; i <= cutPoint[0]; ++ i) {
 		for (int j = 1; j < heightOfImage; ++ j) {
-			res[i * widthOfImage + cutPoint[i]] = 0;
+			res[j * widthOfImage + cutPoint[i]] = 0;
 		}
 	}
 	return 0;
 }
 
-unsigned char *single = (unsigned char *) malloc (sizeof(unsigned char) * 1000 * 1000);
 
 int spot(unsigned char *res, int left, int right)
 {
@@ -179,6 +190,7 @@ int spot(unsigned char *res, int left, int right)
 		}
 	}
 
+	outImage(single);
 	outVisual(single);
 
 	widthOfImage = tmp;
