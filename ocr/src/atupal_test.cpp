@@ -1,3 +1,4 @@
+
 #include "ocr.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,6 +18,7 @@ int main(int args, char *argv[])
     if (args > 2) {
       for (int i = 0; argv[2][i]; ++ i) {
         index = index * 10 + (int) (argv[2][i] - '0');
+ 
       }
     }
 
@@ -37,19 +39,43 @@ int main(int args, char *argv[])
     }
 
     readImageFromDataBase(res, "res/database", index);
-	
-    if (memcmp(argv[1], "is_Num2", strlen(argv[1]) *sizeof(char))==0) {
+    if (memcmp(argv[1], "is_Num7", strlen(argv[1]) * sizeof(char)) == 0) {
+      printf("test for isNum7\n");
+      thinImage(res);
+      outImage(res);
+      printf("%d\n",isNun_7(res));
+    }
+    if (memcmp(argv[1], "isNum5", strlen(argv[1]) * sizeof(char)) == 0) {
+      printf("test for isNum5\n");
+      thinImage(res);
+      printf("%d\n",isNun_5(res));
+    }
+    if (memcmp(argv[1], "is_Num3", strlen(argv[1]) * sizeof(char)) == 0) {
+      printf("test for is_Num3\n");
+      thinImage(res);
+      outImage(res);
+      printf("%d\n",isNun_3(res));
+    }
+    if (memcmp(argv[1], "isNum2", strlen(argv[1]) *sizeof(char))==0) {
       printf("test for is_Num2\n");
       thinImage(res);
       outImage(res);
       printf("%d\n",isNun_2(res));
     }
-    if (memcmp(argv[1], "is_Num1", strlen(argv[1]) *sizeof(char))==0) {
+    if (memcmp(argv[1], "isNum1", strlen(argv[1]) *sizeof(char))==0) {
       printf("test for least_square\n");
       thinImage(res);
       outImage(res);
       printf("%d\n",isNun_1(res));
     }
+	if (memcmp(argv[1], "isNum6", strlen(argv[1])) == 0) {
+		printf("test for 6\n");
+		thinImage(res);
+		outImage(res);
+		printf("This is %d\n", isNun_6(res));
+	}
+
+
 
     if (memcmp(argv[1], "thinImage", strlen(argv[1]) * sizeof(char)) == 0) {
       printf("test for thinImage\n");
@@ -73,14 +99,6 @@ int main(int args, char *argv[])
       outVisual(res);
 			
     }
-	
-	if (memcmp(argv[1], "findCircle", strlen(argv[1])) == 0) {
-		printf("test for findCircle\n");
-		//binaryImage(res);
-		thinImage(res);
-		findCircle(res);
-		outPixel(res);
-	}
 
     if (memcmp(argv[1], "smoothImage", strlen(argv[1])) == 0) {
       printf("test for smoothImage\n");
@@ -118,6 +136,5 @@ int main(int args, char *argv[])
     }
 
   }
-
   return 0;
 }

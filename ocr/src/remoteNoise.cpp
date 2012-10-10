@@ -137,3 +137,13 @@ int classifyImage(unsigned char *origin, int liantong)
 	return color - 1;
 }
 
+int* getCicleArea(unsigned char *origin, int *res)
+{
+	memset(res, 0 , sizeof(int) * 13);
+
+	for (int i = 0; i < widthOfImage * heightOfImage; ++ i) {
+		++ res[origin[i]];
+	}
+
+	return res;
+}
