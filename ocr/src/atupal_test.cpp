@@ -108,6 +108,14 @@ int main(int args, char *argv[])
       int tm = isNun_0(res);
       printf("**************%d*************\n", tm);
     }
+   if (memcmp(argv[1], "isNun_4", strlen(argv[1])) == 0) {
+      printf("test for 4\n");
+      thinImage(res);
+      smoothImage(res);
+      outVisual(res);
+      int tm = isNun_4(res);
+      printf("**************%d*************\n", tm);
+    }
 
   }
 

@@ -11,6 +11,7 @@ int isNun_9(unsigned char *res) {
    int t=NULL,b=0,l=NULL,r=0;
    int i=0,j=0;
    int N_1=0;
+   int N_2=0;
 	for(i=0;i<heightOfImage;i++)
 	{
 		for(j=1;j<=widthOfImage;j++)
@@ -28,8 +29,7 @@ int isNun_9(unsigned char *res) {
 	{
 		for(j=l;j<=r;j++)
 		{
-			if((float)((b-i)/(j-l))<=((float)(b-(b+t)/2)/(r-l))
-				&&(res[i*widthOfImage+j]==1
+			if(res[i*widthOfImage+j]==1
 				&&(res[(i-1)*widthOfImage+j-1]
 				+res[(i-1)*widthOfImage+j]
 				+res[(i-1)*widthOfImage+j+1]
@@ -37,9 +37,14 @@ int isNun_9(unsigned char *res) {
 				+res[(i)*widthOfImage+j+1]
 				+res[(i+1)*widthOfImage+j-1]
 				+res[(i+1)*widthOfImage+j]
-				+res[(i+1)*widthOfImage+j+1])==1))
+				+res[(i+1)*widthOfImage+j+1])==1)
 			{
+			       
+				if((float)((b-i)/(j-l))<=((float)(b-(b+t)/2)/(r-l)))
+				{
 				N_1++;
+				}
+				N_2++;
 			}
 		}
 	}
@@ -67,7 +72,7 @@ int isNun_9(unsigned char *res) {
 					N++;
 				}
 			}
-			if(n/N>B_thr) judge=1;
+			if(n/N>B_thr&&N_2<3) judge=1;
 		}
 		else if(numc==1)
 		{
@@ -102,7 +107,7 @@ int isNun_9(unsigned char *res) {
 				  }
 		                }
 		         }
-		         crpoint==1? judge=1:judge=0;
+		         crpoint==1&&N_2<3? judge=1:judge=0;
 		}
 	}
 	return judge;
