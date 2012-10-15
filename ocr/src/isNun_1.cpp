@@ -38,6 +38,7 @@ float least_squares_method(unsigned char *res, int start, int end){
   return length;
 }
 int isNun_1(unsigned char *res) {
+	printf("is 1 ?\n");
 	int judge = 0;
 
 	//实现部分，返回1表示识别出，0表示识别不出

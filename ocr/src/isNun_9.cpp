@@ -3,7 +3,18 @@
 #include <stdlib.h>
 #include <string.h>
 
-int isNun_9(unsigned char *res) {
+int isNun_9(unsigned char *res)
+{
+	unsigned char *cpy = (unsigned char *) malloc (sizeof(unsigned char) * widthOfImage * heightOfImage);
+	for (int i = 0; i < heightOfImage; ++ i) {
+		for (int j = 0; j < widthOfImage; ++ j) {
+			cpy[(heightOfImage - 1 - i) * widthOfImage + j] = res[i * widthOfImage + j];
+		}
+	}
+	return isNun_6(cpy);
+}
+
+int isNun_9_1(unsigned char *res) {
 	int judge = 0;
 
 	//实现部分，返回1表示识别出，0表示识别不出

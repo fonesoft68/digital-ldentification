@@ -3,7 +3,127 @@
 #include <stdlib.h>
 #include <string.h>
 
-int isNun_6(unsigned char *res) {
+int get_8_around(unsigned char *res, int x, int y)
+{
+	int cnt = 0;
+
+	int xx[] = {0,0,1,1,1,-1,-1,-1};
+	int yy[] = {1,-1,0,1,-1,0,1,-1};
+
+	for (int i = 0; i < 8; ++ i) {
+		if (x + xx[i] >= 0 && x + xx[i] < heightOfImage && y + yy[i] >= 0 && y + yy[i] < widthOfImage && res[(x + xx[i]) * widthOfImage + y + yy[i]]) {
+			++ cnt;
+		}
+	}
+
+
+	return cnt;
+}
+
+int isNun_6(unsigned char *res)
+{
+	int judge = 0;
+	unsigned char *cpy = (unsigned char *) malloc (sizeof(unsigned char) * widthOfImage * heightOfImage);
+	memcpy(cpy, res, sizeof(unsigned char) * widthOfImage * heightOfImage);
+
+	int i = 0;
+	int j = 0;
+
+	for (i = 1; i < heightOfImage - 1; ++ i) {
+		for (j = widthOfImage - 1; j > 0; -- j) {
+			if (res[i * widthOfImage + j]) {
+				goto tag_1;
+			}
+		}
+	}
+tag_1:
+
+	int x = i;
+	int y = j;
+	printf("(%d %d)\n", x, y);
+	cpy[x * widthOfImage + y] = 0;
+
+	/*
+	while (1) {
+		if (cpy[(i + 1) * widthOfImage + j]) {
+			++ i;
+		}
+		else if (cpy[(i + 1) * widthOfImage + j + 1]) {
+			++ i;
+			++ j;
+		}
+		else if (cpy[i * widthOfImage + j + 1]) {
+			++ j;
+		}
+		else {
+			break;
+		}
+		cpy[i * widthOfImage + j] = 0;
+	}
+	*/
+	int  cnt = 0;
+
+	while (1) {
+		if (get_8_around(res, x, y) > 2) {
+			break;
+		}
+		if (cpy[(x + 1) * widthOfImage + y]) {
+			++ x;
+		}
+		else if (cpy[x * widthOfImage + y - 1]) {
+			-- y;
+		}
+		else if (cpy[(x + 1) * widthOfImage + y - 1]) {
+			++ x;
+			-- y;
+		}
+		else {
+			break;
+		}
+		cpy[x * widthOfImage + y] = 0;
+		++ cnt;
+	}
+
+	printf("(%d %d)\n", x, y);
+
+	while (1) {
+		if (get_8_around(res, x, y) > 2) {
+			break;
+		}
+		if (cpy[(x + 1) * widthOfImage + y]) {
+			++ x;
+		}
+		else if (cpy[x * widthOfImage + y + 1]) {
+			++ y;
+		}
+		else if (cpy[(x + 1) * widthOfImage + y + 1]) {
+			++ x;
+			++ y;
+		}
+		else {
+			break;
+		}
+		cpy[x * widthOfImage + y] = 0;
+		++ cnt;
+	}
+
+	printf("(%d %d)\n", x, y);
+
+	printf("\n");
+	outImage(cpy);
+
+	if (cnt < 7) {
+		return 0;
+	}
+
+	if (isNun_0(cpy)) {
+		return 1;
+	}
+
+	return judge;
+}
+
+int isNun_6_1(unsigned char *res) {
 	int judge = 0;
 
 	//实现部分，返回1表示识别出，0表示识别不出

@@ -10,14 +10,22 @@ unsigned char* thinImage_3(unsigned char*);
 
 unsigned char* thinImage(unsigned char *origin)
 {
+	/*
 	for (int i = 0; i < widthOfImage * heightOfImage; ++ i) {
 		origin[i] = origin[i];
 	}
+	*/
 	thinImage_1(origin);
+	/*
 	thinImage_2(origin);
+	thinImage_1(origin);
+	*/
+
+	/*
 	for (int i = 0; i < widthOfImage * heightOfImage; ++ i) {
 		origin[i] = origin[i];
 	}
+	*/
 	return origin;
 }
 

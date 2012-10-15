@@ -7,7 +7,7 @@
 
 #define maxImage 1000 * 1000
 
-int cutPoint[12];
+int cutPoint[20];
 unsigned char *single = (unsigned char *) malloc (sizeof(unsigned char) * 1000 * 1000);
 
 
@@ -152,7 +152,6 @@ int findBreakPoint(unsigned char *res)
 {
 	memset(point, 0, sizeof(point));
 
-	for (int i = 0; i < )
 
 	return 0;
 }
@@ -176,6 +175,8 @@ int outCutImage(unsigned char *res)
 	return 0;
 }
 
+typedef int (*isNun) (unsigned char *);
+
 
 int spot(unsigned char *res, int left, int right)
 {
@@ -184,14 +185,27 @@ int spot(unsigned char *res, int left, int right)
 
 	memset(single, 0, sizeof(unsigned char) * widthOfImage * heightOfImage);
 
-	for (int i = 0; i < right - left; ++ i) {
-		for (int j = 0; j <= heightOfImage; ++ j) {
+	for (int i = 0; i < right - left + 1; ++ i) {
+		for (int j = 0; j < heightOfImage; ++ j) {
 			single[j * widthOfImage + i + 2] = res[tmp * j + left + i + 1];
 		}
 	}
 
-	outImage(single);
+	isNun is[] = {isNun_0, isNun_1, isNun_2, isNun_3, isNun_4, isNun_5, isNun_6, isNun_7, isNun_8, isNun_9};
+	int flag = 0;
+	for (int i = 0; i < 4; ++ i) {
+		if (is[i](single)) {
+			++ flag;
+			printf("match for %d\n", i);
+		}
+	}
+	if (!flag) {
+		printf("no match\n");
+	}
+	outPixel(single);
 	outVisual(single);
+	
+	
 
 	widthOfImage = tmp;
 	return 0;
