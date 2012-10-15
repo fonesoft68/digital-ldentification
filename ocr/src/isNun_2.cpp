@@ -18,12 +18,9 @@ int is_C(unsigned char *res,int start,int end,int cnt,int k){
   float y1=start/widthOfImage,y2=end/widthOfImage;
   a=(y2-y1)/(x2-x1);
   b=y1-a*x1;
-  printf("****************%f************%f***********",a,b);
-  //  printf("%f %f %f %f %f %f\n",x1,y1,x2,y2,a,b);
   float cnt1=0;
   for(int i=start;i!=end;++i)
     if(*(res+i)){
-      printf("%f ",i/widthOfImage - b - i % widthOfImage * a);
       if(k==1)
         if((a > 0 && i / widthOfImage - b - i % widthOfImage * a > 0) || (a < 0 && i / widthOfImage - b - i % widthOfImage * a < 0)){
           ++ cnt1;
@@ -33,7 +30,6 @@ int is_C(unsigned char *res,int start,int end,int cnt,int k){
           ++ cnt1;
         }
     }
-  printf("cnt is %d and cnt1 is %f\n",cnt,cnt1);
   if(cnt1/(float)cnt>0.1)
     flag=0;
   return flag;
@@ -44,7 +40,6 @@ int isNun_2(unsigned char *res) {
   unsigned char *src = (unsigned char *)malloc(sizeof(unsigned char) * widthOfImage * heightOfImage);
   memcpy(src, res, widthOfImage * heightOfImage);
   circle_count = findCircle(src);
-  printf("circle_count is %d\n",circle_count);
   if(circle_count){
     if(!isNun_0(res)){
     for(int i = 0;i != widthOfImage * heightOfImage;++ i)
