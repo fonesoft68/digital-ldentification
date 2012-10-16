@@ -38,7 +38,6 @@ int main(int args, char *argv[])
     }
 
     readImageFromDataBase(res, "res/database", index);
-<<<<<<< HEAD
     if (memcmp(argv[1], "is_Num7", strlen(argv[1]) * sizeof(char)) == 0) {
       printf("test for isNum7\n");
       thinImage(res);
@@ -56,11 +55,7 @@ int main(int args, char *argv[])
       outImage(res);
       printf("%d\n",isNun_3(res));
     }
-    if (memcmp(argv[1], "is_Num2", strlen(argv[1]) * sizeof(char))==0) {
-=======
-	
     if (memcmp(argv[1], "isNum2", strlen(argv[1]) *sizeof(char))==0) {
->>>>>>> 510ef9a4d9704b2a323ac76090d978f3718235fd
       printf("test for is_Num2\n");
       thinImage(res);
       outImage(res);
@@ -72,17 +67,18 @@ int main(int args, char *argv[])
       outImage(res);
       printf("%d\n",isNun_1(res));
     }
-	if (memcmp(argv[1], "isNum6", strlen(argv[1])) == 0) {
+	if (memcmp(argv[1], "isNun_6", strlen(argv[1])) == 0) {
 		printf("test for 6\n");
 		thinImage(res);
 		outImage(res);
-		printf("This is %d\n", isNun_6(res));
+		printf("***********%d************\n", isNun_6(res));
 	}
 
 
 
     if (memcmp(argv[1], "thinImage", strlen(argv[1]) * sizeof(char)) == 0) {
       printf("test for thinImage\n");
+	  binaryImage(res);
       thinImage(res);
       outImage(res);
     }
@@ -101,7 +97,6 @@ int main(int args, char *argv[])
       //smoothImage(res);
       remoteNoise(res);
       outVisual(res);
-			
     }
 
     if (memcmp(argv[1], "smoothImage", strlen(argv[1])) == 0) {
@@ -123,10 +118,9 @@ int main(int args, char *argv[])
 
     if (memcmp(argv[1], "isNun_0", strlen(argv[1])) == 0) {
       printf("test for 0\n");
-      binaryImage(res);
       thinImage(res);
-      smoothImage(res);
       outVisual(res);
+	  outImage(res);
       int tm = isNun_0(res);
       printf("**************%d*************\n", tm);
     }
