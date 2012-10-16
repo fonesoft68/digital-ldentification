@@ -46,6 +46,7 @@ int isNun_2(unsigned char *res) {
   circle_count = findCircle(src);
   printf("circle_count is %d\n",circle_count);
   if(circle_count){
+    if(!isNun_0(res)){
     for(int i = 0;i != widthOfImage * heightOfImage;++ i)
       if(*(src + i) > 1)
         *(src + i) = 0;
@@ -77,6 +78,7 @@ int isNun_2(unsigned char *res) {
         judge = 1;
     }
     free(src);
+    }
   }
   else{
     int *p = (int *)malloc(sizeof(int) * 8);
