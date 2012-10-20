@@ -49,7 +49,7 @@ int isNun_3(unsigned char *res) {
             mid = p[1];
             end = p[2];
           }
-          if(is_C(res, start, mid, cnt, 1) && is_C(res, mid, end, cnt, 1))
+          if(!isNun_1(res) && is_C(res, start, mid, cnt, 1) && is_C(res, mid, end, cnt, 1))
             judge = 1;
         }
         free(src);
