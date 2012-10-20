@@ -45,6 +45,12 @@ int main(int args, char *argv[])
       outImage(res);
       printf("%d\n",isNun_7(res));
     }
+	if (memcmp(argv[1], "isNun_9", strlen(argv[1])) == 0) {
+		printf("test for isNun_9\n");
+		thinImage(res);
+		outImage(res);
+		printf("\n**********%d***********\n", isNun_9(res));
+	}
     if (memcmp(argv[1], "isNum5", strlen(argv[1]) * sizeof(char)) == 0) {
       printf("test for isNum5\n");
       thinImage(res);
@@ -74,12 +80,14 @@ int main(int args, char *argv[])
 		outImage(res);
 		printf("***********%d************\n", isNun_6(res));
 	}
-
-
-
+	if (memcmp(argv[1], "isNun_4", strlen(argv[1])) == 0) {
+		printf("test for 4\n");
+		thinImage(res);
+		outImage(res);
+		printf("***********%d************\n", isNun_4(res));
+	}
     if (memcmp(argv[1], "thinImage", strlen(argv[1]) * sizeof(char)) == 0) {
       printf("test for thinImage\n");
-	  binaryImage(res);
       thinImage(res);
       outImage(res);
     }
@@ -125,6 +133,11 @@ int main(int args, char *argv[])
       int tm = isNun_0(res);
       printf("**************%d*************\n", tm);
     }
+	if (memcmp(argv[1], "xiaoBoHang", strlen(argv[1])) == 0) {
+		printf("test for xiaoBo\n");
+		free(res);
+		alg(1);
+	}
 
   }
   return 0;
