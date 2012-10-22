@@ -118,7 +118,7 @@ unsigned char *readImageFromDataBase(unsigned char *res, char *fileName, int ind
 	fread(res, sizeof(unsigned char), numberOfRows * numberOfColunms, fileIn);
 	widthOfImage = numberOfColunms;
 	heightOfImage = numberOfRows;
-#ifdef DEBUG
+#ifdef DEBU
 	printf("\n%d %d %d %d\n", magicNumber, numberOfImages, numberOfRows, numberOfColunms);
 	outImage(res);
 	fclose(fileIn);
@@ -183,9 +183,8 @@ unsigned char* readImageFromFile_RGB(unsigned char *res, char *fileName)
 	cvMoveWindow("mainWin", 100, 100);
 	cvShowImage("mainWin", img);
 	cvWaitKey(0);
-	cvReleaseImage(&img);
 
-	double bgr_fenliang[] = {0.11, 0.59, 0.3};
+	double bgr_fenliang[] = {0.11, 0.59, 0.3, 0};
 
 	for (int i = 0; i < heightOfImage; ++ i) {
 		for (int j = 0; j < widthOfImage; ++ j) {
@@ -196,5 +195,7 @@ unsigned char* readImageFromFile_RGB(unsigned char *res, char *fileName)
 			res[i * widthOfImage + j] = tmp;
 		}
 	}
+	
+	cvReleaseImage(&img);
 	return res;
 }

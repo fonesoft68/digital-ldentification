@@ -34,7 +34,7 @@ int main(int args, char *argv[])
       memset(res, 0, sizeof(unsigned char) * maxImage);
       readImageFromFile(res, name);
       binaryImage(res);
-      outPixel(res);
+	  outPixel(res);
       return 0;
     }
 
@@ -137,6 +137,10 @@ int main(int args, char *argv[])
 		printf("test for xiaoBo\n");
 		free(res);
 		alg(1);
+	}
+	if (memcmp(argv[1], "edgeDetector", strlen(argv[1])) == 0) {
+		printf("test for edgeDetector\n");
+		alg(2);
 	}
 
   }
