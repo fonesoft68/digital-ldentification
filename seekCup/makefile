@@ -5,11 +5,14 @@
 #
 #
 obj=tmp/alterTable.o tmp/createDatabase.o tmp/createTable.o tmp/delete.o tmp/dropDatabase.o tmp/dropTable.o tmp/insert.o tmp/renameDatabase.o tmp/renameTable.o tmp/select.o tmp/showCol.o \
-	tmp/showDatabase.o tmp/truncateTable.o tmp/updata.o tmp/useDatabase.o
+	tmp/showDatabase.o tmp/truncateTable.o tmp/updata.o tmp/useDatabase.o tmp/foo.o tmp/parse.o
 
 srcfile=Src/sql.h
 
 Bin/ts:$(srcfile) Src/ts.cpp $(obj)
+	g++ -o $@ $^ -g
+
+Bin/SeedCup:$(srcfile) Src/SeedCup.cpp $(obj)
 	g++ -o $@ $^ -g
 
 tmp/alterTable.o:Src/alterTable.cpp
@@ -55,6 +58,12 @@ tmp/updata.o:Src/updata.cpp
 	g++ -c -o $@ $^ -g
 
 tmp/useDatabase.o:Src/useDatabase.cpp
+	g++ -c -o $@ $^ -g
+
+tmp/foo.o:Src/foo.cpp
+	g++ -c -o $@ $^ -g
+
+tmp/parse.o:Src/parse.cpp
 	g++ -c -o $@ $^ -g
 
 clean:
