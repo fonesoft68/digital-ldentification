@@ -29,6 +29,7 @@ typedef struct database{
 	char *name;
 	table *rootTable;
 	int tableCnt;
+	database *next;
 }database;
 
 extern database *nowUsedDatabase;
