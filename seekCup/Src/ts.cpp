@@ -3,10 +3,11 @@
 #include <string.h>
 #include "sql.h"
 
+database *nowUsedDatabase;
+database *allDatabaseRoot;
+
 int main(int argc, char *argv[])
 {
-<<<<<<< HEAD
-
 	if (argc > 1) {
 		if (memcmp(argv[1], "kmp", strlen(argv[1])) == 0) {
 			char *queryString;
@@ -37,9 +38,7 @@ int main(int argc, char *argv[])
 	}
 
 	return 0;
-=======
   database *db = createDataBase("huzi");
   printf("%s %d\n",db->name, db->tableCnt);
   return 0;
->>>>>>> fd4b6ffaa69cb0476245e1fdaba7e0f5b1aed977
 }
