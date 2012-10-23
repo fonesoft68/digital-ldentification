@@ -13,6 +13,8 @@ Bin/ts:$(srcfile) Src/ts.cpp $(obj)
 	g++ -o $@ $^ -g
 
 Bin/SeedCup:$(srcfile) Src/SeedCup.cpp $(obj)
+
+Bin/SeedCup:$(srcfile) Src/SeedCup.cpp $(obj)
 	g++ -o $@ $^ -g
 
 tmp/alterTable.o:Src/alterTable.cpp
