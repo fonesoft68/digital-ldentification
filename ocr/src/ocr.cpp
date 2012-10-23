@@ -193,7 +193,7 @@ int spot(unsigned char *res, int left, int right)
 
 	isNun is[] = {isNun_0, isNun_1, isNun_2, isNun_3, isNun_4, isNun_5, isNun_6, isNun_7, isNun_8, isNun_9};
 	int flag = 0;
-	for (int i = 0; i < 4; ++ i) {
+	for (int i = 4; i < 5; ++ i) {
 		if (is[i](single)) {
 			++ flag;
 			printf("match for %d\n", i);

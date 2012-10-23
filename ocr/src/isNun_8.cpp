@@ -3,7 +3,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-int isNun_8(unsigned char *res) 
+int isNun_8(unsigned char *res)
+{
+	int judge = 0;
+	
+	
+
+	return judge;
+}
+
+int isNun_8_1(unsigned char *res) 
 {
 	int judge = 0;
 	float L_thr=0.5,B_thr=0.6;//两个判断8的特征值（从0那直接拿过来的，也许需要做些调整）

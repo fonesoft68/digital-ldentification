@@ -1,4 +1,5 @@
 unsigned char* readImageFromFile(unsigned char *res, char *filePath);
+unsigned char* readImageFromFile_RGB(unsigned char *res, char *filePath);
 
 unsigned char* readImageFromDataBase(unsigned char *res, char *filePath, int index);
 
@@ -45,12 +46,16 @@ int outPixel(unsigned char *res);
 
 //用opencv输出图像
 int outVisual(unsigned char *res);
+int outVisual_blackwhite(unsigned char *res);
 
 //分类
 int classifyImage(unsigned char*, int);
 
 //8邻域内的目标像素
 int getN(unsigned char *res, int x, int y);
+int get_8_around(unsigned char *res, int x, int y);
 
 extern int widthOfImage;
 extern int heightOfImage;        
+
+int alg(int functionIndex, ...);

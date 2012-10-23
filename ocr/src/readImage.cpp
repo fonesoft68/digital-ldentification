@@ -56,6 +56,31 @@ int outVisual(unsigned char *res)
 	return 0;
 }
 
+int outVisual_blackwhite(unsigned char *res)
+{
+	IplImage* img=cvCreateImage(cvSize(widthOfImage, heightOfImage),IPL_DEPTH_8U,1);
+
+	cvNamedWindow("mainWin", CV_WINDOW_AUTOSIZE); 
+	cvMoveWindow("mainWin", 100, 100);
+
+	unsigned char *data = (unsigned char*)img->imageData;
+
+	int step = img->widthStep;
+
+	for (int i = 0; i < heightOfImage; ++ i) {
+		for (int j = 0; j < widthOfImage; ++ j) {
+			char tm = res[i * widthOfImage + j];
+			data[i * step + j] = tm;
+		}
+	}
+
+	cvShowImage("mainWin", img );
+	cvWaitKey(0);
+
+
+	return 0;
+}
+
 int outPixel(unsigned char *res)
 {
 	for (int i = 0; i < heightOfImage; ++ i) {
@@ -93,7 +118,7 @@ unsigned char *readImageFromDataBase(unsigned char *res, char *fileName, int ind
 	fread(res, sizeof(unsigned char), numberOfRows * numberOfColunms, fileIn);
 	widthOfImage = numberOfColunms;
 	heightOfImage = numberOfRows;
-#ifdef DEBUG
+#ifdef DEBU
 	printf("\n%d %d %d %d\n", magicNumber, numberOfImages, numberOfRows, numberOfColunms);
 	outImage(res);
 	fclose(fileIn);
@@ -136,3 +161,41 @@ unsigned char* readImageFromFile(unsigned char *res, char *fileName)
 	return res;
 }
 
+
+unsigned char* readImageFromFile_RGB(unsigned char *res, char *fileName)
+{
+	IplImage *img;
+	img = cvLoadImage(fileName);
+	if (!img) {
+		printf("Can not read the Image !\n");
+		exit(1);
+	}
+
+	widthOfImage = img->width;
+	heightOfImage  = img->height;
+	int step = img->widthStep;
+	int channels = img->nChannels;
+	unsigned char *data = (unsigned char *)img->imageData;
+	printf("w: %d h:%d\n", widthOfImage, heightOfImage);
+
+	
+	cvNamedWindow("mainWin", CV_WINDOW_AUTOSIZE);
+	cvMoveWindow("mainWin", 100, 100);
+	cvShowImage("mainWin", img);
+	cvWaitKey(0);
+
+	double bgr_fenliang[] = {0.11, 0.59, 0.3, 0};
+
+	for (int i = 0; i < heightOfImage; ++ i) {
+		for (int j = 0; j < widthOfImage; ++ j) {
+			int tmp = 0;
+			for (int k = 0; k < channels; ++ k) {
+				tmp += (int)(bgr_fenliang[k] * data[i * step + j * channels + k]);
+			}
+			res[i * widthOfImage + j] = tmp;
+		}
+	}
+	
+	cvReleaseImage(&img);
+	return res;
+}
