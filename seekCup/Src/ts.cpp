@@ -5,12 +5,7 @@
 
 int main()
 {
-	TYPE a = Int;
-	TYPE b = Float;
-	TYPE c = Text;
-	TYPE d = None;
-	printf("%d %d %d %d\n", a, b,c ,d);
-
-
-	return 0;
+  database *db = createDataBase("huzi");
+  printf("%s %d\n",db->name, db->tableCnt);
+  return 0;
 }
