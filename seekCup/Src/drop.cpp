@@ -6,11 +6,13 @@
 
 int drop(const char * str)
 {
-  char drop[5] = "drop";
+  char drop[5];
   sscanf(str, "%s", drop);
   assert(strcmp(drop, "drop") == 0);
   char s1[256], s2[256];
-  char * pch = strtok(str, " ");
+  char str2[strlen(str) + 1];
+  strcpy(str2, str);
+  const char * pch = strtok(str2, " ");
   int cnt = 0;
   
   while (pch != NULL){

@@ -5,7 +5,8 @@
 
 int main()
 {
-  database *db = createDataBase("huzi");
+  database * allDatabaseRoot = createDatabase("huzi");
+  database *db = createDatabase("huzi");
   printf("%s %d\n",db->name, db->tableCnt);
   return 0;
 }
