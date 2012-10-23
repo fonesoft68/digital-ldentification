@@ -34,7 +34,7 @@ int main(int args, char *argv[])
       memset(res, 0, sizeof(unsigned char) * maxImage);
       readImageFromFile(res, name);
       binaryImage(res);
-      outPixel(res);
+	  outPixel(res);
       return 0;
     }
 
@@ -45,6 +45,12 @@ int main(int args, char *argv[])
       outImage(res);
       printf("%d\n",isNun_7(res));
     }
+	if (memcmp(argv[1], "isNun_9", strlen(argv[1])) == 0) {
+		printf("test for isNun_9\n");
+		thinImage(res);
+		outImage(res);
+		printf("\n**********%d***********\n", isNun_9(res));
+	}
     if (memcmp(argv[1], "isNum5", strlen(argv[1]) * sizeof(char)) == 0) {
       printf("test for isNum5\n");
       thinImage(res);
@@ -68,15 +74,18 @@ int main(int args, char *argv[])
       outImage(res);
       printf("%d\n",isNun_1(res));
     }
-	if (memcmp(argv[1], "isNum6", strlen(argv[1])) == 0) {
+	if (memcmp(argv[1], "isNun_6", strlen(argv[1])) == 0) {
 		printf("test for 6\n");
 		thinImage(res);
 		outImage(res);
-		printf("This is %d\n", isNun_6(res));
+		printf("***********%d************\n", isNun_6(res));
 	}
-
-
-
+	if (memcmp(argv[1], "isNun_4", strlen(argv[1])) == 0) {
+		printf("test for 4\n");
+		thinImage(res);
+		outImage(res);
+		printf("***********%d************\n", isNun_4(res));
+	}
     if (memcmp(argv[1], "thinImage", strlen(argv[1]) * sizeof(char)) == 0) {
       printf("test for thinImage\n");
       thinImage(res);
@@ -97,7 +106,6 @@ int main(int args, char *argv[])
       //smoothImage(res);
       remoteNoise(res);
       outVisual(res);
-			
     }
 
     if (memcmp(argv[1], "smoothImage", strlen(argv[1])) == 0) {
@@ -119,13 +127,13 @@ int main(int args, char *argv[])
 
     if (memcmp(argv[1], "isNun_0", strlen(argv[1])) == 0) {
       printf("test for 0\n");
-      binaryImage(res);
       thinImage(res);
-      smoothImage(res);
       outVisual(res);
+	  outImage(res);
       int tm = isNun_0(res);
       printf("**************%d*************\n", tm);
     }
+<<<<<<< HEAD
    if (memcmp(argv[1], "isNun_4", strlen(argv[1])) == 0) {
       printf("test for 4\n");
       thinImage(res);
@@ -134,6 +142,17 @@ int main(int args, char *argv[])
       int tm = isNun_4(res);
       printf("**************%d*************\n", tm);
     }
+=======
+	if (memcmp(argv[1], "xiaoBoHang", strlen(argv[1])) == 0) {
+		printf("test for xiaoBo\n");
+		free(res);
+		alg(1);
+	}
+	if (memcmp(argv[1], "edgeDetector", strlen(argv[1])) == 0) {
+		printf("test for edgeDetector\n");
+		alg(2);
+	}
+>>>>>>> 0fdcd1466eda38c93d14dfdf5c996d6edd207138
 
   }
   return 0;
