@@ -29,50 +29,52 @@ typedef struct database{
 	char *name;
 	table *rootTable;
 	int tableCnt;
+	database *next;
 }database;
 
-database *nowUsedDatabase;
+extern database *nowUsedDatabase;
+extern database *allDatabaseRoot;
 
 //创建数据库
-database * creatDatabase(char *);
+database * createDatabase(const char *);
 
 //创建表
-table * creatTable(char *);
+table * createTable(const char *);
 
 //改变表的属性，删除，添加，修改
-int deleteCol(char *);
-int addCol(char *);
-int updataCol(char *);
+int deleteCol(const char *);
+int addCol(const char *);
+int updataCol(const char *);
 
 //清空表
-int clearTable(char *);
+int clearTable(const char *);
 
 //指定现在使用的DB
-int useDatabase(char *);
+int useDatabase(const char *);
 
 //删除表
-int deleteTable(char *);
+int deleteTable(const char *);
 
 //删除数据库
-int deleteDatabase(char *);
+int deleteDatabase(const char *);
 
 //重命名表
-int renameTable(char *);
+int renameTable(const char *);
 
 //重命名数据库
-int renameDatabase(char *);
+int renameDatabase(const char *);
 
 //从表中选数据
-col * select(char *);
+col * select(const char *);
 
 //修改表中的数据
-int updata(char *);
+int updata(const char *);
 
 //删除表中的部分数据
-int deleteData(char *);
+int deleteData(const char *);
 
 //向表中插入新的行
-int insert(char *);
+int insert(const char *);
 
 //显示数据库中的数据
-int show(char *);
+int show(const char *);
