@@ -31,7 +31,8 @@ typedef struct database{
 	int tableCnt;
 }database;
 
-database *nowUsedDatabase(const char *);
+extern database *nowUsedDatabase;
+extern database *allDatabaseRoot;
 
 //创建数据库
 database * createDatabase(const char *);

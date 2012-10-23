@@ -4,14 +4,14 @@
 #include "sql.h"
 
 //失效函数
-char * go(char *module, int *go)
+int* go(char *module, int *go)
 {
 	int m = strlen(module);
 	int i;
 
 	memset(go, 0, sizeof(go));
 	go[0] = -1;
-	j = -1;
+	int j = -1;
 	
 	for (i = 1; i < m; ++ i) {
 		while (j > -1 && module[j + 1] != module[i]) {
@@ -37,7 +37,7 @@ int * findString(char *query, char *module, int *go)
 	int m = strlen(module);
 	int cnt = -1;
 
-	for (i = 0; i < n; ++ i) {
+	for (i = 0; i < m; ++ i) {
 		while (j > -1 && module[j + 1] != query[i]) {
 			j = go[j];
 		}
