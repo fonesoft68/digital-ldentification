@@ -35,10 +35,23 @@ int main(int argc, char *argv[])
 			toLowCase(str);
 			printf("%s\n", str);
 		}
+		if (memcmp(argv[1], "split", strlen(argv[1])) == 0) {
+			char str[1000] = "asf l lldd sj fldds  jd\nkf        jldddsdf jkld dsdj fldd djsfl                      ";
+			char module[10] = " ";
+			printf("\n%s\n%s\n", str, module);
+			int *cnt = (int *) malloc (sizeof(int));
+			*cnt = 0;
+			char **result = split(str, module, cnt);
+			int i;
+			for (i = 0; i < *cnt; ++ i) {
+				printf("%s\n", result[i]);
+			}
+			
+		}
 	}
 
 	return 0;
-  database *db = createDataBase("huzi");
+  database *db = createDatabase("huzi");
   printf("%s %d\n",db->name, db->tableCnt);
   return 0;
 }

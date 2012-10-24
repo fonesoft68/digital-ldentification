@@ -1,4 +1,4 @@
-#define DEBUG
+#define DEBUGi
 
 
 
@@ -88,4 +88,4 @@ int* go(char *module);
 int* findString(char *query, char *module, int *go); 
 int toLowCase(char *str);
 int parseCommand(char * command);
-
+char ** split(char *str, char *split, int *cnt);
