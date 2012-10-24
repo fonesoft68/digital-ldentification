@@ -1,10 +1,10 @@
 $create database:create database seedcup$
 $use:use seedcup$
-$create table:create table person(id int,name text,grade int )$
+$create table:create table person(Id INT,Name TEXT,grade INT )$
 $alter table:alter table person add address$
 $alter table:alter table person column address text$
-$insert into:insert into person(id, name,address)values(1,'yaoq', 'qiming702')$
-$updata:updata person set grade=90 where name=='yaoq'$
-$delete:delete from person where id==-1$
+$insert into:insert into person(Id, Name,Address)values(1,'YaoQ', 'Qiming702')$
+$updata:updata person set Grade=90 where Name=='YaoQ'$
+$delete:delete from person where Id==-1$
 $drop:drop person$
 $drop:drop seedcup$

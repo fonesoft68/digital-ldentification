@@ -19,7 +19,7 @@
 int parseCommand(char * command)
 {
 
-	char *command_cpy = (char *) malloc (sizeof(char) * strlen(command));
+	char *command_cpy = (char *) malloc (sizeof(char) * strlen(command) + sizeof(char));
 	memcpy(command_cpy, command, strlen(command));
 	toLowCase(command);
 #ifdef DEBUG
@@ -54,40 +54,40 @@ int parseCommand(char * command)
 	int *result_insert_into = findString(command, INSERT_INTO, p_insert_into);
 
 	if (result_create_database[0] == 1) {
-		printf("$create database:%s$\n", command);
+		printf("$create database:%s$\n", command_cpy);
 	}
 	if (result_create_table[0] == 1) {
-		printf("$create table:%s$\n", command);
+		printf("$create table:%s$\n", command_cpy);
 	}
 	if (result_alter_table[0] == 1) {
-		printf("$alter table:%s$\n", command);
+		printf("$alter table:%s$\n", command_cpy);
 	}
 	if (result_truncate_table[0] == 1) {
-		printf("$truncate table:%s$\n", command);
+		printf("$truncate table:%s$\n", command_cpy);
 	}
 	if (result_use[0] == 1) {
-		printf("$use:%s$\n", command);
+		printf("$use:%s$\n", command_cpy);
 	}
 	if (result_drop[0] == 1) {
-		printf("$drop:%s$\n", command);
+		printf("$drop:%s$\n", command_cpy);
 	}
 	if (result_rename_table[0] == 1) {
-		printf("$rename table:%s$\n", command);
+		printf("$rename table:%s$\n", command_cpy);
 	}
 	if (result_rename_database[0] == 1) {
-		printf("$rename database:%s$\n", command);
+		printf("$rename database:%s$\n", command_cpy);
 	}
 	if (result_select[0] == 1) {
-		printf("$select:%s$\n", command);
+		printf("$select:%s$\n", command_cpy);
 	}
 	if (result_updata[0] == 1) {
-		printf("$updata:%s$\n", command);
+		printf("$updata:%s$\n", command_cpy);
 	}
 	if (result_delete[0] == 1) {
-		printf("$delete:%s$\n", command);
+		printf("$delete:%s$\n", command_cpy);
 	}
 	if (result_insert_into[0] == 1) {
-		printf("$insert into:%s$\n", command);
+		printf("$insert into:%s$\n", command_cpy);
 	}
 
 	return 0;
@@ -101,10 +101,10 @@ int string_cut(char **str)
 	int j = n - 1;
 	int cnt = 0;
 
-	while ((*str)[i] == ' ' && i < j) {
+	while ((*str)[i] == ' ' && i <= j) {
 		++ i;
 	}
-	while ((*str)[j] == ' ' && i < j) {
+	while ((*str)[j] == ' ' && i <= j) {
 		-- j;
 	}
 
@@ -117,7 +117,7 @@ int string_cut(char **str)
 	memset(tmp, 0, sizeof(char) * (size + 1));
 
 	for (; i <= j; ++ i) {
-		tmp[cnt] = *str[i];
+		tmp[cnt] = (*str)[i];
 		++ cnt;
 	}
 
@@ -131,6 +131,13 @@ char ** split(char *str, char *split, int *cnt)
 {
 	if (str == NULL) {
 		return NULL;
+	}
+	else {
+		for (int i = 0; i < strlen(str); ++ i) {
+			if (str[i] == '\n') {
+				str[i] = ' ';
+			}
+		}
 	}
 
 	if (split == NULL) {
