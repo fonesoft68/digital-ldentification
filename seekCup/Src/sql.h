@@ -87,3 +87,4 @@ int* findString(char *query, char *module, int *go);
 int toLowCase(char *str);
 int parseCommand(char * command);
 char ** split(char *str, char *split, int *cnt);
+int showDatabase(char *name);
