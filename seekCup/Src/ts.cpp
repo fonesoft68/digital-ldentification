@@ -8,6 +8,10 @@ database *allDatabaseRoot;
 
 int main(int argc, char *argv[])
 {
+<<<<<<< HEAD
+  database * allDatabaseRoot = createDatabase("huzi");
+  database *db = createDatabase("huzi");
+=======
 	if (argc > 1) {
 		if (memcmp(argv[1], "kmp", strlen(argv[1])) == 0) {
 			char *queryString;
@@ -51,7 +55,12 @@ int main(int argc, char *argv[])
 	}
 
 	return 0;
+<<<<<<< HEAD
   database *db = createDatabase("huzi");
+=======
+  database *db = createDataBase("huzi");
+>>>>>>> 77a60c039c8c5fcae60edb9ba4ac1377fd8ab7df
+>>>>>>> f4aa3c097bfa655137f13a2c403aec2c730483df
   printf("%s %d\n",db->name, db->tableCnt);
   return 0;
 }

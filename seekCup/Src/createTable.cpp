@@ -7,6 +7,11 @@ table * createTable(char * name)
 {
   table * tb = (table *)calloc(1, sizeof(table));
   
+  if(tb == NULL){
+    printf("memory error\n");
+    return NULL;
+  }
+  
   strcpy(tb->name, name);
 
   table * t = nowUsedDatabase->rootTable;
