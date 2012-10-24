@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "sql.h"
+#include "test.h"
 
 int showDadabase(char *name)
 {
@@ -42,7 +43,35 @@ int showDadabase(char *name)
 		}
 		while (tmp_table != NULL) {
 			printf("%s", tmp_table->name);
+			tmp_table = tmp_table->next;
+			if (tmp_table != NULL) {
+				printf(",");
+			}
+			else {
+				printf("\n");
+			}
 		}
+	}
+
+	return 0;
+}
+
+
+database *testDatabase;
+
+int initTestDatabase()
+{
+	testDatabase = (database *) calloc (1, sizeof(database));
+
+	col *col_1 = (col *) calloc (1, sizeof(col));
+	col *col_2 = (col *) calloc (1, sizeof(col));
+	col *col_3 = (col *) calloc (1, sizeof(col));
+
+	item = 
+
+	int i;
+	for (i = 0; i < 5; ++ i) {
+
 	}
 
 	return 0;
