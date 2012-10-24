@@ -3,11 +3,11 @@
 #include <string.h>
 #include "sql.h"
 
+  database *nowUsedDatabase = (database *)calloc(1, sizeof(database));
+  database *allDatabaseRoot = (database *)calloc(1, sizeof(database));
 int main(int argc, char *argv[])
 {
   
-  database *nowUsedDatabase = (database *)calloc(1, sizeof(database));
-  database *allDatabaseRoot = (database *)calloc(1, sizeof(database));
   allDatabaseRoot->next = NULL;
   createDatabase("huzi");
   // while  (allDatabaseRoot) {

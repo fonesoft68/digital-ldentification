@@ -15,6 +15,7 @@
 #define UPDATA "updata "
 #define DELETE "delete "
 #define INSERT_INTO "insert into "
+#define SHOW "show "
 
 int parseCommand(char * command)
 {
@@ -39,6 +40,7 @@ int parseCommand(char * command)
 	static int *p_updata = go(UPDATA);
 	static int *p_delete = go(DELETE);
 	static int *p_insert_into = go(INSERT_INTO);
+	static int *p_show = go(SHOW);
 
 	int *result_create_database = findString(command, CREATE_DATABASE, p_create_database);
 	int *result_create_table = findString(command, CREATE_TABLE, p_create_table);
@@ -52,6 +54,7 @@ int parseCommand(char * command)
 	int *result_updata = findString(command, UPDATA, p_updata);
 	int *result_delete = findString(command, DELETE, p_delete);
 	int *result_insert_into = findString(command, INSERT_INTO, p_insert_into);
+	int *result_show = findString(command, SHOW, p_show);
 
 	if (result_create_database[0] == 1) {
 		printf("$create database:%s$\n", command_cpy);
@@ -88,6 +91,9 @@ int parseCommand(char * command)
 	}
 	if (result_insert_into[0] == 1) {
 		printf("$insert into:%s$\n", command_cpy);
+	}
+	if (result_show[0] == 1) {
+		printf("$show:%s$\n", command);
 	}
 
 	return 0;
