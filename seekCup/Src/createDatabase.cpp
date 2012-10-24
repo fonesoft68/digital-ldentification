@@ -16,5 +16,5 @@ database * createDatabase(const char * name)
   strcpy(db->name, name);
   db->next = allDatabaseRoot;
   allDatabaseRoot = db;
-  return db;
+  return allDatabaseRoot;
 }
