@@ -92,3 +92,7 @@ int showTestDatabase();
 int showTable(char *databaseName);
 int showCol(char *tableName);
 int nameCheck(char *name);
+int freeItem(item *i);
+int freeCol(col *c);
+int freeTable(table *t);
+int freeDatabase(database *d);

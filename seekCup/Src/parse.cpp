@@ -165,6 +165,7 @@ char ** split(char *str, char *split, int *cnt)
 	for (i = 0; i < sp[0]; ++ i) {
 		size_tmp_str = sp[i + 1] - begin + 1;
 		if (size_tmp_str < 1) {
+			begin = sp[i + 1] + strlen(split);
 			continue;
 		}
 		tmp_str = (char *) malloc (sizeof(char) * size_tmp_str);
@@ -181,6 +182,7 @@ char ** split(char *str, char *split, int *cnt)
 		}
 		tmp_str[word_len] = '\0';
 		if (tmp_str == NULL || word_len == 0) {
+			begin = sp[i + 1] + strlen(split);
 			continue;
 		}
 		if (!string_cut(&tmp_str)) {

@@ -70,5 +70,14 @@ int showCol(char *tableName)
 
 int nameCheck(char *name) 
 {
-	return 0;
+	char key_word[][50] = {"create", "database", "table", "column", "int", "float", "text", "like", "between", "and", "or", "alter", "add", "use", "truncate", "drop", "rename", "select", "updata", "delete", "show", "by", "desc", "order", "incr", "set"};
+   
+	int i;
+	for (i = 0; i < 26; ++ i) {
+		if (strcmp(key_word[i], name) == 0) {
+			return 0;
+		}
+	}
+
+	return 1;
 }
