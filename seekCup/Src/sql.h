@@ -88,3 +88,4 @@ int toLowCase(char *str);
 int parseCommand(char * command);
 char ** split(char *str, char *split, int *cnt);
 int showDatabase(char *name);
+int altertable(const char *);
