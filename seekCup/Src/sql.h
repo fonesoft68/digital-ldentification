@@ -1,6 +1,4 @@
-#define DEBUG
-
-
+#define DEBUGi
 
 typedef enum {
 	Int = 1,
@@ -21,7 +19,6 @@ typedef struct col{
 	col *next;
 	int itemCnt;
 }col;
-
 typedef struct table{
 	char *name;
 	col *rootCol;
@@ -83,9 +80,10 @@ int insert(const char *);
 //显示数据库中的数据
 int show(const char *);
 
+int drop(const char *);
 
 int* go(char *module);
 int* findString(char *query, char *module, int *go); 
 int toLowCase(char *str);
 int parseCommand(char * command);
-
+char ** split(char *str, char *split, int *cnt);

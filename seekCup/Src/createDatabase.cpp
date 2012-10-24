@@ -3,7 +3,7 @@
 #include <string.h>
 #include "sql.h"
 
-database * createDatebase(const char * name)
+database * createDatabase(const char * name)
 {
   database * db = (database *)calloc(1, sizeof(database));
   
@@ -12,6 +12,7 @@ database * createDatebase(const char * name)
     return NULL;
   }
 
+  db->name = (char *)malloc(sizeof(char) * (strlen(name) + 1));
   strcpy(db->name, name);
   
   return db;

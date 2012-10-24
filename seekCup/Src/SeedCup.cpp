@@ -1,8 +1,10 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "sql.h"
+
+database *allDatabaseRoot;
+database *nowUsedDatabase;
 
 
 int main(int argc, char *argv[])
@@ -28,7 +30,7 @@ int main(int argc, char *argv[])
 			memset(command, 0, sizeof(char) * maxLenOfCmd);
 			cnt = -1;
 		}
-		else {
+		else if (c != '\n' && c != '\t'){
 			++ cnt;
 			if (cnt > maxLenOfCmd - 1) {
 				command = (char *) realloc (command, (maxLenOfCmd + 500) * sizeof(char));
