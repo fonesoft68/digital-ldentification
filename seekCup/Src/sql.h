@@ -66,7 +66,7 @@ int renameTable(const char *);
 int renameDatabase(const char *);
 
 //从表中选数据
-col * select(const char *);
+table * select(const char *);
 
 //修改表中的数据
 int updata(const char *);
