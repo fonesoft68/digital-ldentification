@@ -10,11 +10,13 @@ int main(int argc, char *argv[])
 {
   database * allDatabaseRoot = createDatabase("huzi");
   nowUsedDatabase = allDatabaseRoot;
-  // table * tb = createTable("ab");
-  //  table * tc = createTable("ac");
   if (argc > 1) {
     if (memcmp(argv[1], "createTable", strlen(argv[1])) == 0) {
-	createTable(" int a , node b  ");
+      allDatabaseRoot->rootTable = createTable(" int a , float b , noe  ");
+      // printf("%s %d", allDatabaseRoot->rootTable->rootCol->name, allDatabaseRoot->rootTable->rootCol->type);
+      // printf("%s %d", allDatabaseRoot->rootTable->rootCol->next->name, allDatabaseRoot->rootTable->rootCol->next->type);
+      // printf("%s %d", allDatabaseRoot->rootTable->rootCol->next->next->name, allDatabaseRoot->rootTable->rootCol->next->next->type);
+      //      printf("%d************\n", allDatabaseRoot->rootTable->colCnt);
       }
     if (memcmp(argv[1], "drop", strlen(argv[1])) == 0) {
       printf("%d\n**************", drop(argv[2]));
