@@ -12,11 +12,18 @@ table * createTable(const char * str)
     return NULL;
   }
   
-  int * p = (int *)malloc(sizeof(int));
-  char * str2 = (char *)malloc(sizeof(char) * (strlen(str) + 1));
-  strcat(str2, str);
-  printf("%s \n", str2 );
-    char ** ch = split(str2, "," , p);
+  // int i;
+  // int * p = (int *)malloc(sizeof(int));
+  // char * str2 = (char *)malloc(sizeof(char) * (strlen(str) + 1));
+  
+  // strcat(str2, str);
+  // printf("%s \n", str2 );
+  // char ** ch = split(str2, "," , p);
+  
+  // for (i = 0;i < *p;++i) {
+    
+  // }
+  
   //  printf("%d*************\n", *p);
   //  printf("%s %s\n", ch[0], ch[1]);
   // for (int i = 0;i < *p;++i){

@@ -1,10 +1,5 @@
 #define DEBUGi
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 8b305bc0a3108d22a88b3c0dde96122060652723
 typedef enum {
 	Int = 1,
 	Float = 2,
