@@ -12,7 +12,11 @@ srcfile=Src/sql.h
 Bin/ts:$(srcfile) Src/ts.cpp $(obj)
 	g++ -o $@ $^ -g
 
-Bin/SeedCup:$(srcfile) Src/SeedCup.cpp $(obj)
+Bin/ts_huzihao:$(srcfile) Src/ts_huzihao.cpp $(obj)
+	g++ -o $@ $^ -g
+
+Bin/ts_dengzhe:$(srcfile) Src/ts_dengzhe.cpp $(obj)
+	g++ -o $@ $^ -g
 
 Bin/SeedCup:$(srcfile) Src/SeedCup.cpp $(obj)
 	g++ -o $@ $^ -g

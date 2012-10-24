@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+#define DEBUGi
+
+
+
+>>>>>>> 12231d37bc6749091fe7a8f64ffdef9a4e7254bf
 typedef enum {
 	Int = 1,
 	Float = 2,
@@ -78,4 +85,13 @@ int insert(const char *);
 //显示数据库中的数据
 int show(const char *);
 
+<<<<<<< HEAD
 int drop(const char *);
+=======
+
+int* go(char *module);
+int* findString(char *query, char *module, int *go); 
+int toLowCase(char *str);
+int parseCommand(char * command);
+char ** split(char *str, char *split, int *cnt);
+>>>>>>> 12231d37bc6749091fe7a8f64ffdef9a4e7254bf
