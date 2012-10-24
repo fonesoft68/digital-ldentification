@@ -5,7 +5,7 @@
 #
 #
 obj=tmp/alterTable.o tmp/createDatabase.o tmp/createTable.o tmp/delete.o tmp/drop.o tmp/insert.o tmp/renameDatabase.o tmp/renameTable.o tmp/select.o tmp/showCol.o \
-	tmp/showDatabase.o tmp/truncateTable.o tmp/updata.o tmp/useDatabase.o tmp/foo.o tmp/parse.o
+	tmp/showDatabase.o tmp/truncateTable.o tmp/updata.o tmp/useDatabase.o tmp/foo.o tmp/parse.o tmp/show.o
 
 srcfile=Src/sql.h
 
@@ -67,6 +67,9 @@ tmp/foo.o:Src/foo.cpp
 	g++ -c -o $@ $^ -g
 
 tmp/parse.o:Src/parse.cpp
+	g++ -c -o $@ $^ -g
+
+tmp/show.o:Src/show.cpp
 	g++ -c -o $@ $^ -g
 
 clean:
