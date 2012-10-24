@@ -12,6 +12,7 @@ table * createTable(char * name)
     return NULL;
   }
   
+  tb->name = (char *)malloc(sizeof(char) * (strlen(name) + 1));
   strcpy(tb->name, name);
 
   table * t = nowUsedDatabase->rootTable;
