@@ -133,6 +133,16 @@ int main(int args, char *argv[])
       int tm = isNun_0(res);
       printf("**************%d*************\n", tm);
     }
+<<<<<<< HEAD
+   if (memcmp(argv[1], "isNun_4", strlen(argv[1])) == 0) {
+      printf("test for 4\n");
+      thinImage(res);
+      smoothImage(res);
+      outVisual(res);
+      int tm = isNun_4(res);
+      printf("**************%d*************\n", tm);
+    }
+=======
 	if (memcmp(argv[1], "xiaoBoHang", strlen(argv[1])) == 0) {
 		printf("test for xiaoBo\n");
 		free(res);
@@ -142,6 +152,7 @@ int main(int args, char *argv[])
 		printf("test for edgeDetector\n");
 		alg(2);
 	}
+>>>>>>> 0fdcd1466eda38c93d14dfdf5c996d6edd207138
 
   }
   return 0;
