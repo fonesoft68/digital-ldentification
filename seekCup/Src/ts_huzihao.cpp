@@ -3,24 +3,28 @@
 #include <string.h>
 #include "sql.h"
 
-database *nowUsedDatabase;
-database *allDatabaseRoot;
-
 int main(int argc, char *argv[])
 {
-  database * allDatabaseRoot = createDatabase("huzi");
-  nowUsedDatabase = allDatabaseRoot;
-  if (argc > 1) {
-    if (memcmp(argv[1], "createTable", strlen(argv[1])) == 0) {
-      allDatabaseRoot->rootTable = createTable(" int a , float b , noe  ");
-      // printf("%s %d", allDatabaseRoot->rootTable->rootCol->name, allDatabaseRoot->rootTable->rootCol->type);
-      // printf("%s %d", allDatabaseRoot->rootTable->rootCol->next->name, allDatabaseRoot->rootTable->rootCol->next->type);
-      // printf("%s %d", allDatabaseRoot->rootTable->rootCol->next->next->name, allDatabaseRoot->rootTable->rootCol->next->next->type);
-      //      printf("%d************\n", allDatabaseRoot->rootTable->colCnt);
-      }
-    if (memcmp(argv[1], "drop", strlen(argv[1])) == 0) {
-      printf("%d\n**************", drop(argv[2]));
-      printf("argv[2] is %s", argv[2]);
-    }
-  }
+  
+  database *nowUsedDatabase = (database *)calloc(1, sizeof(database));
+  database *allDatabaseRoot = (database *)calloc(1, sizeof(database));
+  allDatabaseRoot->next = NULL;
+  createDatabase("huzi");
+  // while  (allDatabaseRoot) {
+  //   printf("\n%s\n", allDatabaseRoot->name);
+  //   allDatabaseRoot = allDatabaseRoot->next;
+  // }
+
+  // nowUsedDatabase = allDatabaseRoot;
+  // drop("drop huzi");
+  // printf("%s ***\n", allDatabaseRoot->name);
+  // if (argc > 1) {
+  //   if (memcpy(argv[1], "drop", strlen(argv[1])) == 0) {
+  //     //    drop("huzi");
+  //     printf("%p ***\n", allDatabaseRoot);
+  //   }
+  //   if (memcmp(argv[1], "createTable", strlen(argv[1])) == 0) {
+  //     //allDatabaseRoot->rootTable = createTable(" int a , float b , noe  ");
+  //   }
+  // }
 }
