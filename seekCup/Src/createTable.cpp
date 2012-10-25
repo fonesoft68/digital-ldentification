@@ -8,7 +8,7 @@ table * createTable(const char * str)
   table * tb = (table *)calloc(1, sizeof(table));
   
   if(tb == NULL){
-    printf("memory error\n");
+    printf(ERROR);
     return NULL;
   }
 
@@ -19,13 +19,14 @@ table * createTable(const char * str)
   strcat(str2, str);
    char ** ch = split(str2, "," , p);
   for (i = 0;i < *p;++i) {
-    char * s;
     TYPE t;
-
+    char s[256];
     col * newCol = (col *)calloc(1, sizeof(col));
-    col * c = tb->rootCol;
+    sscanf(ch[i], "%s", s);
+    newCol->next = tb->rootCol;
     tb->rootCol = newCol;
-    newCol->next = c;
+    newCol->name = (char *)malloc(sizeof(char) * 256);
+    strcpy(newCol->name, s);
     if (strrchr(ch[i], ' ')) {
       if (strstr(ch[i], "int")) {
   	t = Int;
@@ -36,15 +37,9 @@ table * createTable(const char * str)
       if (strstr(ch[i], "text")) {
   	t = Text;
       }
-      s = strrchr(ch[i], ' ');
-      while (*s == ' '){
-  	++s;
-      }
-      newCol->name = s;
     }
     else {
       t = None;
-      newCol->name = ch[i];
     }
     newCol->type = t;
     ++(tb->colCnt);
