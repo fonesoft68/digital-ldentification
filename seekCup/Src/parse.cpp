@@ -235,7 +235,8 @@ char ** split(char *str, char *split, int *cnt)
 			}
 		}
 		if (k == strlen(tmp_str)) {
-
+			begin = sp[i + 1] + strlen(split);
+			continue;
 		}
 		if (!string_cut(&tmp_str)) {
 			result[split_num] = tmp_str;
@@ -265,6 +266,14 @@ char ** split(char *str, char *split, int *cnt)
 		}
 		tmp_str[word_len] = '\0';
 		if (tmp_str == NULL || word_len == 0) {
+			return result;
+		}
+		for (k = 0; k < strlen(tmp_str); ++ k) {
+			if (tmp_str[k] != ' '){
+				break;
+			}
+		}
+		if (k == strlen(tmp_str)) {
 			return result;
 		}
 		if (!string_cut(&tmp_str)) {

@@ -12,10 +12,8 @@ database * createDatabase(char * name)
     return NULL;
   }
 
-  char *tmp_name = (char *) malloc (sizeof(char) * strlen(name) + 1);
-  strcpy(tmp_name, name);
 
-  if (!nameCheck(tmp_name)) {
+  if (!nameCheck(name)) {
 	  printf(ERROR);
 	  return 0;
   }

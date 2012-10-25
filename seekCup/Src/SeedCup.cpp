@@ -26,7 +26,6 @@ int main(int argc, char *argv[])
 
 	while ((c = getchar()) != EOF) {
 		if (c == '\n' || c == '\t') {
-			c = ' ';
 		}
 		if (c == ';') {
 			command[cnt + 1] = '\0';
