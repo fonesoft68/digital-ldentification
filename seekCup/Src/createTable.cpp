@@ -16,7 +16,7 @@ table * createTable(const char * str)
   int * p = (int *)malloc(sizeof(int));
   char * str2 = (char *)malloc(sizeof(char) * (strlen(str) + 1));
   
-  strcat(str2, str);
+  strcpy(str2, str);
    char ** ch = split(str2, "," , p);
   for (i = 0;i < *p;++i) {
     TYPE t;
@@ -31,11 +31,14 @@ table * createTable(const char * str)
       if (strstr(ch[i], "int")) {
   	t = Int;
       }
-      if (strstr(ch[i], "float")) {
+      else if (strstr(ch[i], "float")) {
   	t = Float;
       }
-      if (strstr(ch[i], "text")) {
+      else if (strstr(ch[i], "text")) {
   	t = Text;
+      }
+      else {
+	printf(ERROR);
       }
     }
     else {
