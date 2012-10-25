@@ -31,11 +31,14 @@ table * createTable(const char * str)
       if (strstr(ch[i], "int")) {
   	t = Int;
       }
-      if (strstr(ch[i], "float")) {
+      else if (strstr(ch[i], "float")) {
   	t = Float;
       }
-      if (strstr(ch[i], "text")) {
+      else if (strstr(ch[i], "text")) {
   	t = Text;
+      }
+      else {
+	printf(ERROR);
       }
     }
     else {
