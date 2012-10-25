@@ -18,7 +18,6 @@ int main(int argc, char *argv[])
   createDatabase("nimei");
   allDatabaseRoot->rootTable = createTable("  a int  , b float  , noe  ");
   allDatabaseRoot->rootTable->name = "a";
-  
   drop("drop nimei noe");
   printf("%s ***\n", allDatabaseRoot->name);
   if (argc > 1) {

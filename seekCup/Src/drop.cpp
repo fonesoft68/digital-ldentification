@@ -53,18 +53,11 @@ int drop(const char * str)
   char * s = (char *)malloc(sizeof(char) * (strlen(str) + 1));
   strcat(s, str);
   char ** ch = split(s, " ", p);
-  printf("******************%d*****************\n", *p);
-  // for(int i = 0;i < *p;++i) {
-  //   for (int j = 0;ch[i][j]!='\0';++j) {
-  //     printf("%c$$", ch[i][j]);
-  //   }
-  //   printf("\n");
-  // }
   if (strcmp(ch[0], "drop") == 0) {
-    database * db = nowUsedDatabase;
+    database * db = allDatabaseRoot;
     if (*p == 2) {
-      if (strcmp(ch[1], db->name) == 0) {
-	db = NULL;
+      if (strcmp(ch[1], allDatabaseRoot->name) == 0) {
+	allDatabaseRoot = allDatabaseRoot->next;
 	
 	return 0;
       }
@@ -78,16 +71,16 @@ int drop(const char * str)
       }
     }
     if (*p == 3) {
-      if (strcmp(ch[1], db->name) == 0) {
-	  db = NULL;
+      if (strcmp(ch[1], allDatabaseRoot->name) == 0) {
+	allDatabaseRoot = allDatabaseRoot->next;
 
 	  return 0;
 	}
       while (db->next) {
 	if (strcmp(ch[1], db->next->name) == 0) {
 	  table * tb = db->next->rootTable;
-	  if (strcmp(ch[2], tb->name) == 0) {
-	    tb = NULL;
+	  if (strcmp(ch[2], db->next->rootTable->name) == 0) {
+	    db->next->rootTable = db->next->rootTable->next;
 
 	    return 0;
 	  }
