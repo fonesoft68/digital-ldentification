@@ -221,6 +221,8 @@ int alterDel(char * table_name, char * column_name)
     if (strcmp(column_name, tmp_table->rootCol->name) == 0) {
 	tmp_table->rootCol = tmp_table->rootCol->next;
 	-- (tmp_table->colCnt);
+
+	return 0;
     }
     while (tmp_col->next) {
 	if (strcmp(column_name, tmp_col->next->name) == 0) {

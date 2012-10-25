@@ -17,10 +17,10 @@ int main(int argc, char *argv[])
 
     allDatabaseRoot->rootTable = createTable("  a int  , b float  , noe  ");
     allDatabaseRoot->rootTable->name = "a";
-    allDatabaseRoot->rootTable->next = createTable(" c int");
+    allDatabaseRoot->rootTable->next = createTable(" c int , d float ");
     allDatabaseRoot->rootTable->next->name = "b";
     nowUsedDatabase = allDatabaseRoot;
-    alter_parse("alter table b add d float");
+    alter_parse("alter table b drop column c ");
     if (argc > 1) {
 	if (memcpy(argv[1], "drop", strlen(argv[1])) == 0) {
 	    //    drop("huzi");
