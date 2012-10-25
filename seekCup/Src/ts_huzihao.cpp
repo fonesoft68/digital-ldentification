@@ -16,10 +16,11 @@ int main(int argc, char *argv[])
   createDatabase("huzi");
   createDatabase("hao");
   createDatabase("nimei");
-  allDatabaseRoot->rootTable = createTable("  a int  , b float  , noe  ");
-  allDatabaseRoot->rootTable->name = "a";
-  
-  drop("drop nimei noe");
+  allDatabaseRoot->next->rootTable = createTable("  a int  , b float  , noe  ");
+  allDatabaseRoot->next->rootTable->name = "a";
+  allDatabaseRoot->next->rootTable->next = createTable(" c int");
+  allDatabaseRoot->next->rootTable->next->name = "b";
+  drop("drop hao b");
   printf("%s ***\n", allDatabaseRoot->name);
   if (argc > 1) {
     if (memcpy(argv[1], "drop", strlen(argv[1])) == 0) {
