@@ -20,7 +20,7 @@ int show_parse(char *command)
 	char **split_command = split(command, " ", cnt);
 	if (strcmp(split_command[0], SHOW) == 0 && strcmp(split_command[1], DATABASE) == 0) {
 		if (*cnt == 2) {
-			showDatabase(NULL);
+			showDatabase();
 		}
 	}
 	else if (strcmp(split_command[0], SHOW) == 0 && strcmp(split_command[1], TABLE) == 0) {
@@ -58,10 +58,6 @@ int show_parse(char *command)
 	return 0;
 }
 
-int showTable(char *databaseName) 
-{
-	return 0;
-}
 
 int showCol(char *tableName)
 {

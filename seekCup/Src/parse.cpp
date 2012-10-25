@@ -3,6 +3,8 @@
 #include <string.h>
 #include "sql.h"
 
+#define DEBUG
+
 #define CREATE_DATABASE "create database "
 #define CREATE_TABLE "create table "
 #define ALTER_TABLE "alter table "
@@ -56,11 +58,36 @@ int parseCommand(char * command)
 	int *result_insert_into = findString(command, INSERT_INTO, p_insert_into);
 	int *result_show = findString(command, SHOW, p_show);
 
-	if (result_create_database[0] == 1) {
+	int i;
+	int *cnt = (int *)malloc(sizeof(int));
+	char **split_command;
+
+	if (result_create_database[0] == 1 && result_create_database[1] == 0) {
+#ifdef DEBUG
 		printf("$create database:%s$\n", command_cpy);
+#endif
+		split_command = split(command, CREATE_DATABASE, cnt);
+		if  (*cnt == 1) {
+			createDatabase(split_command[0]);
+		}
+		else {
+			for (i = 0; i < *cnt; ++ i) {
+				free(split_command[i]);
+			}
+			free(split_command);
+			printf(ERROR);
+			return 0;
+		}
+		free(split_command[0]);
+		free(split_command);
+		return 0;
+
 	}
 	if (result_create_table[0] == 1) {
+#ifdef DEBUG
 		printf("$create table:%s$\n", command_cpy);
+#endif
+
 	}
 	if (result_alter_table[0] == 1) {
 		printf("$alter table:%s$\n", command_cpy);
@@ -68,8 +95,25 @@ int parseCommand(char * command)
 	if (result_truncate_table[0] == 1) {
 		printf("$truncate table:%s$\n", command_cpy);
 	}
-	if (result_use[0] == 1) {
+	if (result_use[0] == 1 && result_use[1] == 0) {
+#ifdef DEBUG
 		printf("$use:%s$\n", command_cpy);
+#endif
+		split_command = split(command, USE, cnt);
+		if (*cnt == 1) {
+			useDatabase(split_command[0]);
+		}
+		else {
+			for (i = 0; i < *cnt; ++ i) {
+				free(split_command[i]);
+			}
+			free(split_command);
+			printf(ERROR);
+			return 0;
+		}
+		free(split_command[0]);
+		free(split_command);
+		return 0;
 	}
 	if (result_drop[0] == 1) {
 		printf("$drop:%s$\n", command_cpy);
@@ -153,7 +197,7 @@ char ** split(char *str, char *split, int *cnt)
 	char **result;
 	int *p = go(split);
 	int *sp = findString(str, split, p);
-	int i,j;
+	int i,j,k;
 
 	result = (char **) malloc (sizeof(char *) * sp[0] + 1);
 
@@ -184,6 +228,14 @@ char ** split(char *str, char *split, int *cnt)
 		if (tmp_str == NULL || word_len == 0) {
 			begin = sp[i + 1] + strlen(split);
 			continue;
+		}
+		for (k = 0; k < strlen(tmp_str); ++ k) {
+			if (tmp_str[k] != ' '){
+				break;
+			}
+		}
+		if (k == strlen(tmp_str)) {
+
 		}
 		if (!string_cut(&tmp_str)) {
 			result[split_num] = tmp_str;

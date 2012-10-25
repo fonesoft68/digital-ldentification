@@ -4,7 +4,27 @@
 #include "sql.h"
 #include "test.h"
 
-int showDatabase(char *name)
+int showDatabase()
+{
+	database *tmp_database = allDatabaseRoot;
+	if (!tmp_database) {
+		printf("$\n");
+	}
+	while (tmp_database) {
+		printf("%s", tmp_database->name);
+		tmp_database = tmp_database->next;
+		if (tmp_database) {
+			printf(",");
+		}
+		else {
+			printf("\n");
+		}
+	}
+
+	return 0;
+}
+
+int showTable(char *name)
 {
 	table *tmp_table;
 	if (name == NULL) {
