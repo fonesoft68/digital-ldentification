@@ -14,6 +14,7 @@ database * createDatabase(const char * name)
 
   db->name = (char *)malloc(sizeof(char) * (strlen(name) + 1));
   strcpy(db->name, name);
-  
+  db->next = allDatabaseRoot;
+  allDatabaseRoot = db;
   return db;
 }

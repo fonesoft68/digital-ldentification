@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "sql.h"
+#include "test.h"
 
 database *nowUsedDatabase;
 database *allDatabaseRoot;
@@ -49,6 +50,10 @@ int main(int argc, char *argv[])
                         }
                        
                 }
+				if (strcmp(argv[1], "showDatabase") == 0) {
+					initTestDatabase();
+					showDatabase(NULL);
+				}
 
         }
 

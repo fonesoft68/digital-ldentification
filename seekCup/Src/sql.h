@@ -87,3 +87,12 @@ int* findString(char *query, char *module, int *go);
 int toLowCase(char *str);
 int parseCommand(char * command);
 char ** split(char *str, char *split, int *cnt);
+int showDatabase(char *name);
+<<<<<<< HEAD
+int altertable(const char *);
+=======
+int showTestDatabase();
+int showTable(char *databaseName);
+int showCol(char *tableName);
+int nameCheck(char *name);
+>>>>>>> ad8764ce832bd56013424d16b6611f557d8bba99

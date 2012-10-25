@@ -3,22 +3,28 @@
 #include <string.h>
 #include "sql.h"
 
-database *nowUsedDatabase;
-database *allDatabaseRoot;
-
+  database *nowUsedDatabase = (database *)calloc(1, sizeof(database));
+  database *allDatabaseRoot = (database *)calloc(1, sizeof(database));
 int main(int argc, char *argv[])
 {
-  database * allDatabaseRoot = createDatabase("huzi");
-  nowUsedDatabase = allDatabaseRoot;
-  // table * tb = createTable("ab");
-  //  table * tc = createTable("ac");
-  if (argc > 1) {
-    if (memcmp(argv[1], "createTable", strlen(argv[1])) == 0) {
-	createTable(" int a , node b  ");
-      }
-    if (memcmp(argv[1], "drop", strlen(argv[1])) == 0) {
-      printf("%d\n**************", drop(argv[2]));
-      printf("argv[2] is %s", argv[2]);
-    }
-  }
+  
+  allDatabaseRoot->next = NULL;
+  createDatabase("huzi");
+  // while  (allDatabaseRoot) {
+  //   printf("\n%s\n", allDatabaseRoot->name);
+  //   allDatabaseRoot = allDatabaseRoot->next;
+  // }
+
+  // nowUsedDatabase = allDatabaseRoot;
+  // drop("drop huzi");
+  // printf("%s ***\n", allDatabaseRoot->name);
+  // if (argc > 1) {
+  //   if (memcpy(argv[1], "drop", strlen(argv[1])) == 0) {
+  //     //    drop("huzi");
+  //     printf("%p ***\n", allDatabaseRoot);
+  //   }
+  //   if (memcmp(argv[1], "createTable", strlen(argv[1])) == 0) {
+  //     //allDatabaseRoot->rootTable = createTable(" int a , float b , noe  ");
+  //   }
+  // }
 }
