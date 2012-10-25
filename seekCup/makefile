@@ -21,56 +21,56 @@ Bin/ts_dengzhe:$(srcfile) Src/ts_dengzhe.cpp $(obj)
 Bin/SeedCup:$(srcfile) Src/SeedCup.cpp $(obj)
 	g++ -o $@ $^ -g
 
-tmp/alterTable.o:Src/alterTable.cpp
-	g++ -c -o $@ $^ -g
+tmp/alterTable.o:Src/alterTable.cpp  $(srcfile)
+	g++ -c -o $@ $< -g
 
-tmp/createDatabase.o:Src/createDatabase.cpp
-	g++ -c -o $@ $^ -g
+tmp/createDatabase.o:Src/createDatabase.cpp $(srcfile)
+	g++ -c -o $@ $< -g
 
-tmp/createTable.o:Src/createTable.cpp
-	g++ -c -o $@ $^ -g
+tmp/createTable.o:Src/createTable.cpp $(srcfile)
+	g++ -c -o $@ $< -g
 
-tmp/delete.o:Src/delete.cpp
-	g++ -c -o $@ $^ -g
+tmp/delete.o:Src/delete.cpp $(srcfile)
+	g++ -c -o $@ $< -g
 
-tmp/drop.o :Src/drop.cpp
-	g++ -c -o $@ $^ -g
+tmp/drop.o :Src/drop.cpp $(srcfile)
+	g++ -c -o $@ $< -g
 
-tmp/insert.o:Src/insert.cpp
-	g++ -c -o $@ $^ -g
+tmp/insert.o:Src/insert.cpp $(srcfile)
+	g++ -c -o $@ $< -g
 
-tmp/renameDatabase.o:Src/renameDatabase.cpp
-	g++ -c -o $@ $^ -g
+tmp/renameDatabase.o:Src/renameDatabase.cpp $(srcfile)
+	g++ -c -o $@ $< -g
 
-tmp/renameTable.o:Src/renameTable.cpp
-	g++ -c -o $@ $^ -g
+tmp/renameTable.o:Src/renameTable.cpp $(srcfile)
+	g++ -c -o $@ $< -g
 
-tmp/select.o:Src/select.cpp
-	g++ -c -o $@ $^ -g
+tmp/select.o:Src/select.cpp $(srcfile)
+	g++ -c -o $@ $< -g
 
-tmp/showCol.o:Src/showCol.cpp
-	g++ -c -o $@ $^ -g
+tmp/showCol.o:Src/showCol.cpp $(srcfile)
+	g++ -c -o $@ $< -g
 
-tmp/showDatabase.o:Src/showDatabase.cpp
-	g++ -c -o $@ $^ -g
+tmp/showDatabase.o:Src/showDatabase.cpp $(srcfile)
+	g++ -c -o $@ $< -g
 
-tmp/truncateTable.o:Src/truncateTable.cpp
-	g++ -c -o $@ $^ -g
+tmp/truncateTable.o:Src/truncateTable.cpp $(srcfile)
+	g++ -c -o $@ $< -g
 
-tmp/updata.o:Src/updata.cpp
-	g++ -c -o $@ $^ -g
+tmp/updata.o:Src/updata.cpp $(srcfile)
+	g++ -c -o $@ $< -g
 
-tmp/useDatabase.o:Src/useDatabase.cpp
-	g++ -c -o $@ $^ -g
+tmp/useDatabase.o:Src/useDatabase.cpp $(srcfile)
+	g++ -c -o $@ $< -g
 
-tmp/foo.o:Src/foo.cpp
-	g++ -c -o $@ $^ -g
+tmp/foo.o:Src/foo.cpp $(srcfile)
+	g++ -c -o $@ $< -g
 
-tmp/parse.o:Src/parse.cpp
-	g++ -c -o $@ $^ -g
+tmp/parse.o:Src/parse.cpp $(srcfile)
+	g++ -c -o $@ $< -g
 
-tmp/show.o:Src/show.cpp
-	g++ -c -o $@ $^ -g
+tmp/show.o:Src/show.cpp $(srcfile)
+	g++ -c -o $@ $< -g
 
 clean:
 	rm /tmp/*

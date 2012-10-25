@@ -6,6 +6,7 @@
 
 database *nowUsedDatabase;
 database *allDatabaseRoot;
+int databaseCnt = 0;
 
 int main(int argc, char *argv[])
 {
@@ -52,7 +53,7 @@ int main(int argc, char *argv[])
 		}
 		if (strcmp(argv[1], "showDatabase") == 0) {
 			initTestDatabase();
-			showDatabase(NULL);
+			showDatabase();
 		}
 		
 	}

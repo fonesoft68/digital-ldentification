@@ -23,6 +23,5 @@ database * createDatabase(char * name)
   db->next = allDatabaseRoot;
   allDatabaseRoot = db;
   ++ databaseCnt;
-  printf("%s\n", name);
   return allDatabaseRoot;
 }

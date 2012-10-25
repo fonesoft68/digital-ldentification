@@ -1,4 +1,3 @@
-#define DEBUG
 #define ERROR "error\n"
 
 typedef enum {
@@ -11,6 +10,7 @@ typedef enum {
 typedef struct item{
 	char *res;
 	item *next;
+	TYPE type;
 }item;
 
 typedef struct col{
@@ -105,3 +105,4 @@ int freeItem(item *i);
 int freeCol(col *c);
 int freeTable(table *t);
 int freeDatabase(database *d);
+int alter_parse(char *);

@@ -61,8 +61,13 @@ int parseCommand(char * command)
 	int i;
 	int *cnt = (int *)malloc(sizeof(int));
 	char **split_command;
+	int begin_black = 0;
+	int command_len = strlen(command);
+	while (begin_black < command_len && (command[begin_black] == ' ' || command[begin_black] == '\t')) {
+		++ begin_black;
+	}
 
-	if (result_create_database[0] == 1 && result_create_database[1] == 0) {
+	if (result_create_database[0] == 1 && result_create_database[1] == begin_black) {
 #ifdef DEBUG
 		printf("$create database:%s$\n", command_cpy);
 #endif
@@ -80,22 +85,40 @@ int parseCommand(char * command)
 		}
 		free(split_command[0]);
 		free(split_command);
+		showDatabase();
 		return 0;
 
 	}
-	if (result_create_table[0] == 1) {
+	if (result_create_table[0] == 1 && result_create_table[1] == begin_black) {
 #ifdef DEBUG
 		printf("$create table:%s$\n", command_cpy);
 #endif
+		split_command = split(command, CREATE_TABLE, cnt);
+		if (*cnt == 1) {
+			char **name_val = split(split_command[0], "(", cnt);
+			if (*cnt == 2) {
+				name_val[1][strlen(name_val[1]) - 1] = '\0';
+				printf("%s\n %s\n", name_val[0], name_val[1]);
+			}
+			else {
+				printf(ERROR);
+			}
+		}
+		else {
+			printf(ERROR);
+		}
 
 	}
-	if (result_alter_table[0] == 1) {
+	if (result_alter_table[0] == 1 && result_alter_table[1] == begin_black) {
+#ifdef DEBUG
 		printf("$alter table:%s$\n", command_cpy);
+#endif
+		alter_parse(command);
 	}
 	if (result_truncate_table[0] == 1) {
 		printf("$truncate table:%s$\n", command_cpy);
 	}
-	if (result_use[0] == 1 && result_use[1] == 0) {
+	if (result_use[0] == 1 && result_use[1] == begin_black) {
 #ifdef DEBUG
 		printf("$use:%s$\n", command_cpy);
 #endif
@@ -179,6 +202,7 @@ int string_cut(char **str)
 
 char ** split(char *str, char *split, int *cnt)
 {
+	*cnt = 0;
 	if (str == NULL) {
 		return NULL;
 	}

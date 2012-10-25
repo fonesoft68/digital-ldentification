@@ -39,7 +39,7 @@ int * findString(char *query, char *module, int *go)
 	int n = strlen(query);
 	int cnt = 0;
 
-#ifdef DEBUG
+#ifdef EBUG
 	for (i = 0; i < m; ++ i)
 	{
 		printf("%d ", go[i]);
@@ -166,5 +166,18 @@ int where(char *condition)
 	return index;
 }
 
+
+
+char **getBetweenStr(char *query, char *left, char *right, int *cnt)
+{
+	char **result;
+	int *p_left = go(left);
+	int *p_right = go(right);
+	int *result_left = findString(query, left, p_left);
+	int *result_right = findString(query, right, p_right);
+
+
+	return result;
+}
 
 
