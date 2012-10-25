@@ -6,6 +6,8 @@
 table * createTable(const char * str)
 {
   table * tb = (table *)calloc(1, sizeof(table));
+  col *rootCol = (col *) calloc (1, sizeof(col));
+  tb->rootCol = rootCol;
   
   if(tb == NULL){
     printf(ERROR);
@@ -19,13 +21,15 @@ table * createTable(const char * str)
   strcpy(str2, str);
    char ** ch = split(str2, "," , p);
   for (i = 0;i < *p;++i) {
+	item *rootItem = (item *) calloc (1, sizeof(item));
     TYPE t;
     char s[256];
     col * newCol = (col *)calloc(1, sizeof(col));
     sscanf(ch[i], "%s", s);
-    newCol->next = tb->rootCol;
-    tb->rootCol = newCol;
+    newCol->next = tb->rootCol->next;
+    tb->rootCol->next = newCol;
     newCol->name = (char *)malloc(sizeof(char) * 256);
+	newCol->rootItem = rootItem;
     strcpy(newCol->name, s);
     if (strrchr(ch[i], ' ')) {
       if (strstr(ch[i], "int")) {
@@ -45,6 +49,7 @@ table * createTable(const char * str)
       t = None;
     }
     newCol->type = t;
+	rootItem->type = t;
     ++(tb->colCnt);
   }
  

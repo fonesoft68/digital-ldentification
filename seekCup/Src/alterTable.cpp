@@ -7,75 +7,87 @@
 int alterAdd(char *table_name, char *datatype)
 {
     if (!nowUsedDatabase) {
-	printf(ERROR);
-	return 0;
+		printf(ERROR);
+		return 0;
     }
 
-    table *tmp_table = nowUsedDatabase->rootTable;
+    table *tmp_table = nowUsedDatabase->rootTable->next;
     while (tmp_table) {
-	if (strcmp(tmp_table->name, table_name) == 0) {
-	    break;
-	}
-	tmp_table = tmp_table->next;
+		if (strcmp(tmp_table->name, table_name) == 0) {
+		    break;
+		}
+		tmp_table = tmp_table->next;
     }
     if (!tmp_table) {
-	printf(ERROR);
-	return 0;
+		printf(ERROR);
+		return 0;
     }
     int *cnt = (int *) malloc (sizeof(int));
     char **split_datatype = split(datatype, " ", cnt);
     if(*cnt != 1 && *cnt != 2) {
-	printf(ERROR);
-	return 0;
+		printf(ERROR);
+		return 0;
     }
 
-    col *tmp_col = tmp_table->rootCol;
+    col *tmp_col = tmp_table->rootCol->next;
     while (tmp_col->next) {
-	if (strcmp(tmp_col->name, split_datatype[0]) == 0) {
-	    printf(ERROR);
-	    return 0;
-	}
-	tmp_col = tmp_col->next;
+		if (strcmp(tmp_col->name, split_datatype[0]) == 0) {
+		    printf(ERROR);
+		    return 0;
+		}
+		tmp_col = tmp_col->next;
     }
     if (strcmp(tmp_col->name, split_datatype[0]) == 0) {
-	printf(ERROR);
-	return 0;
+		printf(ERROR);
+		return 0;
     }
-    int itemCnt = tmp_col->itemCnt;
+    int itemCnt = 0;
+	item *tmp_item = tmp_col->rootItem->next;
+	while (tmp_item) {
+		++ itemCnt;
+		tmp_item = tmp_item->next;
+	}
+
     int i;
     item *rootItem = (item *) calloc (1, sizeof(item));
-    rootItem->type = None;
+ 	rootItem->type = None;
+
 
     TYPE type = None;
     if (*cnt == 2) {
-	if (strcmp(split_datatype[1], "int") == 0) {
-	    type = Int;
-	}
-	else if (strcmp(split_datatype[1], "float") == 0) {
-	    type = Float;
-	}
-	else if (strcmp(split_datatype[1], "text") == 0) {
-	    type = Text;
-	}
-	else {
-	    printf(ERROR);
-	    return 0;
-	}
+		if (strcmp(split_datatype[1], "int") == 0) {
+		    type = Int;
+		}
+		else if (strcmp(split_datatype[1], "float") == 0) {
+		    type = Float;
+		}
+		else if (strcmp(split_datatype[1], "text") == 0) {
+		    type = Text;
+		}
+		else {
+		    printf(ERROR);
+		    return 0;
+		}
     }
 
     for (i = 0; i < itemCnt; ++ i) {
-	item *tmp_item = (item *) calloc (1, sizeof(item));
-	tmp_item->type = type;
-	tmp_item->next = rootItem;
-	rootItem = tmp_item;
+		item *tmp_item = (item *) calloc (1, sizeof(item));
+		tmp_item->type = type;
+		tmp_item->next = rootItem->next;
+		rootItem->next = tmp_item;
     }
     col *newCol = (col *) calloc (1, sizeof(col));
     newCol->name  = (char *) malloc (sizeof(char) * (strlen(split_datatype[0]) + 1));
     strcpy(newCol->name, split_datatype[0]);
     newCol->type = type;
     newCol->rootItem = rootItem;
-    tmp_col->next = newCol;
+	
+	newCol->next = tmp_table->rootCol->next;
+	tmp_table->rootCol->next = newCol;
     (tmp_table->colCnt) ++ ;
+
+	showColName(nowUsedDatabase->rootTable->next->rootCol->next);
+	printf("\b \n");
 
     return 0;
 }
