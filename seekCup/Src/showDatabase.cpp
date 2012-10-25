@@ -24,7 +24,7 @@ int showDatabase()
 	return 0;
 }
 
-int showTable(char *name)
+int showTableName(char *name)
 {
 	table *tmp_table;
 	if (name == NULL) {
@@ -89,6 +89,9 @@ int initTestDatabase()
 	col *col_2 = (col *) calloc (1, sizeof(col));
 	col *col_3 = (col *) calloc (1, sizeof(col));
 
+	col_1->rootItem = (item *) calloc (1, sizeof(item));
+	col_2->rootItem = (item *) calloc (1, sizeof(item));
+	col_3->rootItem = (item *) calloc (1, sizeof(item));
 
 
 	int i;
@@ -96,9 +99,10 @@ int initTestDatabase()
 	for (i = 0; i < 5; ++ i) {
 		item *tmp_item = (item *) calloc (1, sizeof(item));
 		tmp_item->res = (char *) calloc (50, sizeof(char));
+		tmp_item->type = Text;
 		strcpy(tmp_item->res, text[i]);
-		tmp_item->next = col_1->rootItem;
-		col_1->rootItem = tmp_item;
+		tmp_item->next = col_1->rootItem->next;
+		col_1->rootItem->next = tmp_item;
 	}
 	col_1->name = (char *) calloc (50, sizeof(char));
 	strcpy(col_1->name, "col_1");
@@ -108,9 +112,10 @@ int initTestDatabase()
 	for (i = 0; i < 5; ++ i) {
 		item *tmp_item = (item*) calloc (1, sizeof(item));
 		tmp_item->res = (char *) calloc (50, sizeof(char));
+		tmp_item->type = Text;
 		strcpy(tmp_item->res, text[i]);
-		tmp_item->next = col_2->rootItem;
-		col_2->rootItem = tmp_item;
+		tmp_item->next = col_2->rootItem->next;
+		col_2->rootItem->next = tmp_item;
 	}
 	col_2->name = (char *) calloc (50, sizeof(char));
 	strcpy(col_2->name, "col_2");
@@ -120,42 +125,44 @@ int initTestDatabase()
 	for (i = 0; i < 5; ++ i) {
 		item *tmp_item = (item *)calloc (1, sizeof(item));
 		tmp_item->res = (char *) calloc (50, sizeof(char));
+		tmp_item->type = Text;
 		strcpy(tmp_item->res, text[i]);
-		tmp_item->next = col_3->rootItem;
-		col_3->rootItem = tmp_item;
+		tmp_item->next = col_3->rootItem->next;
+		col_3->rootItem->next = tmp_item;
 	}
 	col_3->name = (char *) calloc (50, sizeof(char));
 	strcpy(col_3->name, "col_3");
+
+	table_1->rootCol = (col *) calloc (1, sizeof(col));
+
 	
-	col_1->next = table_1->rootCol;
-	table_1->rootCol = col_1;
-	col_2->next = table_1->rootCol;
-	table_1->rootCol = col_2;
-	col_3->next = table_1->rootCol;
-	table_1->rootCol = col_3;
+	col_1->next = table_1->rootCol->next;
+	table_1->rootCol->next = col_1;
+	col_2->next = table_1->rootCol->next;
+	table_1->rootCol->next = col_2;
+	col_3->next = table_1->rootCol->next;
+	table_1->rootCol->next = col_3;
 
 	testDatabase = (database *) calloc (1, sizeof(database));
-	testDatabase->rootTable = table_1;
+	testDatabase->rootTable = (table *) calloc (1, sizeof(table));
+	testDatabase->rootTable->next = table_1;
 	nowUsedDatabase = (database *) calloc (1, sizeof(database));
 	nowUsedDatabase = testDatabase;
 	nowUsedDatabase->name = (char *) calloc (50, sizeof(char));
 	strcpy(nowUsedDatabase->name, "testDatabase");
 
-	showTestDatabase();
-
-	
 	return 0;
 }
 
 int showTestDatabase()
 {
-	table *tmp_table = nowUsedDatabase->rootTable;
+	table *tmp_table = nowUsedDatabase->rootTable->next;
 	while (tmp_table != NULL) {
 		printf("%s:\n", tmp_table->name);
-		col *tmp_col = tmp_table->rootCol;
+		col *tmp_col = tmp_table->rootCol->next;
 		while (tmp_col != NULL) {
 			printf("%s: ", tmp_col->name);
-			item *tmp_item = tmp_col->rootItem;
+			item *tmp_item = tmp_col->rootItem->next;
 			while (tmp_item != NULL) {
 				printf("%s ", tmp_item->res);
 				tmp_item = tmp_item->next;

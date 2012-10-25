@@ -7,6 +7,13 @@ database * createDatabase(char * name)
 {
   database * db = (database *)calloc(1, sizeof(database));
   
+  item *rootItem = (item *) calloc (1, sizeof(item));
+  col *rootCol = (col *) calloc (1, sizeof(col));
+  rootCol->rootItem = rootItem;
+  table *rootTable = (table *) calloc (1, sizeof(table));
+  rootTable->rootCol = rootCol;
+
+  
   if(db == NULL){
     printf("memory error\n");
     return NULL;
@@ -19,6 +26,7 @@ database * createDatabase(char * name)
   }
 
   db->name = (char *)malloc(sizeof(char) * (strlen(name) + 1));
+  db->rootTable = rootTable;
   strcpy(db->name, name);
   db->next = allDatabaseRoot;
   allDatabaseRoot = db;

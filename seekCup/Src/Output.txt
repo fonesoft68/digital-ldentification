@@ -6,8 +6,7 @@ $use: use seedcup$
 now used seedcup
  create table person (  id int,  name text,  grade int  )
 $create table: create table person (  Id INT,  Name TEXT,  grade INT  )$
-person
- id int,  name text,  grade int  
+id,name,grade, 
   alter table person add address
 $alter table:  alter table person add address$
  alter table person column address text

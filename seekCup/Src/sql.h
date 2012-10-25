@@ -92,13 +92,12 @@ int* findString(char *query, char *module, int *go);
 int toLowCase(char *str);
 int parseCommand(char * command);
 char ** split(char *str, char *split, int *cnt);
-int showTable(char *name);
 int showDatabase();
 
 int altertable(const char *);
 
 int showTestDatabase();
-int showTable(char *databaseName);
+int showTable(table *);
 int showCol(char *tableName);
 int nameCheck(char *name);
 int freeItem(item *i);
@@ -106,3 +105,6 @@ int freeCol(col *c);
 int freeTable(table *t);
 int freeDatabase(database *d);
 int alter_parse(char *);
+int showTableName(char *);
+int showItem(item *);
+int showColName(col *);

@@ -55,6 +55,13 @@ int main(int argc, char *argv[])
 			initTestDatabase();
 			showDatabase();
 		}
+		if (strcmp(argv[1], "showTable") == 0) {
+			initTestDatabase();
+	
+			showTestDatabase();
+			showItem(nowUsedDatabase->rootTable->next->rootCol->next->rootItem->next);
+			printf("\b ");
+		}
 		
 	}
 
