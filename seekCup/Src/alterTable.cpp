@@ -4,7 +4,7 @@
 #include "sql.h"
 #include "test.h"
 
-int alterAdd(char *table_name, char *datatpye)
+int alterAdd(char *table_name, char *datatype)
 {
     if (!nowUsedDatabase) {
 	printf(ERROR);
@@ -23,7 +23,7 @@ int alterAdd(char *table_name, char *datatpye)
 	return 0;
     }
     int *cnt = (int *) malloc (sizeof(int));
-    char **split_datatype = split(datatpye, " ", cnt);
+    char **split_datatype = split(datatype, " ", cnt);
     if(*cnt != 1 && *cnt != 2) {
 	printf(ERROR);
 	return 0;
@@ -51,7 +51,7 @@ int alterAdd(char *table_name, char *datatpye)
 	if (strcmp(split_datatype[1], "int") == 0) {
 	    type = Int;
 	}
-	else if (strcmp(split_datatype[1], "float" == 0)) {
+	else if (strcmp(split_datatype[1], "float") == 0) {
 	    type = Float;
 	}
 	else if (strcmp(split_datatype[1], "text") == 0) {
@@ -220,10 +220,12 @@ int alterDel(char * table_name, char * column_name)
     col * tmp_col = tmp_table->rootCol;
     if (strcmp(column_name, tmp_table->rootCol->name) == 0) {
 	tmp_table->rootCol = tmp_table->rootCol->next;
+	-- (tmp_table->colCnt);
     }
     while (tmp_col->next) {
 	if (strcmp(column_name, tmp_col->next->name) == 0) {
 	    tmp_col->next = tmp_col->next->next;
+	    -- (tmp_table->colCnt);
 
 	    return 0;
 	}
