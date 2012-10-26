@@ -232,9 +232,47 @@ int resCmp(TYPE type, char *a, char *b)
 	}
 }
 
-table *tablecpy(table *origin)
+item *itemcpy(item *i)
 {
-	//able *table_cpy = (table *)
+	if (!i) {
+		return NULL;
+	}
+	item *item_cpy = (item *) calloc (1, sizeof(item));
+	item_cpy->res = (char *) calloc (256, sizeof(char));
+	strcpy(item_cpy->res, i->res);
+	item_cpy->type = i->type;
+	if (i->next) {
+		item_cpy->next = itemcpy(i->next);
+	}
+	return item_cpy;
+}
+
+col *colcpy(col *c)
+{
+	col *col_cpy = (col *) calloc (1, sizeof(col));
+	col_cpy->rootItem = itemcpy(c->rootItem);
+	col_cpy->type = c->type;
+	col_cpy->name = (char *) calloc (256, sizeof(col));
+	strcpy(col_cpy->name, c->name);
+	if (c->next) {
+		col_cpy->next = colcpy(c->next);
+	}
+	return col_cpy;
+}
+
+table *tablecpy(table *t)
+{
+	if (!t) {
+		return NULL;
+	}
+	table *table_cpy = (table *) calloc (1, sizeof(table));
+	table_cpy->name = (char *) calloc (256, sizeof(char));
+	strcpy(table_cpy->name, t->name);
+	table_cpy->rootCol = colcpy(t->rootCol);
+	if (t->next) {
+		table_cpy = tablecpy(t->next);
+	}
+	return table_cpy;
 }
 
 table *where(table *query_table, char *condition)
@@ -268,23 +306,35 @@ table *where(table *query_table, char *condition)
 				index[index[0]] = cnt;
 			}
 		}
-		int i;
-		table *result_table;
-		//result_table->rootCol = (col) calloc (1, sizeof(col));
-		col *tmp_col_cpy = query_table->rootCol->next;
-		while (tmp_col_cpy) {
-
+		int i,j;
+		int colCnt = 0;
+		tmp_col = query_table->rootCol->next;
+		while (tmp_col) {
+			++ colCnt;
+			tmp_col = tmp_col->next;
 		}
-		for (i = index[0]; i > 0; -- i) {
-			col *tmp_col = query_table->rootCol->next;
-			while (tmp_col)  {
+		result_table->rootCol = (col *) calloc (1, sizeof(col));
+		int x;
+		for (i = colCnt; i > 0; -- i) {
+			col *tmp_col = query_table->rootCol;
+			item *newItem = (item *) calloc (1, sizeof(item));
+			newItem->res = (char *) calloc (256, sizeof(char));
+			col *newCol = (col*) calloc (1, sizeof(col));
+			newCol->rootItem = newItem;
+			for (x = 0; x < i; ++ x) {
+				tmp_col = tmp_col->next;
+			}
+			for (j = index[0]; j > 0; -- j) {
 				item *tmp_item = tmp_col->rootItem;
-				int j;
-				for (j = 0; j < index[i + 1]; ++ j) {
+				for (x = 0; x < index[j]; ++ x) {
 					tmp_item = tmp_item->next;
 				}
-
+				item *cpy = itemcpy(tmp_item);
+				cpy->next = newCol->rootItem->next;
+				newCol->rootItem->next = cpy;
 			}
+			newCol->next = result_table->rootCol->next;
+			result_table->rootCol->next = newCol;
 		}
 	}
 	free(split_c);

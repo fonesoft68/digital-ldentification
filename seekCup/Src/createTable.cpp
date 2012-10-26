@@ -18,7 +18,16 @@ table * createTable(char * str)
 	  return 0;
   }
   
+<<<<<<< HEAD
+  if (!nameCheck(str)) {
+	  printf(ERROR);
+	  return 0;
+  }
+  
+  table *tmp_table = nowUsedDatabase->rootTable->next;
+=======
   table *tmp_table = allDatabaseRoot->rootTable->next;
+>>>>>>> 788c3b3e5f2e10deb1362e06a99ac9c0c952efc0
   while (tmp_table) {
 	  if (strcmp(tmp_table->name, str) == 0) {
 		  printf(ERROR);
@@ -27,10 +36,6 @@ table * createTable(char * str)
 	  tmp_table = tmp_table->next;
   }
 
-  if (!nameCheck(str)) {
-	  printf(ERROR);
-	  return 0;
-  }
 
   int i, j;
   int * p = (int *)malloc(sizeof(int));
@@ -40,6 +45,7 @@ table * createTable(char * str)
    char ** ch = split(str2, "," , p);
   for (i = 0;i < *p;++i) {
 	item *rootItem = (item *) calloc (1, sizeof(item));
+	rootItem->res = (char *) calloc (256, sizeof(item));
     TYPE t;
     char s[256];
     col * newCol = (col *)calloc(1, sizeof(col));
