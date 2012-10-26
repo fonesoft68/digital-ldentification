@@ -6,8 +6,8 @@ create table person
 	Name TEXT,
 	grade INT
  );
-
 alter table person add address;
+alter table person drop column name;
 alter table person column address text;
 insert into person(Id, Name,Address)values(1,'YaoQ', 'Qiming702');
 updata person set Grade=90 where Name=='YaoQ';
