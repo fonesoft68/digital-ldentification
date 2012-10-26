@@ -108,7 +108,7 @@ int parseCommand(char * command)
 				}
 				newTable->next = nowUsedDatabase->rootTable->next;
 				nowUsedDatabase->rootTable->next = newTable;
-				showColName(newTable->rootCol);
+				showColName(newTable->rootCol->next);
 				printf("\b \n");
 			}
 			else {

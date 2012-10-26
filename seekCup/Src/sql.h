@@ -103,7 +103,7 @@ int altertable(const char *);
 
 
 int showTestDatabase();
-int showTable(table *);
+int showTableContext(table *);
 int showCol(char *tableName);
 int nameCheck(char *name);
 int freeItem(item *i);
@@ -114,3 +114,9 @@ int alter_parse(char *);
 int showTableName(char *);
 int showItem(item *);
 int showColName(col *);
+char **showDatabase(int *cnt);
+char **showTable(database *, int *);
+char **showTableCol(char *, int *);
+char **showDatabaseTable(char *, int *);
+int strCmp(char *, char *);
+int outputForOrder(char **, int *, int);

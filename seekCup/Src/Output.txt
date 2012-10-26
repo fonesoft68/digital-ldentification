@@ -1,5 +1,5 @@
 create database seedcup
-$create database:create database seedcup$
+$create database:create database seedcupo;¢;Qü$
 seedcup
  use seedcup
 $use: use seedcup$
@@ -9,6 +9,7 @@ $create table: create table person (  Id INT,  Name TEXT,  grade INT  )$
 id,name,grade, 
   alter table person add address
 $alter table:  alter table person add address$
+id,name,grade,address, 
  alter table person column address text
 $alter table: alter table person column address text$
  insert into person(id, name,address)values(1,'yaoq', 'qiming702')

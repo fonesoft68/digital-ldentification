@@ -19,37 +19,65 @@ int show_parse(char *command)
 	int *cnt = (int *) calloc (1, sizeof(int));
 	char **split_command = split(command, " ", cnt);
 	if (strcmp(split_command[0], SHOW) == 0 && strcmp(split_command[1], DATABASE) == 0) {
+		int *c = (int *) calloc (1, sizeof(int));
+		char **str = showDatabase(c);
 		if (*cnt == 2) {
-			showDatabase();
+			outputForOrder(str, c, 0);
+		}
+		else if (*cnt == 4 && strcmp(split_command[2], ORDER) == 0 && strcmp(split_command[3], BY) == 0) {
+			if (strcmp(split_command[4], DESC) == 0) {
+				outputForOrder(str, c, 1);
+			}
+			else if (strcmp(split_command[4], INCR)) {
+				outputForOrder(str, c, -1);
+			}
 		}
 	}
 	else if (strcmp(split_command[0], SHOW) == 0 && strcmp(split_command[1], TABLE) == 0) {
+		int *c = (int *) calloc (1, sizeof(int));
+		char **str = showTable(nowUsedDatabase, c);
 		if (*cnt == 2) {
-			showTable(NULL);
+			outputForOrder(str, c, 0);
+		}
+		else if (*cnt == 4 && strcmp(split_command[2], ORDER) == 0 && strcmp(split_command[3], BY) == 0) {
+			if (strcmp(split_command[4], DESC) == 0) {
+				outputForOrder(str, c, 1);
+			}
+			else if (strcmp(split_command[4], INCR)) {
+				outputForOrder(str, c, -1);
+			}
 		}
 	}
 	else if (strcmp(split_command[0], SHOW) == 0 && strcmp(split_command[2], TABLE) == 0) {
 		if (nameCheck(split_command[1])) {
+			int *c = (int *) calloc (1, sizeof(int));
+			char **str = showDatabaseTable(split_command[1], c);
 			if (*cnt == 3) {
-				showTableName(split_command[1]);
+				outputForOrder(str, c, 0);
 			}
 			else if (*cnt == 6 && strcmp(split_command[3], ORDER) == 0 && strcmp(split_command[4], BY) == 0) {
 				if (strcmp(split_command[5], DESC) == 0) {
+					outputForOrder(str, c, 1);
 				}
 				else if (strcmp(split_command[5], INCR) == 0) {
+					outputForOrder(str, c, -1);
 				}
 			}
 		}
 	}
 	else if (strcmp(split_command[0], SHOW) == 0 && strcmp(split_command[2], COLUMN) == 0) {
 		if (nameCheck(split_command[1])) {
+			int *c = (int *) calloc (1, sizeof(int));
+			char **str = showTableCol(split_command[1], c);
 			if (*cnt == 3) {
-				showCol(split_command[1]);
+				outputForOrder(str, c, 0);
 			}
 			else if (*cnt == 6 && strcmp(split_command[3], ORDER) == 0 && strcmp(split_command[4], BY) == 0) {
 				if (strcmp(split_command[5], DESC) == 0) {
+					outputForOrder(str, c, 1);
 				}
 				else if (strcmp(split_command[5], INCR) == 0) {
+					outputForOrder(str, c, -1);
 				}
 			}
 		}
@@ -98,7 +126,7 @@ int showCol(char *n)
 	return 0;
 }
 
-int showTable(table *t)
+int showTableContext(table *t)
 {
 	int rowCnt = 0;
 	int colCnt = 0;
@@ -136,6 +164,9 @@ int showTable(table *t)
 
 int showColName(col *c)
 {
+	if (!c) {
+		return 0;
+	}
 	if (c->next) {
 		showColName(c->next);
 	}
@@ -180,4 +211,134 @@ int nameCheck(char *name)
 	}
 
 	return 1;
+}
+
+
+char **showDatabase(int *cnt)
+{
+	if (allDatabaseRoot == NULL) {
+		printf(ERROR);
+		return 0;
+	}
+	char **result;
+	*cnt = 0;
+	database *tmp_database = allDatabaseRoot;
+	while (tmp_database) {
+		++ (*cnt);
+		result = (char **) realloc (result, sizeof(char *) * (*cnt));
+		result[*cnt - 1] = (char *) malloc (sizeof(char) * strlen(tmp_database->name));
+		strcpy(result[*cnt - 1], tmp_database->name);
+	}
+	return result;
+}
+
+char **showTable(database *db, int *cnt)
+{
+	if (db == NULL) {
+		printf(ERROR);
+		return 0;
+	}
+	char **result;
+	*cnt = 0;
+	table *tmp_table = db->rootTable->next;
+	while (tmp_table) {
+		++ (*cnt);
+		result = (char **) realloc (result, sizeof(char *) * (*cnt));
+		result[*cnt - 1] = (char *) malloc (sizeof(char) * strlen(tmp_table->name));
+		strcpy(result[*cnt - 1], tmp_table->name);
+	}
+	return result;
+}
+
+char **showDatabaseTable(char *name, int *cnt)
+{
+	if (!allDatabaseRoot) {
+		printf(ERROR);
+		return 0;
+	}
+	database *tmp_database = allDatabaseRoot;
+	while (tmp_database) {
+		if (strcmp(tmp_database->name, name) == 0) {
+			break;
+		}
+		tmp_database = tmp_database->next;
+	}
+	if (!tmp_database) {
+		return 0;
+	}
+	return showTable(tmp_database, cnt);
+}
+
+char **showTableCol(char *name, int *cnt)
+{
+	if (!nowUsedDatabase) {
+		printf(ERROR);
+		return 0;
+	}
+	table *tmp_table = nowUsedDatabase->rootTable->next;
+	while (tmp_table) {
+		if (strcmp(tmp_table->name, name) == 0) {
+			break;
+		}
+		tmp_table = tmp_table->next;
+	}
+	if (!tmp_table){
+		printf(ERROR);
+		return 0;
+	}
+	char **result;
+	col *tmp_col = tmp_table->rootCol->next;
+	while(tmp_col) {
+		++ (*cnt);
+		result = (char **) realloc (result, sizeof(char) * (*cnt));
+		result[*cnt - 1] = (char *) malloc (sizeof(char) * strlen(tmp_col->name));
+		strcpy(result[*cnt - 1], tmp_col->name);
+	}
+	return result;
+}
+
+int outputForOrder(char ** str, int *cnt, int order)
+{
+	int i;
+	int j;
+	if (order == 0) {
+		for (i = *cnt - 1; i >= 0; -- i) {
+			printf("%s,", str[i]);
+		}
+		printf("\b\n");
+		return 0;
+	}
+	if (order == 1) {
+		int max = -1;
+		for (i = 0; i < *cnt; ++ i) {
+			max = -1;
+			for (j = 0; j < *cnt; ++ j) {
+				if (str[j] && (max == -1 || strCmp(str[j], str[max]) >= 0)) {
+					max = j;
+				}
+				printf("%s,", str[max]);
+				free(str[max]);
+				str[max] = NULL;
+			}
+		}
+		printf("\b\n");
+		return 0;
+	}
+	if (order == -1) {
+		int max = -1;
+		for (i = 0; i < *cnt; ++ i) {
+			max = -1;
+			for (j = 0; j < *cnt; ++ j) {
+				if (str[j] && (max == -1 || strCmp(str[j], str[max]) <= 0)) {
+					max = j;
+				}
+				printf("%s,", str[max]);
+				free(str[max]);
+				str[max] = NULL;
+			}
+		}
+		printf("\b\n");
+		return 0;
+	}
+	return 0;
 }
