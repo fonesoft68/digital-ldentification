@@ -210,8 +210,11 @@ int resCmp(TYPE type, char *a, char *b)
 	if (type == Float) {
 		float a_i;
 		float b_i;
+<<<<<<< HEAD
 		sscanf(a, "%f", &a_i);
 		sscanf(b, "%s", &b_i);
+=======
+>>>>>>> efcb3a6a8ea965a9ab383ec9e10a35e4ea7d4eb7
 		sscanf(a, "%f", a_i);
 		sscanf(b, "%f", b_i);
 		return a_i - b_i;
@@ -276,6 +279,8 @@ table *tablecpy(table *t)
 	}
 	return table_cpy;
 }
+
+
 
 table *where(table *query_table, char *condition)
 {
