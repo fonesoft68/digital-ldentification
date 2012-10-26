@@ -69,11 +69,38 @@ int * findString(char *query, char *module, int *go)
 int toLowCase(char *str)
 {
 	int i;
+	char *str_cpy = (char *) calloc (strlen(str) + 1, sizeof(char));
+	int cnt = -1;
 	for (i = 0; i < strlen(str); ++ i) {
 		if (str[i] <= 'Z' && str[i] >= 'A') {
-			str[i] = (char) ('a' + str[i] - 'A');
+			str_cpy[++cnt] = (char) ('a' + str[i] - 'A');
+		}
+		else if (str[i] == ' ') {
+			str_cpy[++cnt] = ' '; 
+			while (i + 1 < strlen(str) && str[i + 1] == ' ') {
+				++ i;
+			}
+		}
+		else if (str[i] == '\'') {
+			str_cpy[++cnt] = '\'';
+			++ i;
+			while (i < strlen(str) && str[i] != '\'') {
+				str_cpy[++cnt] = str[i];
+				++ i;
+			}
+			if (i >= strlen(str)) {
+				printf("************");
+				printf(ERROR);
+				return 0;
+			}
+			str_cpy[++cnt] = '\'';
+		}
+		else{
+			str_cpy[++cnt] = str[i];
 		}
 	}
+	str_cpy[++cnt] = '\0';
+	strcpy(str, str_cpy);
 
 	return 0;
 }
@@ -103,14 +130,6 @@ int strCmp(char *str_1, char *str_2)
 		return 1;
 	}
 }
-
-#define EQUAL "=="
-#define NOT_EQUAL "~="
-#define GREATE_THAN ">"
-#define LESS_THAN "<"
-#define GREATE_THAN_EQUAL ">="
-#define LESS_THAN_EQUEL "<="
-#define BETWEEN "BETWEEN"
 
 int isNum(char *str)
 {
@@ -275,99 +294,72 @@ table *tablecpy(table *t)
 	return table_cpy;
 }
 
-table *where(table *query_table, char *condition)
+#define EQUAL "=="
+#define NOT_EQUAL "~="
+#define GREATE_THAN ">"
+#define LESS_THAN "<"
+#define GREATE_THAN_EQUAL ">="
+#define LESS_THAN_EQUEL "<="
+#define BETWEEN "BETWEEN"
+
+int isSelect(TYPE type, char *res , char *condition)
 {
-	table *result_table;
 	char **split_c;
 	int *cnt = (int *) calloc (1, sizeof(int));
 
 	split_c = split(condition, EQUAL, cnt);
 	if (*cnt == 2) {
-		col *tmp_col = query_table->rootCol->next;
-		while (tmp_col) {
-			if (strcmp(tmp_col->name, split_c[0]) == 0) {
-				break;
-			}
-			tmp_col = tmp_col->next;
+		if(resCmp(type, res, split_c[1]) == 0) {
+			return 1;
 		}
-		if (!tmp_col) {
-			printf(ERROR);
-			return 0;
-		}
-		int *index = (int *) calloc (1, sizeof(int));
-		index[0] = 0;
-		item *tmp_item = tmp_col->rootItem->next;
-		int cnt = 0;
-		while (tmp_item) {
-			++ cnt;
-			if (resCmp(tmp_item->type, tmp_item->res, split_c[1]) == 0) {
-				++ index[0];
-				index = (int *) realloc (index, (index[0] + 1) * sizeof(int));
-				index[index[0]] = cnt;
-			}
-		}
-		int i,j;
-		int colCnt = 0;
-		tmp_col = query_table->rootCol->next;
-		while (tmp_col) {
-			++ colCnt;
-			tmp_col = tmp_col->next;
-		}
-		result_table->rootCol = (col *) calloc (1, sizeof(col));
-		int x;
-		for (i = colCnt; i > 0; -- i) {
-			col *tmp_col = query_table->rootCol;
-			item *newItem = (item *) calloc (1, sizeof(item));
-			newItem->res = (char *) calloc (256, sizeof(char));
-			col *newCol = (col*) calloc (1, sizeof(col));
-			newCol->rootItem = newItem;
-			for (x = 0; x < i; ++ x) {
-				tmp_col = tmp_col->next;
-			}
-			for (j = index[0]; j > 0; -- j) {
-				item *tmp_item = tmp_col->rootItem;
-				for (x = 0; x < index[j]; ++ x) {
-					tmp_item = tmp_item->next;
-				}
-				item *cpy = itemcpy(tmp_item);
-				cpy->next = newCol->rootItem->next;
-				newCol->rootItem->next = cpy;
-			}
-			newCol->next = result_table->rootCol->next;
-			result_table->rootCol->next = newCol;
-		}
+		return 0;
 	}
 	free(split_c);
 
 	split_c = split(condition, NOT_EQUAL, cnt);
 	if (*cnt == 2) {
-
+		if (resCmp(type, res, split_c[1]) != 0) {
+			return 1;
+		}
+		return 0;
 	}
 	free(split_c);
 	
 
 	split_c = split(condition, GREATE_THAN, cnt);
 	if (*cnt == 2) {
-
+		if (resCmp(type, res, split_c[1]) > 0) {
+			return 1;
+		}
+		return 0;
 	}
 	free(split_c);
 	
 
 	split_c = split(condition, LESS_THAN, cnt);
 	if (*cnt == 2) {
-
+		if (resCmp(type, res, split_c[1]) < 0) {
+			return 1;
+		}
+		return 0;
 	}
 	free(split_c);
 
 	split_c = split(condition, GREATE_THAN_EQUAL, cnt);
 	if (*cnt == 2) {
-
+		if (resCmp(type, res, split_c[1]) >= 0) {
+			return 1;
+		}
+		return 0;
 	}
 	free(split_c);
 
 	split_c = split(condition, LESS_THAN_EQUEL, cnt);
 	if (*cnt == 2) {
-
+		if (resCmp(type, res, split_c[1]) <= 0) {
+			return 1;
+		}
+		return 0;
 	}
 	free(split_c);
 	
@@ -376,7 +368,67 @@ table *where(table *query_table, char *condition)
 
 	}
 	free(split_c);
-	
+
+}
+
+table *where(table *query_table, char *condition)
+{
+	int *c = (int *) calloc (1, sizeof(int));
+	char **split_c = split(condition, " ", c);
+	table *result_table;
+	col *tmp_col = query_table->rootCol->next;
+	while (tmp_col) {
+		if (strcmp(tmp_col->name, split_c[0]) == 0) {
+			break;
+		}
+		tmp_col = tmp_col->next;
+	}
+	if (!tmp_col) {
+		printf(ERROR);
+		return 0;
+	}
+	int *index = (int *) calloc (1, sizeof(int));
+	index[0] = 0;
+	item *tmp_item = tmp_col->rootItem->next;
+	int cnt = 0;
+	while (tmp_item) {
+		++ cnt;
+		if (resCmp(tmp_item->type, tmp_item->res, condition) == 1) {
+			++ index[0];
+			index = (int *) realloc (index, (index[0] + 1) * sizeof(int));
+			index[index[0]] = cnt;
+		}
+	}
+	int i,j;
+	int colCnt = 0;
+	tmp_col = query_table->rootCol->next;
+	while (tmp_col) {
+		++ colCnt;
+		tmp_col = tmp_col->next;
+	}
+	result_table->rootCol = (col *) calloc (1, sizeof(col));
+	int x;
+	for (i = colCnt; i > 0; -- i) {
+		col *tmp_col = query_table->rootCol;
+		item *newItem = (item *) calloc (1, sizeof(item));
+		newItem->res = (char *) calloc (256, sizeof(char));
+		col *newCol = (col*) calloc (1, sizeof(col));
+		newCol->rootItem = newItem;
+		for (x = 0; x < i; ++ x) {
+			tmp_col = tmp_col->next;
+		}
+		for (j = index[0]; j > 0; -- j) {
+			item *tmp_item = tmp_col->rootItem;
+			for (x = 0; x < index[j]; ++ x) {
+				tmp_item = tmp_item->next;
+			}
+			item *cpy = itemcpy(tmp_item);
+			cpy->next = newCol->rootItem->next;
+			newCol->rootItem->next = cpy;
+		}
+		newCol->next = result_table->rootCol->next;
+		result_table->rootCol->next = newCol;
+	}
 	return result_table;
 }
 

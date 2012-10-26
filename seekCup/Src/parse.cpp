@@ -22,8 +22,6 @@
 int parseCommand(char * command)
 {
 
-	char *command_cpy = (char *) malloc (sizeof(char) * strlen(command) + sizeof(char));
-	memcpy(command_cpy, command, strlen(command));
 	toLowCase(command);
 #ifdef DEBUG
 	printf("%s\n", command);
@@ -69,7 +67,7 @@ int parseCommand(char * command)
 
 	if (result_create_database[0] == 1 && result_create_database[1] == begin_black) {
 #ifdef DEBUG
-		printf("$create database:%s$\n", command_cpy);
+		printf("$create database:%s$\n", command);
 #endif
 		split_command = split(command, CREATE_DATABASE, cnt);
 		if  (*cnt == 1) {
@@ -91,7 +89,7 @@ int parseCommand(char * command)
 	}
 	if (result_create_table[0] == 1 && result_create_table[1] == begin_black) {
 #ifdef DEBUG
-		printf("$create table:%s$\n", command_cpy);
+		printf("$create table:%s$\n", command);
 #endif
 		split_command = split(command, CREATE_TABLE, cnt);
 		if (*cnt == 1) {
@@ -124,16 +122,16 @@ int parseCommand(char * command)
 	}
 	if (result_alter_table[0] == 1 && result_alter_table[1] == begin_black) {
 #ifdef DEBUG
-		printf("$alter table:%s$\n", command_cpy);
+		printf("$alter table:%s$\n", command);
 #endif
 		alter_parse(command);
 	}
 	if (result_truncate_table[0] == 1) {
-		printf("$truncate table:%s$\n", command_cpy);
+		printf("$truncate table:%s$\n", command);
 	}
 	if (result_use[0] == 1 && result_use[1] == begin_black) {
 #ifdef DEBUG
-		printf("$use:%s$\n", command_cpy);
+		printf("$use:%s$\n", command);
 #endif
 		split_command = split(command, USE, cnt);
 		if (*cnt == 1) {
@@ -152,11 +150,11 @@ int parseCommand(char * command)
 		return 0;
 	}
 	if (result_drop[0] == 1) {
-		printf("$drop:%s$\n", command_cpy);
+		printf("$drop:%s$\n", command);
 	}
 	if (result_rename_table[0] == 1 && result_rename_table[1] == begin_black) {
 #ifdef DEBUG
-		printf("$rename table:%s$\n", command_cpy);
+		printf("$rename table:%s$\n", command);
 #endif
 		char **split_command = split(command, RENAME_TABLE, cnt);
 		if (*cnt == 1) {
@@ -174,7 +172,7 @@ int parseCommand(char * command)
 	}
 	if (result_rename_database[0] == 1 && result_rename_database[1] == begin_black) {
 #ifdef DEBUG
-		printf("$rename database:%s$\n", command_cpy);
+		printf("$rename database:%s$\n", command);
 #endif
 		char **split_command = split(command, RENAME_DATABASE, cnt);
 		if (*cnt == 1) {
@@ -194,16 +192,19 @@ int parseCommand(char * command)
 		}
 	}
 	if (result_select[0] == 1) {
-		printf("$select:%s$\n", command_cpy);
+		printf("$select:%s$\n", command);
 	}
 	if (result_updata[0] == 1) {
-		printf("$updata:%s$\n", command_cpy);
+		printf("$updata:%s$\n", command);
 	}
 	if (result_delete[0] == 1) {
-		printf("$delete:%s$\n", command_cpy);
+		printf("$delete:%s$\n", command);
 	}
 	if (result_insert_into[0] == 1) {
-		printf("$insert into:%s$\n", command_cpy);
+#ifdef DEBUG
+		printf("$insert into:%s$\n", command);
+#endif
+		insert(command);
 	}
 	if (result_show[0] == 1 && result_show[1] == begin_black) {
 #ifdef DEBUG

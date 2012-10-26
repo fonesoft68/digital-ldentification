@@ -1,46 +1,33 @@
 create database seedcup
 $create database:create database seedcup$
 seedcup
- create database seedcup
-$create database: create database seedcup$
-error
-seedcup
  use seedcup
 $use: use seedcup$
 now used seedcup
- create table person (  id int,  name text,  grade int  )
-$create table: create table person (  Id INT,  Name TEXT,  grade INT  )$
+ create table person ( id int, name text, grade int )
+$create table: create table person ( id int, name text, grade int )$
 grade,id,name, 
- rename database seedcup per
-$rename database: rename database seedcup per$
  alter table person add address
 $alter table: alter table person add address$
 id,name,grade,address, 
- alter table person drop column name
-$alter table: alter table person drop column name$
-id,grade,address, 
-$drop: alter table person drop column name$
- alter table person column address text
-$alter table: alter table person column address text$
-error
  show database
 $show: show database$
-per, 
+seedcup, 
  show table
 $show: show table$
 person, 
- show  person column
-$show: show  person column$
-id,grade,address, 
+ show person column
+$show: show person column$
+id,name,grade,address, 
  show person column order by desc
 $show: show person column order by desc$
-id,grade,address, 
- insert into person(id, name,address)values(1,'yaoq', 'qiming702')
-$insert into: insert into person(Id, Name,Address)values(1,'YaoQ', 'Qiming702')$
- updata person set grade=90 where name=='yaoq'
-$updata: updata person set Grade=90 where Name=='YaoQ'$
+name,id,grade,address, 
+ insert into person(id, name,address)values(1,'YaoQ', 'Qiming702')
+$insert into: insert into person(id, name,address)values(1,'YaoQ', 'Qiming702')$
+ updata person set grade=90 where name=='YaoQ'
+$updata: updata person set grade=90 where name=='YaoQ'$
  delete from person where id==-1
-$delete: delete from person where Id==-1$
+$delete: delete from person where id==-1$
  drop person
 $drop: drop person$
  drop seedcup

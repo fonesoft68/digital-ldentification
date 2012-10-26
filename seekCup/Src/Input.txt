@@ -1,5 +1,4 @@
 create database seedcup;
-create database seedcup;
 use seedcup;
 create table person
 (
@@ -8,8 +7,6 @@ create table person
 	grade INT
  );
 alter table person add address;
-alter table person drop column name;
-alter table person column address text;
 show database;
 show table;
 show  person column;
