@@ -108,8 +108,10 @@ int parseCommand(char * command)
 				}
 				newTable->next = nowUsedDatabase->rootTable->next;
 				nowUsedDatabase->rootTable->next = newTable;
-				showColName(newTable->rootCol->next);
-				printf("\b \n");
+				//showColName(newTable->rootCol->next);
+				int *c = (int *) calloc (1, sizeof(int));
+				char **str = showTableCol("person", c);
+				outputForOrder(str, c, -1);
 			}
 			else {
 				printf(ERROR);
@@ -170,8 +172,11 @@ int parseCommand(char * command)
 	if (result_insert_into[0] == 1) {
 		printf("$insert into:%s$\n", command_cpy);
 	}
-	if (result_show[0] == 1) {
+	if (result_show[0] == 1 && result_show[1] == begin_black) {
+#ifdef DEBUG
 		printf("$show:%s$\n", command);
+#endif
+		show_parse(command);
 	}
 
 	return 0;

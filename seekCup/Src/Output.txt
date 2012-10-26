@@ -1,17 +1,33 @@
 create database seedcup
 $create database:create database seedcup$
 seedcup
+ create database seedcup
+$create database: create database seedcup$
+error
+seedcup
  use seedcup
 $use: use seedcup$
 now used seedcup
  create table person (  id int,  name text,  grade int  )
 $create table: create table person (  Id INT,  Name TEXT,  grade INT  )$
-id,name,grade, 
-  alter table person add address
-$alter table:  alter table person add address$
+grade,id,name, 
+ alter table person add address
+$alter table: alter table person add address$
 id,name,grade,address, 
  alter table person column address text
 $alter table: alter table person column address text$
+ show database
+$show: show database$
+seedcup, 
+ show table
+$show: show table$
+person, 
+ show  person column
+$show: show  person column$
+id,name,grade,address, 
+ show person column order by desc
+$show: show person column order by desc$
+name,id,grade,address, 
  insert into person(id, name,address)values(1,'yaoq', 'qiming702')
 $insert into: insert into person(Id, Name,Address)values(1,'YaoQ', 'Qiming702')$
  updata person set grade=90 where name=='yaoq'

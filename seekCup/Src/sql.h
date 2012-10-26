@@ -42,7 +42,7 @@ extern int databaseCnt;
 database * createDatabase(char *);
 
 //创建表
-table * createTable(const char *);
+table * createTable(char *);
 
 //改变表的属性，删除，添加，修改
 int deleteCol(const char *);
@@ -114,3 +114,4 @@ char **showTableCol(char *, int *);
 char **showDatabaseTable(char *, int *);
 int strCmp(char *, char *);
 int outputForOrder(char **, int *, int);
+int show_parse(char *);

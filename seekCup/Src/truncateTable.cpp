@@ -13,23 +13,25 @@ int truncateTable(char *name)
 		printf(ERROR);
 		return 0;
 	}
-	tmp_table = nowUsedDatabase->rootTable;
+	tmp_table = nowUsedDatabase->rootTable->next;
 	if (tmp_table == NULL) {
-		printf("$\n");
+		printf(ERROR);
 		return 0;
 	}
 
-	while (tmp_table != NULL) {
+	while (tmp_table) {
 		if (strcmp(tmp_table->name, name) == 0) {
-			col *tmp_col = tmp_table->rootCol;
-			while (tmp_col != NULL) {
-				freeCol(tmp_col->next);
+			col *tmp_col = tmp_table->rootCol->next;
+			while (tmp_col) {
+				freeItem(tmp_col->rootItem->next);
+				tmp_col->rootItem = 0;
 				tmp_col = tmp_col->next;
 			}
+			return 0;
 		}
-		tmp_table = tmp_table->next;
 	}
 
+	printf(ERROR);
 	return 0;
 }
 

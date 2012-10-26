@@ -86,8 +86,11 @@ int alterAdd(char *table_name, char *datatype)
 	tmp_table->rootCol->next = newCol;
     (tmp_table->colCnt) ++ ;
 
-	showColName(nowUsedDatabase->rootTable->next->rootCol->next);
-	printf("\b \n");
+	//showColName(nowUsedDatabase->rootTable->next->rootCol->next);
+	//printf("\b \n");
+				int *c = (int *) calloc (1, sizeof(int));
+				char **str = showTableCol("person", c);
+				outputForOrder(str, c, 0);
 
     return 0;
 }

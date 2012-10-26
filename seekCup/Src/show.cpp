@@ -220,7 +220,7 @@ char **showDatabase(int *cnt)
 		printf(ERROR);
 		return 0;
 	}
-	char **result;
+	char **result = 0;
 	*cnt = 0;
 	database *tmp_database = allDatabaseRoot;
 	while (tmp_database) {
@@ -228,6 +228,7 @@ char **showDatabase(int *cnt)
 		result = (char **) realloc (result, sizeof(char *) * (*cnt));
 		result[*cnt - 1] = (char *) malloc (sizeof(char) * strlen(tmp_database->name));
 		strcpy(result[*cnt - 1], tmp_database->name);
+		tmp_database = tmp_database->next;
 	}
 	return result;
 }
@@ -238,7 +239,7 @@ char **showTable(database *db, int *cnt)
 		printf(ERROR);
 		return 0;
 	}
-	char **result;
+	char **result = 0;
 	*cnt = 0;
 	table *tmp_table = db->rootTable->next;
 	while (tmp_table) {
@@ -246,6 +247,7 @@ char **showTable(database *db, int *cnt)
 		result = (char **) realloc (result, sizeof(char *) * (*cnt));
 		result[*cnt - 1] = (char *) malloc (sizeof(char) * strlen(tmp_table->name));
 		strcpy(result[*cnt - 1], tmp_table->name);
+		tmp_table = tmp_table->next;
 	}
 	return result;
 }
@@ -286,13 +288,14 @@ char **showTableCol(char *name, int *cnt)
 		printf(ERROR);
 		return 0;
 	}
-	char **result;
+	char **result = 0;
 	col *tmp_col = tmp_table->rootCol->next;
 	while(tmp_col) {
 		++ (*cnt);
-		result = (char **) realloc (result, sizeof(char) * (*cnt));
+		result = (char **) realloc (result, sizeof(char*) * (*cnt));
 		result[*cnt - 1] = (char *) malloc (sizeof(char) * strlen(tmp_col->name));
 		strcpy(result[*cnt - 1], tmp_col->name);
+		tmp_col = tmp_col->next;
 	}
 	return result;
 }
@@ -305,7 +308,7 @@ int outputForOrder(char ** str, int *cnt, int order)
 		for (i = *cnt - 1; i >= 0; -- i) {
 			printf("%s,", str[i]);
 		}
-		printf("\b\n");
+		printf("\b \n");
 		return 0;
 	}
 	if (order == 1) {
@@ -316,12 +319,12 @@ int outputForOrder(char ** str, int *cnt, int order)
 				if (str[j] && (max == -1 || strCmp(str[j], str[max]) >= 0)) {
 					max = j;
 				}
-				printf("%s,", str[max]);
-				free(str[max]);
-				str[max] = NULL;
 			}
+			printf("%s,", str[max]);
+			free(str[max]);
+			str[max] = NULL;
 		}
-		printf("\b\n");
+		printf("\b \n");
 		return 0;
 	}
 	if (order == -1) {
@@ -332,12 +335,12 @@ int outputForOrder(char ** str, int *cnt, int order)
 				if (str[j] && (max == -1 || strCmp(str[j], str[max]) <= 0)) {
 					max = j;
 				}
-				printf("%s,", str[max]);
-				free(str[max]);
-				str[max] = NULL;
 			}
+			printf("%s,", str[max]);
+			free(str[max]);
+			str[max] = NULL;
 		}
-		printf("\b\n");
+		printf("\b \n");
 		return 0;
 	}
 	return 0;
