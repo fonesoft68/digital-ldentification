@@ -275,8 +275,6 @@ table *tablecpy(table *t)
 	return table_cpy;
 }
 
-
-
 table *where(table *query_table, char *condition)
 {
 	table *result_table;
