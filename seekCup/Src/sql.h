@@ -124,3 +124,4 @@ int strCmp(char *, char *);
 int outputForOrder(char **, int *, int);
 int show_parse(char *);
 col *find(table * tb, char *);
+int resCmp(TYPE type, char *, char *);

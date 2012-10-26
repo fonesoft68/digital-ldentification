@@ -27,6 +27,9 @@ database * createDatabase(char * name)
 
   database *tmp_database = allDatabaseRoot;
   while (tmp_database) {
+    if (!tmp_database->name) {
+      break;
+    }
 	  if (strcmp(tmp_database->name, name) == 0) {
 		  printf(ERROR);
 		  return 0;
