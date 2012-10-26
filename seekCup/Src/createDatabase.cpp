@@ -25,6 +25,15 @@ database * createDatabase(char * name)
 	  return 0;
   }
 
+  database *tmp_database = allDatabaseRoot;
+  while (tmp_database) {
+	  if (strcmp(tmp_database->name, name) == 0) {
+		  printf(ERROR);
+		  return 0;
+	  }
+	  tmp_database = tmp_database->next;
+  }
+
   db->name = (char *)malloc(sizeof(char) * (strlen(name) + 1));
   db->rootTable = rootTable;
   strcpy(db->name, name);

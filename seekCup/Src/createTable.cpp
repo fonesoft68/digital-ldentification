@@ -3,7 +3,7 @@
 #include <string.h>
 #include "sql.h"
 
-table * createTable(const char * str)
+table * createTable(char * str)
 {
   table * tb = (table *)calloc(1, sizeof(table));
   col *rootCol = (col *) calloc (1, sizeof(col));
@@ -12,6 +12,24 @@ table * createTable(const char * str)
   if(tb == NULL){
     printf(ERROR);
     return NULL;
+  }
+  if (!nowUsedDatabase) {
+	  printf(ERROR);
+	  return 0;
+  }
+  
+  table *tmp_table = nowUsedDatabase->rootTable->next;
+  while (tmp_table) {
+	  if (strcmp(tmp_table->name, str) == 0) {
+		  printf(ERROR);
+		  return 0;
+	  }
+	  tmp_table = tmp_table->next;
+  }
+
+  if (!nameCheck(str)) {
+	  printf(ERROR);
+	  return 0;
   }
 
   int i, j;

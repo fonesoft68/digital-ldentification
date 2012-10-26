@@ -18,6 +18,8 @@
 #define DELETE "delete "
 #define INSERT_INTO "insert into "
 #define SHOW "show "
+#define RENAME_DATABASE "rename database "
+#define RENAME_TABLE "rename table "
 
 int parseCommand(char * command)
 {
@@ -43,6 +45,8 @@ int parseCommand(char * command)
 	static int *p_delete = go(DELETE);
 	static int *p_insert_into = go(INSERT_INTO);
 	static int *p_show = go(SHOW);
+	static int *p_rename_database = go(RENAME_DATABASE);
+	static int *p_raname_table = go(RENAME_TABLE);
 
 	int *result_create_database = findString(command, CREATE_DATABASE, p_create_database);
 	int *result_create_table = findString(command, CREATE_TABLE, p_create_table);
@@ -57,6 +61,8 @@ int parseCommand(char * command)
 	int *result_delete = findString(command, DELETE, p_delete);
 	int *result_insert_into = findString(command, INSERT_INTO, p_insert_into);
 	int *result_show = findString(command, SHOW, p_show);
+	int *result_rename_database = findString(command, RENAME_DATABASE, p_rename_database);
+	int *result_rename_table = findString(command, RENAME_TABLE, p_rename_table);
 
 	int i;
 	int *cnt = (int *)malloc(sizeof(int));
@@ -108,8 +114,10 @@ int parseCommand(char * command)
 				}
 				newTable->next = nowUsedDatabase->rootTable->next;
 				nowUsedDatabase->rootTable->next = newTable;
-				showColName(newTable->rootCol->next);
-				printf("\b \n");
+				//showColName(newTable->rootCol->next);
+				int *c = (int *) calloc (1, sizeof(int));
+				char **str = showTableCol("person", c);
+				outputForOrder(str, c, -1);
 			}
 			else {
 				printf(ERROR);
@@ -170,8 +178,11 @@ int parseCommand(char * command)
 	if (result_insert_into[0] == 1) {
 		printf("$insert into:%s$\n", command_cpy);
 	}
-	if (result_show[0] == 1) {
+	if (result_show[0] == 1 && result_show[1] == begin_black) {
+#ifdef DEBUG
 		printf("$show:%s$\n", command);
+#endif
+		show_parse(command);
 	}
 
 	return 0;

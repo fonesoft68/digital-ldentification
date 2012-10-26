@@ -5,6 +5,10 @@
 
 int renameDatabase(char * oldName, char *newName)
 {
+	if (!nameCheck(newName)) {
+		printf(ERROR);
+		return 0;
+	}
 	database *tmp_database = allDatabaseRoot;
 	while (tmp_database) {
 		if (strcmp(tmp_database->name, oldName) == 0) {
@@ -14,5 +18,7 @@ int renameDatabase(char * oldName, char *newName)
 		tmp_database = tmp_database->next;
 	}
 
+
+	printf(ERROR);
 	return -1;
 }
