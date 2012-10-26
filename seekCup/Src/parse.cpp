@@ -18,8 +18,6 @@
 #define DELETE "delete "
 #define INSERT_INTO "insert into "
 #define SHOW "show "
-#define RENAME_DATABASE "rename database "
-#define RENAME_TABLE "rename table "
 
 int parseCommand(char * command)
 {
@@ -45,8 +43,6 @@ int parseCommand(char * command)
 	static int *p_delete = go(DELETE);
 	static int *p_insert_into = go(INSERT_INTO);
 	static int *p_show = go(SHOW);
-	static int *p_rename_database = go(RENAME_DATABASE);
-	static int *p_raname_table = go(RENAME_TABLE);
 
 	int *result_create_database = findString(command, CREATE_DATABASE, p_create_database);
 	int *result_create_table = findString(command, CREATE_TABLE, p_create_table);
@@ -61,8 +57,6 @@ int parseCommand(char * command)
 	int *result_delete = findString(command, DELETE, p_delete);
 	int *result_insert_into = findString(command, INSERT_INTO, p_insert_into);
 	int *result_show = findString(command, SHOW, p_show);
-	int *result_rename_database = findString(command, RENAME_DATABASE, p_rename_database);
-	int *result_rename_table = findString(command, RENAME_TABLE, p_rename_table);
 
 	int i;
 	int *cnt = (int *)malloc(sizeof(int));
@@ -160,11 +154,44 @@ int parseCommand(char * command)
 	if (result_drop[0] == 1) {
 		printf("$drop:%s$\n", command_cpy);
 	}
-	if (result_rename_table[0] == 1) {
+	if (result_rename_table[0] == 1 && result_rename_table[1] == begin_black) {
+#ifdef DEBUG
 		printf("$rename table:%s$\n", command_cpy);
+#endif
+		char **split_command = split(command, RENAME_TABLE, cnt);
+		if (*cnt == 1) {
+			int *c = (int *) calloc (1, sizeof(int));
+			char **name = split(split_command[0], " ", c);
+			if (*c == 2) {
+				printf("%s %s\n", name[0], name[1]);
+				renameTable(name[0], name[1]);
+			}
+		}
+		else {
+			printf(ERROR);
+			return 0;
+		}
 	}
-	if (result_rename_database[0] == 1) {
+	if (result_rename_database[0] == 1 && result_rename_database[1] == begin_black) {
+#ifdef DEBUG
 		printf("$rename database:%s$\n", command_cpy);
+#endif
+		char **split_command = split(command, RENAME_DATABASE, cnt);
+		if (*cnt == 1) {
+			int *c = (int *) calloc (1, sizeof(int));
+			char **name = split(split_command[0], " ", c);
+			if (*c == 2) {
+				renameDatabase(name[0], name[1]);
+			}
+			else {
+				printf(ERROR);
+				return 0;
+			}
+		}
+		else {
+			printf(ERROR);
+			return 0;
+		}
 	}
 	if (result_select[0] == 1) {
 		printf("$select:%s$\n", command_cpy);

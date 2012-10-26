@@ -62,10 +62,10 @@ int deleteTable(const char *);
 int deleteDatabase(const char *);
 
 //重命名表
-int renameTable(const char *);
+int renameTable(char *, char *);
 
 //重命名数据库
-int renameDatabase(const char *);
+int renameDatabase(char *, char *);
 
 //从表中选数据
 table * select(const char *);

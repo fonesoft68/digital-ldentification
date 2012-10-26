@@ -135,12 +135,10 @@ int alterRename(char * table_name, char * datatype) {
 		item *tmp_item = tmp_col->rootItem->next;
 		while (tmp_item) {
 		    tmp_item->type = Int;
-		    float *pf = (float *) malloc (sizeof(float));
-		    int *pi = (int *) malloc (sizeof(int));
-		    memcpy(pf, tmp_item->res, sizeof(float));
-		    *pi = (int) *pf;
-		    memcpy(tmp_item->res, pi, sizeof(int));
-		    free(pf);
+		    float pf;
+			sscanf(tmp_item->res, "%f", &pf);
+			int pi = (float) pf;
+		    sprintf(tmp_item->res, "%d", pi);
 		    tmp_item = tmp_item->next;
 		}
 		return 0;
@@ -150,11 +148,6 @@ int alterRename(char * table_name, char * datatype) {
 		item *tmp_item = tmp_col->rootItem->next;
 		while (tmp_item) {
 		    tmp_item->type = Text;
-		    float *pf = (float *) malloc (sizeof(float));
-		    char *ps = (char *) calloc (50, sizeof(char));
-		    sprintf(ps, "%f", *pf);
-			tmp_item->res = ps;
-		    free(pf);
 		    tmp_item = tmp_item->next;
 		}
 		return 0;
@@ -164,12 +157,10 @@ int alterRename(char * table_name, char * datatype) {
 		item *tmp_item = tmp_col->rootItem->next;
 		while (tmp_item) {
 		    tmp_item->type = Float;
-		    int *pi = (int *) malloc (sizeof(int));
-		    float *pf = (float *) malloc (sizeof(float));
-		    memcpy(pi, tmp_item->res, sizeof(int));
-			*pf = (float) *pi;
-		    memcpy(tmp_item->res, pf, sizeof(float));
-		    free(pi);
+			int pi;
+			sscanf(tmp_item->res, "%d", &pi);
+			float pf = (float) pi;
+			sprintf(tmp_item->res, "%f", pf);
 		    tmp_item = tmp_item->next;
 		}
 		return 0;
@@ -179,11 +170,6 @@ int alterRename(char * table_name, char * datatype) {
 		item *tmp_item = tmp_col->rootItem->next;
 		while (tmp_item) {
 		    tmp_item->type = Text;
-		    int *pi = (int *) malloc (sizeof(int));
-		    char *ps = (char *) calloc (20, sizeof(char));
-		    sprintf(ps, "%d", *pi);
-			tmp_item->res = ps;
-		    free(ps);
 		    tmp_item = tmp_item->next;
 		}
 		return 0;
