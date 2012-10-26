@@ -3,9 +3,16 @@
 #include <string.h>
 #include "sql.h"
 
-int renameDatabase(char * name)
+int renameDatabase(char * oldName, char *newName)
 {
-  strcpy(nowUsedDatabase->name, name);
+	database *tmp_database = allDatabaseRoot;
+	while (tmp_database) {
+		if (strcmp(tmp_database->name, oldName) == 0) {
+			strcpy(tmp_database->name, newName);
+			return 0;
+		}
+		tmp_database = tmp_database->next;
+	}
 
-  return 0;
+	return -1;
 }

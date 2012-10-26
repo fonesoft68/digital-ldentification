@@ -39,7 +39,7 @@ int * findString(char *query, char *module, int *go)
 	int n = strlen(query);
 	int cnt = 0;
 
-#ifdef DEBUG
+#ifdef EBUG
 	for (i = 0; i < m; ++ i)
 	{
 		printf("%d ", go[i]);
@@ -78,6 +78,106 @@ int toLowCase(char *str)
 	return 0;
 }
 
+int min(int a, int b){
+	return a > b ? b : a;
+}
 
+int strCmp(char *str_1, char *str_2)
+{
+	int len_1 = strlen(str_1);
+	int len_2 = strlen(str_2);
+	int len = min(len_1, len_2);
+	int i;
+	for (i = 0; i < len; ++ i) {
+		if (str_1[i] != str_2[i]) {
+			return str_1[i] - str_2[i];
+		}
+	}
+	if (len_1 == len_2) {
+		return 0;
+	}
+	else if (len_1 < len_2) {
+		return -1;
+	}
+	else {
+		return 1;
+	}
+}
+
+#define EQUAL "=="
+#define NOT_EQUAL "~="
+#define GREATE_THAN ">"
+#define LESS_THAN "<"
+#define GREATE_THAN_EQUAL ">="
+#define LESS_THAN_EQUEL "<="
+#define BETWEEN "BETWEEN"
+
+int where(char *condition)
+{
+	int index = -1;
+	char **split_c;
+	int *cnt = (int *) calloc (1, sizeof(int));
+
+	split_c = split(condition, EQUAL, cnt);
+	if (*cnt == 2) {
+
+
+	}
+	free(split_c);
+
+	split_c = split(condition, NOT_EQUAL, cnt);
+	if (*cnt == 2) {
+
+	}
+	free(split_c);
+	
+
+	split_c = split(condition, GREATE_THAN, cnt);
+	if (*cnt == 2) {
+
+	}
+	free(split_c);
+	
+
+	split_c = split(condition, LESS_THAN, cnt);
+	if (*cnt == 2) {
+
+	}
+	free(split_c);
+
+	split_c = split(condition, GREATE_THAN_EQUAL, cnt);
+	if (*cnt == 2) {
+
+	}
+	free(split_c);
+
+	split_c = split(condition, LESS_THAN_EQUEL, cnt);
+	if (*cnt == 2) {
+
+	}
+	free(split_c);
+	
+	split_c = split(condition, BETWEEN, cnt);
+	if (*cnt == 2) {
+
+	}
+	free(split_c);
+	
+	return index;
+}
+
+
+
+char **getBetweenStr(char *query, char *left, char *right, int *cnt)
+{
+	char **result;
+	int *p_left = go(left);
+	int *p_right = go(right);
+	int *result_left = findString(query, left, p_left);
+	int *result_right = findString(query, right, p_right);
+
+
+	return result;
+}
 
 
