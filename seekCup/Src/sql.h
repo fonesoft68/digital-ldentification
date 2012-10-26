@@ -71,7 +71,11 @@ int renameDatabase(const char *);
 table * select(const char *);
 
 //LIKE匹配
-bool Like(char *,char *);
+bool like(char *,char *);
+//BETWEEN
+bool between(char *,char *);
+//Judge判断某行是否合要求
+bool Judge(table *,int,char *);
 
 //修改表中的数据
 int updata(const char *);
@@ -95,6 +99,10 @@ char ** split(char *str, char *split, int *cnt);
 int showDatabase();
 
 int altertable(const char *);
+
+
+
+
 
 int showTestDatabase();
 int showTableContext(table *);
