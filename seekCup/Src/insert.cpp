@@ -1,0 +1,124 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "sql.h"
+
+#define INSERT "insert into"
+#define VALUES "values"
+
+char * cut(char * str, char c1, char c2)
+{
+  int start = 0, end = strlen(str) - 1;
+  char *s = (char *) calloc (1, sizeof(char) * strlen(str));
+  while (*(str + start) == ' ' || *(str + start) == c1) {
+    ++ start;
+  }
+  while (*(str + end) == ' ' || *(str + end) == c2) {
+    --end;
+  }
+  strncpy(s, str + start, end - start + 1);
+}
+
+col * find(table * tb, char * str)
+{
+  col *tmp_col = tb->rootCol;
+  while (tmp_col->next) {
+    if (strcmp(tmp_col->next->name, str) == 0) {
+      return tmp_col->next;
+    }
+    tmp_col = tmp_col->next;
+  }
+  if (!tmp_col) {
+    printf(ERROR);
+    return NULL;
+  }
+}
+  
+int insert(const char *command)
+{
+  int *p = (int *) malloc (sizeof(int));
+  char *command_copy = (char *) calloc (1, sizeof(char) * strlen(command) + 1);
+  strcpy(command_copy, command);
+  char **split_command = split(command_copy, INSERT, p);
+  if (*p != 1) {
+    printf(ERROR);
+    return 0;
+  }
+  
+  char **values = split(split_command[0], VALUES, p);
+  if (*p != 2) {
+    printf(ERROR);
+    return 0;
+  }
+  
+  table *tmp_table = nowUsedDatabase->rootTable;
+  while (tmp_table->next) {
+    if (strstr(values[0], tmp_table->next->name)) {
+      break;
+    }
+    tmp_table = tmp_table->next;
+  }
+  tmp_table = tmp_table->next;
+  if (!tmp_table) {
+    printf(ERROR);
+    return 0;
+  }
+  char *s = (char *) calloc (1, sizeof(char) * strlen(values[0]));
+  strcpy(s, values[0] + strlen(tmp_table->name));
+  s = cut(s, '(', ')');
+  char **value = split(values[1], ",", p);
+  if (strlen(s) == 0 && *p == tmp_table->colCnt) {
+    int count = 0;
+    col *tmp_col = tmp_table->rootCol->next;
+    while (tmp_col) {
+      item *tmp_item = tmp_col->rootItem;
+      while (tmp_item->next) {
+	tmp_item = tmp_item->next;
+      }
+      item *tmp = (item *) calloc (1, sizeof(item));
+      value[count] = cut(value[count], '(', ')');
+      value[count] = cut(value[count], '\'', '\'');
+      tmp->res = (char *) malloc (sizeof(char) * 256);
+      strcpy(tmp->res, value[count]);
+      tmp_item->next = tmp;
+      ++ count;
+      tmp_col = tmp_col->next;
+    }
+  }
+  else if (1){
+    int *q = (int *) malloc (sizeof(int));
+    char **column = split(s, ",", q);
+    int cnt = 0;
+    for (cnt = 0;cnt < *q;++cnt) {
+      if (!find(tmp_table, column[cnt])) {
+	printf(ERROR);
+	return 0;
+      }
+    }
+    if (*p == *q) {
+      col *tmp_col = tmp_table->rootCol->next;
+      while (tmp_col) {
+	item *tmp_item = tmp_col->rootItem;
+	while (tmp_item->next) {
+	tmp_item = tmp_item->next;
+      }
+      item *tmp = (item *) calloc (1, sizeof(item));
+      tmp->res = (char *) malloc (sizeof(char) * 256);
+      for (int i = 0;i < *p;++ i) {
+	if (strcmp(tmp_col->name, column[i]) == 0) {
+	  value[i] = cut(value[i], '(', ')');
+	  value[i] = cut(value[i], '\'', '\'');
+	  strcpy(tmp->res, value[i]);
+	  break;
+	}
+      }
+      tmp_item->next = tmp;
+      tmp_col = tmp_col->next;
+      }
+    }
+  }
+  else {
+    printf(ERROR);
+    return 0;
+  }
+}

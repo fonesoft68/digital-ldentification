@@ -15,11 +15,11 @@ int main(int argc, char *argv[])
     }
     createDatabase("huzi");
 
-    allDatabaseRoot->rootTable = createTable("  a int  , b float  , noe  ");
-    allDatabaseRoot->rootTable->name = "a";
-    allDatabaseRoot->rootTable->next = createTable(" c int , d float ");
-    allDatabaseRoot->rootTable->next->name = "b";
+    allDatabaseRoot->rootTable->next = createTable("  a int  , b float , c text  , noe  ");
+    allDatabaseRoot->rootTable->next->name = "a";
     nowUsedDatabase = allDatabaseRoot;
+    insert("insert into a (b , c ) values (2.3, 'wuhan' )");
+
     alter_parse("alter table b drop column c ");
     if (argc > 1) {
 	if (memcpy(argv[1], "drop", strlen(argv[1])) == 0) {
