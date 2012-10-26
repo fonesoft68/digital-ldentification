@@ -68,8 +68,9 @@ int main(int argc, char *argv[])
     insert("insert into a values (2 , 3.5, 'how')");
     insert("insert into a values (1, 4.7, 'foo')");
     insert("insert into a values (3, 2.4, 'bar')");
-    swap(allDatabaseRoot->rootTable->next, 0, 1);
+    //    swap(allDatabaseRoot->rootTable->next, 0, 1);
     sort(allDatabaseRoot->rootTable->next, "b", ASC);
+    showTableContext(allDatabaseRoot->rootTable->next);
     //    insert("insert into a (b , c ) values (2.3, 'wuhan' )");
     //    alter_parse("alter table b drop column c ");
     if (argc > 1) {
