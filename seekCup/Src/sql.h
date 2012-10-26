@@ -93,10 +93,8 @@ char ** split(char *str, char *split, int *cnt);
 int showDatabase(char *name);
 
 int altertable(const char *);
-<<<<<<< HEAD
-=======
 
->>>>>>> 6f0b89ceb697a7db9c939c0b20723876f0e42ed6
+
 int showTestDatabase();
 int showTable(char *databaseName);
 int showCol(char *tableName);

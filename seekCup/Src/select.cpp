@@ -3,7 +3,9 @@
 #include<string.h>
 #include"sql.h"
 
-table *Search(char *,char *,char *,int ,char *);
+table *Search(char *,char *,char *,int);
+bool between(char *,char *);
+bool like(char *,char *);
 bool Judge(table *,int ,char *);
 char *value(char *);
 table *select(const char* Select)
@@ -69,16 +71,18 @@ table *select(const char* Select)
     else if(strcmp(temp,DESC)==0){
 		order=2;
 	}
-	return Search(col_name,table_name,row_limit,order,temp);
+	return Search(col_name,table_name,row_limit,order);
   }
 
 //根据select函数的解释查找数据库
-table *Search(char *col_name,char *table_name,char *row_limit,int order,char *temp)
+table *Search(char *col_name,char *table_name,char *row_limit,int order)
 {
 	table *result = NULL;
 	col *temp_col_1 = NULL;
 	col *temp_col_2 = NULL;
 	col *temp_col_3 = NULL;
+	char **result_col;
+	int *p=(int *)malloc(sizeof(int));
 	item *temp_item_1 = NULL;
 	item *temp_item_2 = NULL;
 	item *temp_item_3 = NULL;
@@ -123,7 +127,7 @@ table *Search(char *col_name,char *table_name,char *row_limit,int order,char *te
 //找出符合条件的行，存入result
 
 	for(i = 0;i<now_tab->rootCol->itemCnt;i++){
-	   if(Judge(now_tab,i,row_limit)){
+	   if(Judge(now_tab,i,row_limit)){    //如果符合条件
 		   temp_col_1 = result->rootCol;
 		   temp_col_2 = now_tab->rootCol;
 	   	   for(j = 0;j<now_tab->colCnt;j++){
@@ -152,28 +156,209 @@ table *Search(char *col_name,char *table_name,char *row_limit,int order,char *te
 
 //将result以orderby的要求排列
 //将result中的所选列输出
-
+//result_col=split(col_name,",",p);
+//for()
 }
 
 //根据Serech的要求解释row_limit并判断
-bool Judge(table * table_judge,int row,char* row_limit)
+bool Judge(table * now_tab,int row,char* row_limit)
 {
 //    char AND[4]="and";
 	char BETWEEN[8]="between";
 	char LIKE[5]="like";
-//	char OR[3]="or";
+//    char OR[3]="or";
+	col *temp_col=now_tab->rootCol;
+	item *temp_item;
 
 
 	if(row_limit==NULL){
 		return true;
 	}else{
-		char *or_div;
-		char *and_div;
-		or_div=strtok(row_limit," or ");
-		and_div=strtok(or_div," and ");
+		bool a=false;
+		int i,j,k,l,m;
+		int *p = (int *)malloc(sizeof(int));
+		int *q = (int *)malloc(sizeof(int));
+		char **or_div=split(row_limit," or ",p);
+			for(i=0;i<*p;i++){
+				char **and_div=split(or_div[i]," and ",q);
+				for(j=0;j<*q;j++){
+					if(strstr(and_div[j],BETWEEN)!=NULL){//判断是否是between语句
+                     char *where_col;//where选定的行
+					 char *where_item;//被比较的item内容
+					 char *area;     //【】内的内容
+					 for(k=1;k<=strlen(and_div[j]);k++){if(and_div[j][k-1]==' ')break;}//找出第一次出现空格的位子存入k
+					 where_col=(char *)malloc(sizeof(char)*i-1);
+					 memcpy(where_col,and_div[j],i-1);
+					 for(l=0;l<now_tab->colCnt;l++){
+						 if(strcmp(temp_col->name,where_col)==0){
+							 if(temp_col->type==Text||temp_col->type==None){   //between的类型不对
+								 printf("error");      
+								 return false;
+							 }
+							 temp_item=temp_col->rootItem;
+							 for(m=1;m<row;m++){temp_item=temp_item->next;}
+							 where_item=temp_item->res;
+						 }
+					 }
+					 area=(char *)malloc(sizeof(char)*(strlen(and_div[j])-i-9));
+					 memcpy(area,and_div[j]+i+8,sizeof(char)*(strlen(and_div[j])-i-9));
+					 a=between(where_item,area);
 
-
+				     }else if(strstr(and_div[j],LIKE)!=NULL){//判断是否为like语句
+				     char *where_col;//like选定的行
+					 char *where_item;//被比较的item内容
+					 char *area;     //【】内的内容
+					 for(k=1;k<=strlen(and_div[j]);k++){if(and_div[j][k-1]==' ')break;}//找出第一次出现空格的位子存入k
+					 where_col=(char *)malloc(sizeof(char)*i-1);
+					 memcpy(where_col,and_div[j],i-1);
+					 for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
+						 if(strcmp(temp_col->name,where_col)==0){
+							 if(temp_col->type!=Text){   //like的类型不对
+								 printf("error");      
+								 return false;
+							 }
+							 temp_item=temp_col->rootItem;
+							 for(m=1;m<row;m++){temp_item=temp_item->next;}
+							 where_item=temp_item->res;
+						 }
+					 }
+					 area=(char *)malloc(sizeof(char)*(strlen(and_div[j])-i-6));
+					 memcpy(area,and_div[j]+i+5,sizeof(char)*(strlen(and_div[j])-i-6));
+					 a=like(where_item,area);
+                     //实现==/~=/>=/<=/>/<
+					 }else if(strstr(and_div[j],"==")!=NULL){
+						 char **compare;
+						 float *right=NULL,*left=NULL;
+						 int *r=(int *)malloc(sizeof(int));
+						 compare=split(and_div[j],"==",r); //将比较操作符两边分开，暂没考虑比较符两侧可能的空格
+						 if(*r!=2){printf("error");return false;}
+                         for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
+						     if(strcmp(temp_col->name,compare[0])==0){
+							     if(temp_col->type==Text||temp_col->type==None){   //类型不对
+								     printf("error");      
+								     return false;
+							     }
+							     temp_item=temp_col->rootItem;
+							     for(m=1;m<row;m++){temp_item=temp_item->next;}
+							     compare[0]=temp_item->res;
+						     }
+					     }
+					         compare[1]=value(compare[1]);
+				             sscanf(compare[0],"%f",left);
+						     sscanf(compare[1],"%f",right);
+						     if(*left==*right){a=true;}
+					 }else if(strstr(and_div[j],"~=")!=NULL){
+						 char **compare;
+						 float *right=NULL,*left=NULL;
+						 int *r=(int *)malloc(sizeof(int));
+						 compare=split(and_div[j],"~=",r);
+						 if(*r!=2){printf("error");return false;}
+                         for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
+						     if(strcmp(temp_col->name,compare[0])==0){
+							     if(temp_col->type==Text||temp_col->type==None){   //类型不对
+								     printf("error");      
+								     return false;
+							     }
+							     temp_item=temp_col->rootItem;
+							     for(m=1;m<row;m++){temp_item=temp_item->next;}
+							     compare[0]=temp_item->res;
+						     }
+					     }
+					         compare[1]=value(compare[1]);
+				             sscanf(compare[0],"%f",left);
+						     sscanf(compare[1],"%f",right);
+						     if(*left!=*right){a=true;}
+					 }else if(strstr(and_div[j],">=")!=NULL){
+						 char **compare;
+						 float *right=NULL,*left=NULL;
+						 int *r=(int *)malloc(sizeof(int));
+						 compare=split(and_div[j],">=",r);
+						 if(*r!=2){printf("error");return false;}
+                         for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
+						     if(strcmp(temp_col->name,compare[0])==0){
+							     if(temp_col->type==Text||temp_col->type==None){   //类型不对
+								     printf("error");      
+								     return false;
+							     }
+							     temp_item=temp_col->rootItem;
+							     for(m=1;m<row;m++){temp_item=temp_item->next;}
+							     compare[0]=temp_item->res;
+						     }
+					     }
+					         compare[1]=value(compare[1]);
+				             sscanf(compare[0],"%f",left);
+						     sscanf(compare[1],"%f",right);
+						     if(*left>=*right){a=true;}
+					 }else if(strstr(and_div[j],"<=")!=NULL){
+						 char **compare;
+						 float *right=NULL,*left=NULL;
+						 int *r=(int *)malloc(sizeof(int));
+						 compare=split(and_div[j],"<=",r);
+						 if(*r!=2){printf("error");return false;}
+                         for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
+						     if(strcmp(temp_col->name,compare[0])==0){
+							     if(temp_col->type==Text||temp_col->type==None){   //类型不对
+								     printf("error");      
+								     return false;
+							     }
+							     temp_item=temp_col->rootItem;
+							     for(m=1;m<row;m++){temp_item=temp_item->next;}
+							     compare[0]=temp_item->res;
+						     }
+					     }
+					         compare[1]=value(compare[1]);
+				             sscanf(compare[0],"%f",left);
+						     sscanf(compare[1],"%f",right);
+						     if(*left<=*right){a=true;}
+					 }else if(strstr(and_div[j],">")!=NULL){
+						 char **compare;
+						 float *right=NULL,*left=NULL;
+						 int *r=(int *)malloc(sizeof(int));
+						 compare=split(and_div[j],">",r);
+						 if(*r!=2){printf("error");return false;}
+                         for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
+						     if(strcmp(temp_col->name,compare[0])==0){
+							     if(temp_col->type==Text||temp_col->type==None){   //类型不对
+								     printf("error");      
+								     return false;
+							     }
+							     temp_item=temp_col->rootItem;
+							     for(m=1;m<row;m++){temp_item=temp_item->next;}
+							     compare[0]=temp_item->res;
+						     }
+					     }
+					         compare[1]=value(compare[1]);
+				             sscanf(compare[0],"%f",left);
+						     sscanf(compare[1],"%f",right);
+						     if(*left>*right){a=true;}
+					 }else if(strstr(and_div[j],"<")!=NULL){
+						 char **compare;
+						 float *right=NULL,*left=NULL;
+						 int *r=(int *)malloc(sizeof(int));
+						 compare=split(and_div[j],"<",r);
+						 if(*r!=2){printf("error");return false;}
+                         for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
+						     if(strcmp(temp_col->name,compare[0])==0){
+							     if(temp_col->type==Text||temp_col->type==None){   //类型不对
+								     printf("error");      
+								     return false;
+							     }
+							     temp_item=temp_col->rootItem;
+							     for(m=1;m<row;m++){temp_item=temp_item->next;}
+							     compare[0]=temp_item->res;
+						     }
+					     }
+					         compare[1]=value(compare[1]);
+				             sscanf(compare[0],"%f",left);
+						     sscanf(compare[1],"%f",right);
+						     if(*left<*right){a=true;}
+					 }
+					if(a=false){break;}
+			}
+				if(a=true){break;}
 	}
+      return a;
+}
 }
 
 //判断between[,],a为需判断的item，b为【，】中内容
@@ -190,7 +375,7 @@ bool between(char *a,char *b)
 	}
 	min=value(min);
 	max=value(max);
-	sscanf(min,"%f",z);
+	sscanf(min,"%f",x);
 	sscanf(max,"%f",y);
 	sscanf(a,"%f",z);
 	if(x<=z&&z<=y){
@@ -215,9 +400,9 @@ bool like(char *str_1,char *str_2)
 			if(Match_map[(i-1)*(b+1)+j-1]==1){
 				if(str_1[i-1]==str_2[j-1]||str_2[j-1]=='?'){
 					Match_map[i*(b+1)+j]=1;
-					if(i==a&&j<b){
+					if(i==a&&j<b){                           
 						for(k=j+1;k<=b;k++){
-							if(str_2[k]=='*'||str_2[k]=='?'){
+							if(str_2[k]=='*'||str_2[k]=='?'){    //考虑*与？结尾的情况
 								Match_map[i*(b+1)+k]=1;
 							}
 							else break;
@@ -246,6 +431,6 @@ bool like(char *str_1,char *str_2)
 
 //解决select嵌套，复杂数学运算等问题
 char *value(char *VALUE)
-{
-
+{//暂时不实现
+return VALUE;
 }
