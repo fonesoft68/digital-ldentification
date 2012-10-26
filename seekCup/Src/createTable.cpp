@@ -23,8 +23,11 @@ table * createTable(char * str)
 	  return 0;
   }
   
-  table *tmp_table = nowUsedDatabase->rootTable->next;
+  table *tmp_table = allDatabaseRoot->rootTable->next;
   while (tmp_table) {
+    if (!tmp_table->name) {
+      break;
+    }
 	  if (strcmp(tmp_table->name, str) == 0) {
 		  printf(ERROR);
 		  return 0;
