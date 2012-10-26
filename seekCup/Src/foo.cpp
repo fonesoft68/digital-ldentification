@@ -203,15 +203,15 @@ int resCmp(TYPE type, char *a, char *b)
 	if(type == Int) {
 		int a_i;
 		int b_i;
-		sscanf(a, "%d", a_i);
-		sscanf(b, "%d", b_i);
+		sscanf(a, "%d", &a_i);
+		sscanf(b, "%d", &b_i);
 		return a_i - b_i;
 	}
 	if (type == Float) {
 		float a_i;
 		float b_i;
-		sscanf(a, "%f", a_i);
-		sscanf(b, "%s", b_i);
+		sscanf(a, "%f", &a_i);
+		sscanf(b, "%s", &b_i);
 		return a_i - b_i;
 	}
 	if (type = Text) {

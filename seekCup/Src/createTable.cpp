@@ -18,16 +18,12 @@ table * createTable(char * str)
 	  return 0;
   }
   
-<<<<<<< HEAD
   if (!nameCheck(str)) {
 	  printf(ERROR);
 	  return 0;
   }
   
   table *tmp_table = nowUsedDatabase->rootTable->next;
-=======
-  table *tmp_table = allDatabaseRoot->rootTable->next;
->>>>>>> 788c3b3e5f2e10deb1362e06a99ac9c0c952efc0
   while (tmp_table) {
 	  if (strcmp(tmp_table->name, str) == 0) {
 		  printf(ERROR);
