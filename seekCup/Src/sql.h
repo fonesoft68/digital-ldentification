@@ -74,6 +74,8 @@ table * select(const char *);
 bool like(char *,char *);
 //BETWEEN
 bool between(char *,char *);
+//Judge判断某行是否合要求
+bool Judge(table *,int,char *);
 
 //修改表中的数据
 int updata(const char *);

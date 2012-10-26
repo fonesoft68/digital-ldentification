@@ -397,7 +397,9 @@ bool between(char *a,char *b)
 {
     char *min;
     char *max;
-    float x=NULL,y=NULL,z=NULL;
+    float *x=(float *)malloc(sizeof(float));
+    float *y=(float *)malloc(sizeof(float));
+    float *z=(float *)malloc(sizeof(float));
     min = strtok(b,",");
     max = strtok(NULL,",");
     if(max==NULL||strtok(NULL,",")!=NULL){
@@ -409,7 +411,7 @@ bool between(char *a,char *b)
     sscanf(min,"%f",x);
     sscanf(max,"%f",y);
     sscanf(a,"%f",z);
-    if(x<=z&&z<=y){
+    if(*x<=*z&&*z<=*y){
 	return true;
     }
     else return false;
