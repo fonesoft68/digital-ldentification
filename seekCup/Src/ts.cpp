@@ -31,12 +31,6 @@ int main(int argc, char *argv[])
 				printf("%d ", result[i + 1]);
 			}
 		}
-		if (memcmp(argv[1], "toLowCase", strlen(argv[1])) == 0) {
-			char *str = (char *)malloc (sizeof(char) * 100);
-			scanf("%s", str);
-			toLowCase(str);
-			printf("%s\n", str);
-		}
 		if (memcmp(argv[1], "split", strlen(argv[1])) == 0) {
 			char str[1000] = "int a, text sf , float sdf";
 			char module[10] = ",";
@@ -61,6 +55,13 @@ int main(int argc, char *argv[])
 			showTestDatabase();
 			showItem(nowUsedDatabase->rootTable->next->rootCol->next->rootItem->next);
 			printf("\b ");
+		}
+		if (strcmp(argv[1], "toLowCase") == 0) {
+			printf("test for toLowCase\n");
+			char t[256] = "asdfHDFas   asdfsafasf\'sfSDF     FDDFd\'  asdfsadf         \' saf adsf DF asdf\'  DFSDF";
+			printf("%s\n", t);
+			toLowCase(t);
+			printf("%s\n", t);
 		}
 		
 	}

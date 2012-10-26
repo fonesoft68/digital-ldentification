@@ -88,26 +88,11 @@ int show_parse(char *command)
 
 int printItem(item *i)
 {
-	switch(i->type) {
-		case Int : {
-						int *tmp_int = (int *) calloc (1, sizeof(int));
-						memcpy(tmp_int, i->res, sizeof(int));
-						printf("%d,", *tmp_int);
-				   };break;
-		case Float : {
-						 float *tmp_float = (float *) calloc (1, sizeof(float));
-						 memcpy(tmp_float, i->res, sizeof(float));
-						 printf("%f,", *tmp_float);
-	   				};break;
-		case Text : {
-						printf("%s,", i->res);
-					};break;
-		case None : {
-						printf("#,");
-					};break;
-		default : {
-					  printf(ERROR);
-				  };
+	if (i->type == None) {
+		printf("#,");
+	}
+	else {
+		printf("%s,", i->res);
 	}
 	return 0;
 }
