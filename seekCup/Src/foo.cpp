@@ -112,16 +112,180 @@ int strCmp(char *str_1, char *str_2)
 #define LESS_THAN_EQUEL "<="
 #define BETWEEN "BETWEEN"
 
-int where(char *condition)
+int isNum(char *str)
 {
-	int index = -1;
+	int i;
+	for (i = 0; i < strlen(str); ++ i) {
+		if (str[i] < '0' || str[i] > '9') {
+			return 0;
+		}
+	}
+	return 1;
+}
+
+int isFloat(char *str)
+{
+	int i;
+	for (i = 0; i < strlen(str); ++ i) {
+		if (str[i] < '0' || str[i] > '9' || str[i] != '.') {
+			return 0;
+		}
+	}
+	return 1;
+}
+
+int isText(char *str)
+{
+	int i;
+	if (str[0] != '\'' || str[strlen(str) - 1] != '\'') {
+		return 0;
+	}
+	for (i = 1; i < strlen(str) - 1; ++ i) {
+		if (!(str[i] >= 'a' && str[i] <= 'z') || !(str[i] >= 'A' && str[i] <= 'Z') || str[i] != '_' || str[i] != ' ') {
+			return 0;
+		}
+	}
+	char *tmp_str = (char *) calloc (strlen(str) - 1, sizeof(char));
+	for (int i = 1; i < strlen(str) - 1; ++ i) {
+		tmp_str[i - 1] = str[i];
+	}
+	strcpy(str, tmp_str);
+	return 1;
+}
+
+//char *getRes(TYPE type, char *str)
+//{
+//	char *val;
+//	if (type == Int && isNum(str)) {
+//		val = (char *) calloc (4, sizeof(char));
+//		int tmp_i;
+//		sscanf(str, "%d", &tmp_i);
+//		memcpy(val, &tmp_i, sizeof(int));
+//	}
+//	else if (type == Float && isFloat(str)) {
+//		val = (char *) calloc (4, sizeof(char));
+//		float tmp_f;
+//		sscanf(str, "%s", &tmp_f);
+//		memcpy(val, &tmp_f, sizeof(float));
+//	}
+//	else if (type == Text && isText(str)) {
+//		val = (char *) calloc (strlen(str) - 1, sizeof(char));
+//		strcpy(val, str);
+//	}
+//	else {
+//		return 0;
+//	}
+//	return val;
+//}
+
+//char resCmp(TYPE type, char *res_1, char *res_2)
+//{
+//	if (type == Int) {
+//		int tmp_1 = 0, tmp_2 = 0;
+//		memcpy(&tmp_1, res_1, sizeof(int));
+//		memcpy(&tmp_2, res_2, sizeof(int));
+//		return tmp_1 - tmp_2;
+//	}
+//	if (type == Float) {
+//		float tmp_1 = 0;
+//		float tmp_2 = 0;
+//		memcpy(&tmp_1, res_1, sizeof(float));
+//		memcpy(&tmp_2, res_2, sizeof(float));
+//		return tmp_1 - tmp_2;
+//	}
+//	if (type == Text) {
+//		return strCmp(res_1, res_2);
+//	}
+//}
+//
+int resCmp(TYPE type, char *a, char *b)
+{
+	if(type == Int) {
+		int a_i;
+		int b_i;
+		sscanf(a, "%d", a_i);
+		sscanf(b, "%d", b_i);
+		return a_i - b_i;
+	}
+	if (type == Float) {
+		float a_i;
+		float b_i;
+		sscanf(a, "%f", a_i);
+		sscanf(b, "%s", b_i);
+		return a_i - b_i;
+	}
+	if (type = Text) {
+		int i;
+		if (a[0] == '\'') {
+			for (i = 1; i < strlen(a) - 1; ++ i) {
+				a[i - 1] = a[i];
+			}
+			a[strlen(a) - 1 - 1] = '\0';
+		}
+		if (b[0] == '\'') {
+			for (i = 1; i < strlen(b) - 1; ++ i) {
+				b[i - 1] = b[i];
+			}
+			b[strlen(b) - 1 - 1] = '\0';
+		}
+		return strCmp(a, b);
+	}
+}
+
+table *tablecpy(table *origin)
+{
+	//able *table_cpy = (table *)
+}
+
+table *where(table *query_table, char *condition)
+{
+	table *result_table;
 	char **split_c;
 	int *cnt = (int *) calloc (1, sizeof(int));
 
 	split_c = split(condition, EQUAL, cnt);
 	if (*cnt == 2) {
+		col *tmp_col = query_table->rootCol->next;
+		while (tmp_col) {
+			if (strcmp(tmp_col->name, split_c[0]) == 0) {
+				break;
+			}
+			tmp_col = tmp_col->next;
+		}
+		if (!tmp_col) {
+			printf(ERROR);
+			return 0;
+		}
+		int *index = (int *) calloc (1, sizeof(int));
+		index[0] = 0;
+		item *tmp_item = tmp_col->rootItem->next;
+		int cnt = 0;
+		while (tmp_item) {
+			++ cnt;
+			if (resCmp(tmp_item->type, tmp_item->res, split_c[1]) == 0) {
+				++ index[0];
+				index = (int *) realloc (index, (index[0] + 1) * sizeof(int));
+				index[index[0]] = cnt;
+			}
+		}
+		int i;
+		table *result_table;
+		//result_table->rootCol = (col) calloc (1, sizeof(col));
+		col *tmp_col_cpy = query_table->rootCol->next;
+		while (tmp_col_cpy) {
 
+		}
+		for (i = index[0]; i > 0; -- i) {
+			col *tmp_col = query_table->rootCol->next;
+			while (tmp_col)  {
+				item *tmp_item = tmp_col->rootItem;
+				int j;
+				for (j = 0; j < index[i + 1]; ++ j) {
+					tmp_item = tmp_item->next;
+				}
 
+			}
+		}
 	}
 	free(split_c);
 
@@ -163,7 +327,7 @@ int where(char *condition)
 	}
 	free(split_c);
 	
-	return index;
+	return result_table;
 }
 
 

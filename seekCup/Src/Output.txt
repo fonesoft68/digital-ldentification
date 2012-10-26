@@ -10,11 +10,9 @@ $use: use seedcup$
 now used seedcup
  create table person (  id int,  name text,  grade int  )
 $create table: create table person (  Id INT,  Name TEXT,  grade INT  )$
-<<<<<<< HEAD
 grade,id,name, 
-=======
-id,name,grade, 
->>>>>>> c0e12eed33a4e8ea2adfa998d2fbf4bfd4be5a61
+ rename database seedcup per
+$rename database: rename database seedcup per$
  alter table person add address
 $alter table: alter table person add address$
 id,name,grade,address, 
@@ -24,22 +22,19 @@ id,grade,address,
 $drop: alter table person drop column name$
  alter table person column address text
 $alter table: alter table person column address text$
-<<<<<<< HEAD
+error
  show database
 $show: show database$
-seedcup, 
+per, 
  show table
 $show: show table$
 person, 
  show  person column
 $show: show  person column$
-id,name,grade,address, 
+id,grade,address, 
  show person column order by desc
 $show: show person column order by desc$
-name,id,grade,address, 
-=======
-error
->>>>>>> c0e12eed33a4e8ea2adfa998d2fbf4bfd4be5a61
+id,grade,address, 
  insert into person(id, name,address)values(1,'yaoq', 'qiming702')
 $insert into: insert into person(Id, Name,Address)values(1,'YaoQ', 'Qiming702')$
  updata person set grade=90 where name=='yaoq'
