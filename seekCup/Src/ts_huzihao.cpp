@@ -22,10 +22,16 @@ void swap(table *tmp_table, int i, int j)
       tmp_item2 = tmp_item2->next;
       ++ cnt;
     }
-    item *tmp = (item *) calloc (1, sizeof(item));
-    tmp = tmp_item1;
-    tmp_item1 = tmp_item2;
-    tmp_item2 = tmp;
+    // item *tmp = (item *) calloc (1, sizeof(item));
+    // tmp = tmp_item1;
+    // tmp_item1 = tmp_item2;
+    // tmp_item2 = tmp;
+    char *tmp = (char *) calloc (1, sizeof(char) * 256);
+    strcpy(tmp, tmp_item1->res);
+    memset(tmp_item1->res, '\0', sizeof(char) * (strlen(tmp_item1->res) + 1));
+    strcpy(tmp_item1->res, tmp_item2->res);
+    memset(tmp_item2->res, '\0', sizeof(char) * (strlen(tmp_item2->res) + 1));
+    strcpy(tmp_item2->res, tmp);
     tmp_col = tmp_col->next;
   }
 }
@@ -51,6 +57,12 @@ table *sort(table *tmp_table, char *name, int rule)
       }
       if ((rule == ASC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) > 0) || (rule == DESC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) < 0)) {
 	swap(tmp_table, k, k - 1);
+	// char *tmp = (char *) calloc (1, sizeof(char) * 256);
+	// strcpy(tmp, tmp_item->res);
+	// memset(tmp_item->res, '\0', sizeof(char) * (strlen(tmp_item->res) + 1));
+	// strcpy(tmp_item->res, tmp_item->next->res);
+	// memset(tmp_item->next->res, '\0', sizeof(char) * (strlen(tmp_item->next->res) + 1));
+	// strcpy(tmp_item->next->res, tmp);
       }
     }
   }
@@ -65,12 +77,12 @@ int main(int argc, char *argv[])
     allDatabaseRoot->rootTable->next = createTable("  a int  , b float , c text   ");
     allDatabaseRoot->rootTable->next->name = "a";
     nowUsedDatabase = allDatabaseRoot;
-    //    insert("insert into a values (2 , 3.5, 'how')");
+    insert("insert into a values (2 , 3.5, 'how')");
     //    insert("insert into a values (1, 4.7, 'foo')");
     //    insert("insert into a values (3, 2.4, 'bar')");
-    //    swap(allDatabaseRoot->rootTable->next, 0, 1);
-    //    sort(allDatabaseRoot->rootTable->next, "b", ASC);
-    //    showTableContext(allDatabaseRoot->rootTable->next);
+    //swap(allDatabaseRoot->rootTable->next, 0, 1);
+    // sort(allDatabaseRoot->rootTable->next, "b", ASC);
+    showTableContext(allDatabaseRoot->rootTable->next);
     //    insert("insert into a (b , c ) values (2.3, 'wuhan' )");
     //    alter_parse("alter table b drop column c ");
     if (argc > 1) {

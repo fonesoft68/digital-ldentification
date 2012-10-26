@@ -125,3 +125,5 @@ int outputForOrder(char **, int *, int);
 int show_parse(char *);
 col *find(table * tb, char *);
 int resCmp(TYPE type, char *, char *);
+void swap(table *, int i, int j);
+table *sort(table *, char *, int );
