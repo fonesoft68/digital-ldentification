@@ -71,7 +71,9 @@ int renameDatabase(const char *);
 table * select(const char *);
 
 //LIKE匹配
-bool Like(char *,char *);
+bool like(char *,char *);
+//BETWEEN
+bool between(char *,char *);
 
 //修改表中的数据
 int updata(const char *);
