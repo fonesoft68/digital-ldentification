@@ -212,14 +212,15 @@ int main(int argc, char *argv[])
     //    allDatabaseRoot->rootTable->next->name = "a";
   allDatabaseRoot->rootTable->next = createTable("id int , name text , grade int , address text");
   allDatabaseRoot->rootTable->next->name = "person";
-  insert("insert into person (id , name , address) values (1 , 'yaoq' , 'qiming 702')");
+  nowUsedDatabase = allDatabaseRoot;
+  insert("insert into person (id , name , address) values (1 , 'yaoq' , 'qiming702')");
     nowUsedDatabase = allDatabaseRoot;
     //    insert("insert into a values (2 , 3.5 , , 'how')");
     //    insert("insert into a values ( 1 , 4.7, , 'foo')");
     //    insert("insert into a values (3, 2.4, , 'bar')");
     showTableContext(allDatabaseRoot->rootTable->next);
     //swap(allDatabaseRoot->rootTable->next, 0, 1);
-    sort(allDatabaseRoot->rootTable->next, "b", 1);
+    sort(allDatabaseRoot->rootTable->next, "name", 1);
     showTableContext(allDatabaseRoot->rootTable->next);
     //    insert("insert into a (b , c ) values (2.3, 'wuhan' )");
     //    alter_parse("alter table b drop column c ");
