@@ -76,6 +76,7 @@ int insert(const char *command)
       value[count] = cut(value[count], '(', ')');
       value[count] = cut(value[count], '\'', '\'');
       tmp->res = (char *) malloc (sizeof(char) * 256);
+      tmp->type = tmp_col->type;
       strcpy(tmp->res, value[count]);
       tmp_col->rootItem->next = tmp;
       tmp->next = tmp_item;
@@ -108,6 +109,7 @@ int insert(const char *command)
 	  break;
 	}
       }
+      tmp->type = tmp_col->type;
       tmp_col->rootItem->next = tmp;
       tmp->next = tmp_item;
       ++ (tmp_col->itemCnt);
