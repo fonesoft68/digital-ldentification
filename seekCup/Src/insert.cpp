@@ -68,7 +68,7 @@ int insert(const char *command)
   s = cut(s, '(', ')');
   char **value = split(values[1], ",", p);
   if (strlen(s) == 0 && *p == tmp_table->colCnt) {
-    int count = 0;
+    int count = *p - 1;
     col *tmp_col = tmp_table->rootCol->next;
     while (tmp_col) {
       item *tmp_item = tmp_col->rootItem->next;
@@ -79,7 +79,8 @@ int insert(const char *command)
       strcpy(tmp->res, value[count]);
       tmp_col->rootItem->next = tmp;
       tmp->next = tmp_item;
-      ++ count;
+      -- count;
+      ++ (tmp_col->itemCnt);
       tmp_col = tmp_col->next;
     }
   }
@@ -109,6 +110,7 @@ int insert(const char *command)
       }
       tmp_col->rootItem->next = tmp;
       tmp->next = tmp_item;
+      ++ (tmp_col->itemCnt);
       tmp_col = tmp_col->next;
       }
     }

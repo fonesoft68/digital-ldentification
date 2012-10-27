@@ -71,8 +71,8 @@ int main(int argc, char *argv[])
     allDatabaseRoot->rootTable->next = createTable("  a int  , b float , c text   ");
     allDatabaseRoot->rootTable->next->name = "a";
     nowUsedDatabase = allDatabaseRoot;
-    insert("insert into a values (2 , 3.5, 'how')");
-    //    insert("insert into a values (1, 4.7, 'foo')");
+    insert("insert into a (a , b ) values (2 , 3.5)");
+    insert("insert into a (b , c) values ( 4.7, 'foo')");
     //    insert("insert into a values (3, 2.4, 'bar')");
     //swap(allDatabaseRoot->rootTable->next, 0, 1);
     // sort(allDatabaseRoot->rootTable->next, "b", ASC);
