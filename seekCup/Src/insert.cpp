@@ -36,6 +36,11 @@ col * find(table * tb, char * str)
   
 int insert(const char *command)
 {
+  if (!nowUsedDatabase) {
+    printf(ERROR);
+    return 0;
+  }
+  
   int *p = (int *) malloc (sizeof(int));
   char *command_copy = (char *) calloc (1, sizeof(char) * strlen(command) + 1);
   strcpy(command_copy, command);
@@ -138,10 +143,6 @@ void swap(table *tmp_table, int i, int j)
       tmp_item2 = tmp_item2->next;
       ++ cnt;
     }
-    // item *tmp = (item *) calloc (1, sizeof(item));
-    // tmp = tmp_item1;
-    // tmp_item1 = tmp_item2;
-    // tmp_item2 = tmp;
     char *tmp = (char *) calloc (1, sizeof(char) * 256);
     strcpy(tmp, tmp_item1->res);
     memset(tmp_item1->res, '\0', sizeof(char) * (strlen(tmp_item1->res) + 1));
@@ -152,8 +153,8 @@ void swap(table *tmp_table, int i, int j)
   }
 }
 
-#define ASC 1
-#define DESC 2
+#define ASC 2
+#define DESC 1
 
 table *sort(table *tmp_table, char *name, int rule)
 {
