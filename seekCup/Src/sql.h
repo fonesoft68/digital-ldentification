@@ -145,3 +145,7 @@ int delete_parse(char *);
 void sort(table *, char *, int );
 
 
+
+int delete_parse(char *);
+void sort(table *, char *, int );
+
