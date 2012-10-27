@@ -105,6 +105,7 @@ int insert(const char *command)
   int *result = findString(values[1], ",", r);
   for (int i = 0;i < n;++ i) {
     if (i == 0) {
+      //      if (result[1] == 0) 
       strncpy(value[0], values[1], result[1]);
     }
     else if (i == n - 1) {
