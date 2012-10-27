@@ -187,12 +187,12 @@ void swap(table *tmp_table, int i, int j)
 #define ASC 1
 #define DESC 2
 
-table *sort(table *tmp_table, char *name, int rule)
+void sort(table *tmp_table, char *name, int rule)
 {
   col *tmp_col = find(tmp_table, name);
   if (!tmp_col) {
     printf(ERROR);
-    return 0;
+    return;
   }
   int j, k;
   for (j = 0;j < tmp_col->itemCnt;++ j) {
