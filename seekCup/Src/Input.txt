@@ -9,6 +9,7 @@ create table person
 alter table person add address;
 insert into person(Id, Name,Address)values(1,'YaoQ', 'Qiming702');
 updata person set Grade=90 where id==1;
+
 delete from person where Id==-1;
 drop person;
 drop seedcup;

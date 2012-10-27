@@ -13,7 +13,7 @@
 #define RENAME_DATABASE "rename database "
 #define SELECT "select "
 #define UPDATA "updata "
-#define DELETE "delete "
+#define DELETE "delete from "
 #define INSERT_INTO "insert into "
 #define SHOW "show "
 
@@ -204,7 +204,10 @@ int parseCommand(char * command)
 		}
 	}
 	else if (result_select[0] == 1) {
+#ifdef DEBUG
 		printf("$select:%s$\n", command);
+#endif
+		select(command);
 	}
 	else if (result_updata[0] == 1) {
 #ifdef DEBUG
@@ -213,7 +216,12 @@ int parseCommand(char * command)
 		updata_parse(command);
 	}
 	else if (result_delete[0] == 1) {
+#ifdef DEBUG
 		printf("$delete:%s$\n", command);
+#endif
+		int *cnt = (int *)calloc (1, sizeof(int));
+		char **split_command = split(command, DELETE, cnt);
+		delete_parse(split_command[0]);
 	}
 	else if (result_insert_into[0] == 1) {
 #ifdef DEBUG
