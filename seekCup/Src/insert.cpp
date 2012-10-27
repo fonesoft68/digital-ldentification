@@ -225,7 +225,7 @@ void sort(table *tmp_table, char *name, int rule)
 	tmp_item = tmp_item->next;
 	++ cnt;
       }
-      if ((rule == DESC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) > 0) || (rule == ASC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) < 0)) {
+      if ((rule == ASC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) > 0) || (rule == DESC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) < 0)) {
 	swap(tmp_table, k, k - 1);
       }
     }
