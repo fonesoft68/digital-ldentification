@@ -15,8 +15,8 @@ int main()
   char b[8]="ak?o*l*";
   char c[5]="1234";
   char d[10]="1000,1893";
-  const char Select[]="select col_1,col_2 from a where col_2 like[?c*ef*] order by col_5 incr";
-
+   const char Select[]="select col_1,col_3 from a where col_3 like[?c*ef*] order by col_5 incr";
+  // const char Select[]="select col_2,col_3 from a order by col_3 incr";
 
 //  if(like(a,b)){
 //    printf("a like b \n");
@@ -25,14 +25,14 @@ int main()
 //    printf("c is between d  \n");
 // }else printf("c is not between d  \n");
 //
-    allDatabaseRoot->rootTable->next = createTable(" col_1 text , col_2 text , col_3 int,col_4 float,col_5 int ");
+    allDatabaseRoot->rootTable->next = createTable(" col_1 text , col_2 text , col_3,col_4 float,col_5 int ");
 	allDatabaseRoot->rootTable->next->name = "a"; 
-	insert("insert into a values ('A', 'abcde', 1,1.5,1)"); 
-	insert("insert into a values ('B', 'bcdef', 2,2.5,2)"); 
-	insert("insert into a values ('C', 'cdefg', 3,3.5,3)"); 
-	insert("insert into a values ('D', 'defgh', 4,4.5,4)");
-	insert("insert into a values ('E', 'efghi', 5,5.5,5)");
-	insert("insert into a values ('F', 'fghij', 6,5.5,6)");
+	insert("insert into a values ('A', 'abcde', ,1.5,1)"); 
+	insert("insert into a values ('B', 'bcdef', ,2.5,2)"); 
+	insert("insert into a values ('C', 'cdefg', ,3.5,3)"); 
+	insert("insert into a values ('D', 'defgh', ,4.5,4)");
+	insert("insert into a values ('E', 'efghi', ,5.5,5)");
+	insert("insert into a values ('F', 'fghij', ,5.5,6)");
 	showTableContext(allDatabaseRoot->rootTable->next);
 	nowUsedDatabase=allDatabaseRoot;
         nowUsedDatabase->tableCnt=1;

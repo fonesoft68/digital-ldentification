@@ -81,10 +81,22 @@ table *select(const char* Select)
       memcpy(row_limit,where+6,strlen(where)-6);
     }
   }
-  else if(strcmp(temp[*p-1],DESC)==0){
-    order=2;
-    odby=(char *)calloc(1,strlen(temp[*p-2])+1);
-    strcpy(odby,temp[*p-2]);
+  else if(strstr(selectn,"order by")!=0){
+    if(strcmp(temp[*p-1],DESC)==0){
+      order=2;
+      odby=(char *)calloc(1,strlen(temp[*p-2])+1);
+      strcpy(odby,temp[*p-2]);
+    }
+    else if(strcmp(temp[*p-1],INCR)==0){
+      order=1;
+      odby=(char *)calloc(1,strlen(temp[*p-2])+1);
+      strcpy(odby,temp[*p-2]);
+    }
+    else{
+      order=1;
+      odby=(char *)calloc(1,strlen(temp[*p-1])+1);
+      strcpy(odby,temp[*p-1]);
+    }
   }
   return Search(col_name,table_name,row_limit,odby,order);
 }
