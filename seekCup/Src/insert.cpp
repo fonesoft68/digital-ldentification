@@ -84,7 +84,6 @@ int insert(const char *command)
     }
     ++ m;
   }
-  //  char value[n][256];
   char * value[n];
   for (int i = 0;i < n;++ i) {
     value[i] = (char *) calloc (1, sizeof(char) * 256);
@@ -102,7 +101,6 @@ int insert(const char *command)
       strncpy(value[i], values[1] + result[i] + 1, result[i + 1] - result[i] - 1);
     }
   }
-  //  char **value = split(values[1], ",", p);
   if (strlen(s) == 0 && n == tmp_table->colCnt) {
     int count = n - 1;
     col *tmp_col = tmp_table->rootCol->next;
@@ -187,12 +185,12 @@ void swap(table *tmp_table, int i, int j)
 #define ASC 1
 #define DESC 2
 
-table *sort(table *tmp_table, char *name, int rule)
+void sort(table *tmp_table, char *name, int rule)
 {
   col *tmp_col = find(tmp_table, name);
   if (!tmp_col) {
     printf(ERROR);
-    return 0;
+    return;
   }
   int j, k;
   for (j = 0;j < tmp_col->itemCnt;++ j) {
