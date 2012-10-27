@@ -145,7 +145,7 @@ int isFloat(char *str)
 {
 	int i;
 	for (i = 0; i < strlen(str); ++ i) {
-		if (str[i] < '0' || str[i] > '9' || str[i] != '.') {
+	  if ((str[i] < '0' || str[i] > '9') && str[i] != '.') {
 			return 0;
 		}
 	}
