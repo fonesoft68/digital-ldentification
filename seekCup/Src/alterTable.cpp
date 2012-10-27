@@ -51,6 +51,7 @@ int alterAdd(char *table_name, char *datatype)
     int i;
     item *rootItem = (item *) calloc (1, sizeof(item));
  	rootItem->type = None;
+	rootItem->res = (char *) calloc (256, sizeof(char));
 
 
     TYPE type = None;

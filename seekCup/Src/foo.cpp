@@ -89,7 +89,6 @@ int toLowCase(char *str)
 				++ i;
 			}
 			if (i >= strlen(str)) {
-				printf("************");
 				printf(ERROR);
 				return 0;
 			}
@@ -258,7 +257,13 @@ item *itemcpy(item *i)
 	}
 	item *item_cpy = (item *) calloc (1, sizeof(item));
 	item_cpy->res = (char *) calloc (256, sizeof(char));
-	strcpy(item_cpy->res, i->res);
+	if (!i->res) {
+		item_cpy->res = (char *) calloc (256, sizeof(char));
+		i->res = (char *) calloc (256, sizeof(char));
+	}
+	else {
+		strcpy(item_cpy->res, i->res);
+	}
 	item_cpy->type = i->type;
 	if (i->next) {
 		item_cpy->next = itemcpy(i->next);
@@ -268,11 +273,16 @@ item *itemcpy(item *i)
 
 col *colcpy(col *c)
 {
+	if (!c) {
+		return NULL;
+	}
 	col *col_cpy = (col *) calloc (1, sizeof(col));
 	col_cpy->rootItem = itemcpy(c->rootItem);
 	col_cpy->type = c->type;
 	col_cpy->name = (char *) calloc (256, sizeof(col));
-	strcpy(col_cpy->name, c->name);
+	if (c->name) {
+		strcpy(col_cpy->name, c->name);
+	}
 	if (c->next) {
 		col_cpy->next = colcpy(c->next);
 	}
@@ -286,7 +296,9 @@ table *tablecpy(table *t)
 	}
 	table *table_cpy = (table *) calloc (1, sizeof(table));
 	table_cpy->name = (char *) calloc (256, sizeof(char));
-	strcpy(table_cpy->name, t->name);
+	if (t->name) {
+		strcpy(table_cpy->name, t->name);
+	}
 	table_cpy->rootCol = colcpy(t->rootCol);
 	if (t->next) {
 		table_cpy = tablecpy(t->next);
@@ -374,11 +386,41 @@ int isSelect(TYPE type, char *res , char *condition)
 table *where(table *query_table, char *condition)
 {
 	int *c = (int *) calloc (1, sizeof(int));
-	char **split_c = split(condition, " ", c);
-	table *result_table;
+	char **split_c;
+	char *table_name;
+	split_c = split(condition, EQUAL, c);
+	if (*c == 2) {
+		table_name = split_c[0];
+	}
+	split_c = split(condition, NOT_EQUAL, c);
+	if (*c == 2) {
+		table_name = split_c[0];
+	}
+	split_c = split(condition, GREATE_THAN, c);
+	if (*c == 2) {
+		table_name = split_c[0];
+	}
+	split_c = split(condition, GREATE_THAN_EQUAL, c);
+	if (*c == 2) {
+		table_name = split_c[0];
+	}
+	split_c = split(condition, LESS_THAN, c);
+	if (*c == 2) {
+		table_name = split_c[0];
+	}
+	split_c = split(condition, LESS_THAN_EQUEL, c);
+	if (*c == 2) {
+		table_name = split_c[0];
+	}
+	split_c = split(condition, BETWEEN, c);
+	if (*c == 2) {
+		table_name = split_c[0];
+	}
+
+	table *result_table = (table *) calloc (1, sizeof(table));
 	col *tmp_col = query_table->rootCol->next;
 	while (tmp_col) {
-		if (strcmp(tmp_col->name, split_c[0]) == 0) {
+		if (strcmp(tmp_col->name, table_name) == 0) {
 			break;
 		}
 		tmp_col = tmp_col->next;
@@ -393,11 +435,12 @@ table *where(table *query_table, char *condition)
 	int cnt = 0;
 	while (tmp_item) {
 		++ cnt;
-		if (resCmp(tmp_item->type, tmp_item->res, condition) == 1) {
+		if (isSelect(tmp_col->type, tmp_item->res, condition) == 1) {
 			++ index[0];
 			index = (int *) realloc (index, (index[0] + 1) * sizeof(int));
 			index[index[0]] = cnt;
 		}
+		tmp_item = tmp_item->next;
 	}
 	int i,j;
 	int colCnt = 0;

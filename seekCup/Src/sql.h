@@ -1,4 +1,5 @@
 #define ERROR "error\n"
+#define DEBU
 
 typedef enum {
 	Int = 1,
@@ -125,5 +126,23 @@ int outputForOrder(char **, int *, int);
 int show_parse(char *);
 col *find(table * tb, char *);
 int resCmp(TYPE type, char *, char *);
+<<<<<<< HEAD
+item *itemcpy(item*);
+col *colcpy(col*);
+table *tablecpy(table*);
+int truncateTable(char *name);
+int updata_parse(char *);
+table *findTable(char *);
+table *where(table *, char *);
+int isSelect(TYPE, char*, char*);
+int isNum(char *);
+int isFloat(char *);
+int isText(char *);
+=======
 void swap(table *, int i, int j);
+<<<<<<< HEAD
 void sort(table *, char *, int );
+=======
+table *sort(table *, char *, int );
+>>>>>>> e99b89287f1febdd1c7a70b1fe38ff12632cb49d
+>>>>>>> 5a52b156d1a9b5d5e7d3702b9ada667e2041a3b4
