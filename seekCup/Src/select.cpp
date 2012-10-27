@@ -14,10 +14,9 @@ table *select(const char* Select)
     char *table_name=NULL;
     char *row_limit;
     int order=1;
-    char *temp;
+    char **temp;
+    int *p;
 
-    char *selectn=(char *)malloc(sizeof(Select));
-    memcpy(selectn,Select,sizeof(Select));
 
     char SELECT[7]="select";
     char FROM[5]="from";
@@ -25,50 +24,52 @@ table *select(const char* Select)
     char DESC[5]="desc";
     char INCR[5]="incr";
 
-    temp=strtok (selectn, " ");
-    if(strcmp(temp,SELECT)!=0){
+    char *selectn=(char *)calloc(1,strlen(Select)+1);
+    strcpy(selectn,Select);
+    temp=split(selectn," ",p);
+
+    if(strcmp(temp[0],SELECT)!=0){
 	return NULL;
 	printf("error");
     }
-    temp=strtok (NULL," ");
-    col_name=(char *)malloc(sizeof(char)*strlen(temp));
-    strcpy(col_name,temp);
 
 
-    temp=strtok (NULL," ");
-    if(strcmp(temp,FROM)!=0){
+    col_name=(char *)calloc(1,strlen(temp[1])+1);
+    strcpy(col_name,temp[1]);
+
+
+    if(strcmp(temp[2],FROM)!=0){
 	return NULL;
 	printf("error");
     }
-    temp=strtok (NULL," ");
-    table_name=(char *)malloc(sizeof(char)*strlen(temp));
-    strcpy(table_name,temp);
+    
+    table_name=(char *)calloc(1,strlen(temp[3])+1);
+    strcpy(table_name,temp[3]);
 
 
-    temp=strtok (NULL," ");
     //判断是否有WHERE参数
-    if(strcmp(temp,WHERE)==0){
+    if(strcmp(temp[4],WHERE)==0){
 	char *where=strstr(selectn,WHERE);
 	//判断是否有参数ORDER BY
 	char Iforder[5];
-	memcpy(Iforder,selectn+strlen(selectn)-5,4);
+	memcpy(Iforder,selectn+strlen(selectn)-4,4);
 	Iforder[5]='\0';
 	if(strcmp(Iforder,DESC)==0){
-	    row_limit=(char *)malloc(sizeof(char)*(strlen(where)-12));
-	    memcpy(row_limit,where+6,strlen(where)-12);
+	  row_limit=(char *)calloc(1,sizeof(char)*(strlen(where)-10));
+	    memcpy(row_limit,where+6,strlen(where)-11);
 	    order=2;
 	}
 
 	else if(strcmp(Iforder,INCR)==0){
-	    row_limit=(char *)malloc(sizeof(char)*(strlen(where)-12));
-	    memcpy(row_limit,where+6,strlen(where)-12);
+	  row_limit=(char *)calloc(1,sizeof(char)*(strlen(where)-10));
+	    memcpy(row_limit,where+6,strlen(where)-11);
 	}
 	else{
-	    row_limit=(char *)malloc(sizeof(char)*(strlen(where)-7));
-	    memcpy(row_limit,where+6,strlen(where)-6);
+	  row_limit=(char *)calloc(1,sizeof(char)*(strlen(where)-4));
+	    memcpy(row_limit,where+6,strlen(where)-5);
 	}
     }
-    else if(strcmp(temp,DESC)==0){
+    else if(strcmp(temp[4],DESC)==0){
 	order=2;
     }
     return Search(col_name,table_name,row_limit,order);
