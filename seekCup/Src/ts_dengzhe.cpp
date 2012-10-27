@@ -9,21 +9,35 @@ int databaseCnt = 0;
 
 int main()
 {
-  createDatabase("dan");
+  allDatabaseRoot=createDatabase("dan");
   nowUsedDatabase = allDatabaseRoot;
   char a[11]="aksopdlkjl";
   char b[8]="ak?o*l*";
   char c[5]="1234";
   char d[10]="1000,1893";
-  const char Select[]="select col_1,col_2,col_3 from table where col_3>5 desc";
-  if(like(a,b)){
-    printf("a like b \n");
-  }else printf("a dislike b  \n");
-  if(between(c,d)){
-    printf("c is between d  \n");
-  }else printf("c is not between d  \n");
-  select(Select);
-  
+  const char Select[]="select col_1,col_2 from table where col_3>5 desc";
+
+
+//  if(like(a,b)){
+//    printf("a like b \n");
+//  }else printf("a dislike b  \n");
+//  if(between(c,d)){
+//    printf("c is between d  \n");
+// }else printf("c is not between d  \n");
+//
+    allDatabaseRoot->rootTable->next = createTable(" col_1 text , col_2 text , col_3 ,col_4 float,col_5 int ");
+	allDatabaseRoot->rootTable->next->name = "table"; 
+	insert("insert into a values (A, abcde,,1.5,1)"); 
+	insert("insert into a values (B, bcdef, ,2.5,2)"); 
+	insert("insert into a values (C, cdefg, ,3.5,3)"); 
+	insert("insert into a values (D, defgh, ,4.5,4)");
+	insert("insert into a values (E, efghi, ,5.5,5)");
+	insert("insert into a values (F, fghij, ,6.5,6)");
+	nowUsedDatabase=allDatabaseRoot;
+        nowUsedDatabase->tableCnt=1;
+	nowUsedDatabase->rootTable->next->rootCol->next->itemCnt=6;
+
+	select(Select);
   //if(Judge(now_tab,row,row_limit)){
     // printf("true");  
     // }else printf("false");

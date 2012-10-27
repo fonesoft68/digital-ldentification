@@ -16,7 +16,13 @@ char * cut(char * str, char c1, char c2)
   while (*(str + end) == ' ' || *(str + end) == c2) {
     --end;
   }
-  strncpy(s, str + start, end - start + 1);
+  if (end - start + 1 < 0) {
+    return "";
+  }
+  else {
+    strncpy(s, str + start, end - start + 1);
+    return s;
+  }
 }
 
 col * find(table * tb, char * str)
@@ -36,6 +42,11 @@ col * find(table * tb, char * str)
   
 int insert(const char *command)
 {
+  if (!nowUsedDatabase) {
+    printf(ERROR);
+    return 0;
+  }
+  
   int *p = (int *) malloc (sizeof(int));
   char *command_copy = (char *) calloc (1, sizeof(char) * strlen(command) + 1);
   strcpy(command_copy, command);
@@ -66,22 +77,47 @@ int insert(const char *command)
   char *s = (char *) calloc (1, sizeof(char) * strlen(values[0]));
   strcpy(s, values[0] + strlen(tmp_table->name));
   s = cut(s, '(', ')');
-  char **value = split(values[1], ",", p);
-  if (strlen(s) == 0 && *p == tmp_table->colCnt) {
-    int count = 0;
+  int m = 0, n = 1;
+  while (*(values[1] + m) != '\0') {
+    if (*(values[1] + m) == ',') {
+      ++ n;
+    }
+    ++ m;
+  }
+  //  char value[n][256];
+  char * value[n];
+  for (int i = 0;i < n;++ i) {
+    value[i] = (char *) calloc (1, sizeof(char) * 256);
+  }
+  static int *r = go(",");
+  int *result = findString(values[1], ",", r);
+  for (int i = 0;i < n;++ i) {
+    if (i == 0) {
+      strncpy(value[0], values[1], result[1]);
+    }
+    else if (i == n - 1) {
+      strcpy(value[n - 1], values[1] + result[n - 1] + 1);
+    }
+    else {
+      strncpy(value[i], values[1] + result[i] + 1, result[i + 1] - result[i] - 1);
+    }
+  }
+  //  char **value = split(values[1], ",", p);
+  if (strlen(s) == 0 && n == tmp_table->colCnt) {
+    int count = n - 1;
     col *tmp_col = tmp_table->rootCol->next;
     while (tmp_col) {
-      item *tmp_item = tmp_col->rootItem;
-      while (tmp_item->next) {
-	tmp_item = tmp_item->next;
-      }
+      item *tmp_item = tmp_col->rootItem->next;
       item *tmp = (item *) calloc (1, sizeof(item));
       value[count] = cut(value[count], '(', ')');
       value[count] = cut(value[count], '\'', '\'');
-      tmp->res = (char *) malloc (sizeof(char) * 256);
+      tmp->res = (char *) calloc (1, sizeof(char) * 256);
+      tmp->type = tmp_col->type;
       strcpy(tmp->res, value[count]);
-      tmp_item->next = tmp;
-      ++ count;
+      tmp_col->rootItem->next = tmp;
+      tmp->next = tmp_item;
+      -- count;
+      ++ (tmp_col->itemCnt);
       tmp_col = tmp_col->next;
     }
   }
@@ -98,12 +134,9 @@ int insert(const char *command)
     if (*p == *q) {
       col *tmp_col = tmp_table->rootCol->next;
       while (tmp_col) {
-	item *tmp_item = tmp_col->rootItem;
-	while (tmp_item->next) {
-	tmp_item = tmp_item->next;
-      }
-      item *tmp = (item *) calloc (1, sizeof(item));
-      tmp->res = (char *) malloc (sizeof(char) * 256);
+	item *tmp_item = tmp_col->rootItem->next;
+	item *tmp = (item *) calloc (1, sizeof(item));
+	tmp->res = (char *) calloc (1, sizeof(char) * 256);
       for (int i = 0;i < *p;++ i) {
 	if (strcmp(tmp_col->name, column[i]) == 0) {
 	  value[i] = cut(value[i], '(', ')');
@@ -112,7 +145,10 @@ int insert(const char *command)
 	  break;
 	}
       }
-      tmp_item->next = tmp;
+      tmp->type = tmp_col->type;
+      tmp_col->rootItem->next = tmp;
+      tmp->next = tmp_item;
+      ++ (tmp_col->itemCnt);
       tmp_col = tmp_col->next;
       }
     }
@@ -123,48 +159,53 @@ int insert(const char *command)
   }
 }
 
-// void swap(table *tmp_table, int i, int j)
-// {
-//   col *tmp_col = tb->rootCol->next;
-//   while (tmp_col) {
-//     int cnt = 0;
-//     item *tmp_item1, tmp_item2 = tmp_col->rootItem;
-//     while (cnt <= i) {
-//       tmp_item1 = tmp_item1->next;
-//     }
-//     cnt = 0;
-//     while (cnt <= j) {
-//       tmp_item2 = tmp_item2->next;
-//     }
-//     item *tmp = (item *) calloc (1, sizeof(item));
-//     tmp = tmp_item1;
-//     tmp_item1 = tmp_item2;
-//     tmp_item2 = tmp;
-//     tmp_col = tmp_col->next;
-//   }
-// }
+void swap(table *tmp_table, int i, int j)
+{
+  col *tmp_col = tmp_table->rootCol->next;
+  while (tmp_col) {
+    int cnt = 0;
+    item *tmp_item1 = tmp_col->rootItem, *tmp_item2 = tmp_col->rootItem;
+    while (cnt <= i) {
+      tmp_item1 = tmp_item1->next;
+      ++ cnt;
+    }
+    cnt = 0;
+    while (cnt <= j) {
+      tmp_item2 = tmp_item2->next;
+      ++ cnt;
+    }
+    char *tmp = (char *) calloc (1, sizeof(char) * 256);
+    strcpy(tmp, tmp_item1->res);
+    memset(tmp_item1->res, '\0', sizeof(char) * (strlen(tmp_item1->res) + 1));
+    strcpy(tmp_item1->res, tmp_item2->res);
+    memset(tmp_item2->res, '\0', sizeof(char) * (strlen(tmp_item2->res) + 1));
+    strcpy(tmp_item2->res, tmp);
+    tmp_col = tmp_col->next;
+  }
+}
 
-// #define ASC 1
-// #define DESC 2
+#define ASC 1
+#define DESC 2
 
-// table *sort(table *tmp_table, char *name, int rule)
-// {
-//   col *tmp_col = find(tmp_table, name);
-//   if (!tmp_col) {
-//     printf(ERROR);
-//     return 0;
-//   }
-//   int j, k;
-//   for (j = 0;j < tmp_table->colCnt;++ j) {
-//     for (k = tmp_table->colCnt - 1;k > j;-- k) {
-//       int cnt = 0
-// 	item *tmp_item = tmp_col->rootItem;
-//       while (cnt <= k - 1) {
-// 	tmp_item = tmp_item->next;
-//       }
-//       if ((rule == ASC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) > 0) || (rule == DESC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) < 0)) {
-// 	swap(tmp_table, k, k - 1);
-//       }
-//     }
-//   }
-// }
+table *sort(table *tmp_table, char *name, int rule)
+{
+  col *tmp_col = find(tmp_table, name);
+  if (!tmp_col) {
+    printf(ERROR);
+    return 0;
+  }
+  int j, k;
+  for (j = 0;j < tmp_col->itemCnt;++ j) {
+    for (k = tmp_col->itemCnt - 1;k > j;-- k) {
+      int cnt = 0;
+      item *tmp_item = tmp_col->rootItem;
+      while (cnt <= k - 1) {
+	tmp_item = tmp_item->next;
+	++ cnt;
+      }
+      if ((rule == DESC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) > 0) || (rule == ASC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) < 0)) {
+	swap(tmp_table, k, k - 1);
+      }
+    }
+  }
+}

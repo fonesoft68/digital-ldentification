@@ -76,7 +76,7 @@ bool like(char *,char *);
 //BETWEEN
 bool between(char *,char *);
 //Judge判断某行是否合要求
-bool Judge(table *,int,char *);
+int Judge(table *,int,char *);
 
 //修改表中的数据
 int updata(const char *);
@@ -126,6 +126,7 @@ int outputForOrder(char **, int *, int);
 int show_parse(char *);
 col *find(table * tb, char *);
 int resCmp(TYPE type, char *, char *);
+<<<<<<< HEAD
 item *itemcpy(item*);
 col *colcpy(col*);
 table *tablecpy(table*);
@@ -137,3 +138,7 @@ int isSelect(TYPE, char*, char*);
 int isNum(char *);
 int isFloat(char *);
 int isText(char *);
+=======
+void swap(table *, int i, int j);
+table *sort(table *, char *, int );
+>>>>>>> e99b89287f1febdd1c7a70b1fe38ff12632cb49d
