@@ -1,34 +1,10 @@
-create database seedcup
-$create database:create database seedcup$
 seedcup
- use seedcup
-$use: use seedcup$
 now used seedcup
- create table person ( id int, name text, grade int )
-$create table: create table person ( id int, name text, grade int )$
 grade,id,name, 
- alter table person add address
-$alter table: alter table person add address$
 id,name,grade,address, 
- show database
-$show: show database$
-seedcup, 
- show table
-$show: show table$
-person, 
- show person column
-$show: show person column$
-id,name,grade,address, 
- show person column order by desc
-$show: show person column order by desc$
-name,id,grade,address, 
- insert into person(id, name,address)values(1,'YaoQ', 'Qiming702')
-$insert into: insert into person(id, name,address)values(1,'YaoQ', 'Qiming702')$
- updata person set grade=90 where name=='YaoQ'
-$updata: updata person set grade=90 where name=='YaoQ'$
- delete from person where id==-1
+1,YaoQ,#,Qiming702, 
+grade
+90
+id==1
+1,YaoQ,90,Qiming702, 
 $delete: delete from person where id==-1$
- drop person
-$drop: drop person$
- drop seedcup
-$drop: drop seedcup$

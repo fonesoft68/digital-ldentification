@@ -63,6 +63,22 @@ int main(int argc, char *argv[])
 			toLowCase(t);
 			printf("%s\n", t);
 		}
+		if (strcmp(argv[1], "tablecpy") == 0) {
+			initTestDatabase();
+			showTableContext(nowUsedDatabase->rootTable->next);
+			table *t = tablecpy(nowUsedDatabase->rootTable->next);
+			printf("\n");
+			showTableContext(t);
+		}
+		if (strcmp(argv[1], "truncate") == 0) {
+			initTestDatabase();
+			showColName(nowUsedDatabase->rootTable->next->rootCol->next);
+			showTableContext(nowUsedDatabase->rootTable->next);
+			truncateTable("table_1");
+			showColName(nowUsedDatabase->rootTable->next->rootCol->next);
+			showTableContext(nowUsedDatabase->rootTable->next);
+		
+		}
 		
 	}
 

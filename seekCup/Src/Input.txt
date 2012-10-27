@@ -7,12 +7,8 @@ create table person
 	grade INT
  );
 alter table person add address;
-show database;
-show table;
-show  person column;
-show person column order by desc;
 insert into person(Id, Name,Address)values(1,'YaoQ', 'Qiming702');
-updata person set Grade=90 where Name=='YaoQ';
+updata person set Grade=90 where id==1;
 delete from person where Id==-1;
 drop person;
 drop seedcup;

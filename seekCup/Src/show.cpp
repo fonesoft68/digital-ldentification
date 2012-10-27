@@ -88,7 +88,7 @@ int show_parse(char *command)
 
 int printItem(item *i)
 {
-	if (i->type == None) {
+	if (i->type == None || !i->res || strcmp(i->res, "") == 0) {
 		printf("#,");
 	}
 	else {
@@ -113,6 +113,10 @@ int showCol(char *n)
 
 int showTableContext(table *t)
 {
+	if (!t) {
+		printf(ERROR);
+		return 0;
+	}
 	int rowCnt = 0;
 	int colCnt = 0;
 	col *tmp_col = t->rootCol->next;

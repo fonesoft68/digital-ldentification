@@ -24,7 +24,7 @@ int truncateTable(char *name)
 			col *tmp_col = tmp_table->rootCol->next;
 			while (tmp_col) {
 				freeItem(tmp_col->rootItem->next);
-				tmp_col->rootItem = 0;
+				tmp_col->rootItem->next = 0;
 				tmp_col = tmp_col->next;
 			}
 			return 0;

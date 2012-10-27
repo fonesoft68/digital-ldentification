@@ -3,8 +3,6 @@
 #include <string.h>
 #include "sql.h"
 
-#define DEBUG
-
 #define CREATE_DATABASE "create database "
 #define CREATE_TABLE "create table "
 #define ALTER_TABLE "alter table "
@@ -87,7 +85,7 @@ int parseCommand(char * command)
 		return 0;
 
 	}
-	if (result_create_table[0] == 1 && result_create_table[1] == begin_black) {
+	else if (result_create_table[0] == 1 && result_create_table[1] == begin_black) {
 #ifdef DEBUG
 		printf("$create table:%s$\n", command);
 #endif
@@ -120,16 +118,27 @@ int parseCommand(char * command)
 		}
 
 	}
-	if (result_alter_table[0] == 1 && result_alter_table[1] == begin_black) {
+	else if (result_alter_table[0] == 1 && result_alter_table[1] == begin_black) {
 #ifdef DEBUG
 		printf("$alter table:%s$\n", command);
 #endif
 		alter_parse(command);
 	}
-	if (result_truncate_table[0] == 1) {
+	else if (result_truncate_table[0] == 1 && result_truncate_table[1] == begin_black) {
+#ifdef DEBUG
 		printf("$truncate table:%s$\n", command);
+#endif
+		int *c = (int*) calloc (1, sizeof(int));
+		split_command = split(command, " ", c);
+		if (*c == 1) {
+			truncateTable(split_command[1]);
+		}
+		else {
+			printf(ERROR);
+			return 0;
+		}
 	}
-	if (result_use[0] == 1 && result_use[1] == begin_black) {
+	else if (result_use[0] == 1 && result_use[1] == begin_black) {
 #ifdef DEBUG
 		printf("$use:%s$\n", command);
 #endif
@@ -149,10 +158,13 @@ int parseCommand(char * command)
 		free(split_command);
 		return 0;
 	}
-	if (result_drop[0] == 1) {
+	else if (result_drop[0] == 1 && result_drop[1] == begin_black) {
+#ifdef DEBUG
 		printf("$drop:%s$\n", command);
+#endif
+		drop(command);
 	}
-	if (result_rename_table[0] == 1 && result_rename_table[1] == begin_black) {
+	else if (result_rename_table[0] == 1 && result_rename_table[1] == begin_black) {
 #ifdef DEBUG
 		printf("$rename table:%s$\n", command);
 #endif
@@ -170,7 +182,7 @@ int parseCommand(char * command)
 			return 0;
 		}
 	}
-	if (result_rename_database[0] == 1 && result_rename_database[1] == begin_black) {
+	else if (result_rename_database[0] == 1 && result_rename_database[1] == begin_black) {
 #ifdef DEBUG
 		printf("$rename database:%s$\n", command);
 #endif
@@ -191,22 +203,26 @@ int parseCommand(char * command)
 			return 0;
 		}
 	}
-	if (result_select[0] == 1) {
+	else if (result_select[0] == 1) {
 		printf("$select:%s$\n", command);
 	}
-	if (result_updata[0] == 1) {
+	else if (result_updata[0] == 1) {
+#ifdef DEBUG
 		printf("$updata:%s$\n", command);
+#endif
+		updata_parse(command);
 	}
-	if (result_delete[0] == 1) {
+	else if (result_delete[0] == 1) {
 		printf("$delete:%s$\n", command);
 	}
-	if (result_insert_into[0] == 1) {
+	else if (result_insert_into[0] == 1) {
 #ifdef DEBUG
 		printf("$insert into:%s$\n", command);
 #endif
 		insert(command);
+		showTableContext(nowUsedDatabase->rootTable->next);
 	}
-	if (result_show[0] == 1 && result_show[1] == begin_black) {
+	else if (result_show[0] == 1 && result_show[1] == begin_black) {
 #ifdef DEBUG
 		printf("$show:%s$\n", command);
 #endif
