@@ -84,7 +84,6 @@ int insert(const char *command)
     }
     ++ m;
   }
-  //  char value[n][256];
   char * value[n];
   for (int i = 0;i < n;++ i) {
     value[i] = (char *) calloc (1, sizeof(char) * 256);
@@ -102,7 +101,6 @@ int insert(const char *command)
       strncpy(value[i], values[1] + result[i] + 1, result[i + 1] - result[i] - 1);
     }
   }
-  //  char **value = split(values[1], ",", p);
   if (strlen(s) == 0 && n == tmp_table->colCnt) {
     int count = n - 1;
     col *tmp_col = tmp_table->rootCol->next;
