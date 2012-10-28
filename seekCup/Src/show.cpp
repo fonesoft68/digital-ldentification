@@ -4,7 +4,7 @@
 #include "sql.h"
 #include "test.h"
 
-#define DATABASE "database"
+#define DATABASE "databases"
 #define TABLE "table"
 #define SHOW "show"
 #define COLUMN "column"

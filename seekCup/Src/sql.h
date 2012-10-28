@@ -146,7 +146,4 @@ int delete_parse(char *);
 float calculate(char *);
 
 int initDatabaseCnt();
-
-
-
-
+char *cut(char*,char,char);
