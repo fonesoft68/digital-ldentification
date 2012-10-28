@@ -44,7 +44,7 @@ int isStr(char *str)
 {
   int i;
   for (i = 0;i < strlen(str); ++ i) {
-    if ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_' || str[i] == ' ');
+    if ((str[i] >= '0' && str[i] <= '9')|| (str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_' || str[i] == ' ');
     else
     {
       return 0;
@@ -105,6 +105,7 @@ int insert(const char *command)
   int *result = findString(values[1], ",", r);
   for (int i = 0;i < n;++ i) {
     if (i == 0) {
+      //      if (result[1] == 0) 
       strncpy(value[0], values[1], result[1]);
     }
     else if (i == n - 1) {
@@ -148,13 +149,13 @@ int insert(const char *command)
 	return 0;
       }
     }
-    if (*p == *q) {
+    if (n == *q) {
       col *tmp_col = tmp_table->rootCol->next;
       while (tmp_col) {
 	item *tmp_item = tmp_col->rootItem->next;
 	item *tmp = (item *) calloc (1, sizeof(item));
 	tmp->res = (char *) calloc (1, sizeof(char) * 256);
-	for (int i = 0;i < *p;++ i) {
+	for (int i = 0;i < *q;++ i) {
 	  if (strcmp(tmp_col->name, column[i]) == 0) {
 	    value[i] = cut(value[i], '(', ')');
 	    value[i] = cut(value[i], '\'', '\'');
@@ -225,7 +226,7 @@ void sort(table *tmp_table, char *name, int rule)
 	tmp_item = tmp_item->next;
 	++ cnt;
       }
-      if ((rule == DESC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) > 0) || (rule == ASC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) < 0)) {
+      if ((rule == ASC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) > 0) || (rule == DESC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) < 0)) {
 	swap(tmp_table, k, k - 1);
       }
     }

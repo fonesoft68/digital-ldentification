@@ -135,7 +135,7 @@ float calculate(char *s)
   int beg1 = 0, beg2 = 0;
   *(os + beg2) = '=';
   ++ beg2;
-  while (s[i] || os[beg2 - 1] != '=') {
+  while (s[i] != '\0' || os[beg2 - 1] != '=') {
     if ((s[i] >= '0' && s[i] <= '9') || s[i] == '.') {
       num = 0;
       point = 0;
@@ -196,36 +196,41 @@ float calculate(char *s)
   }
   return ns[beg1 - 1];
 } 
-int main(int argc, char **argv)
-{
-  printf("%f\n", calculate("2.4 * 1.3 + 4.7 / ( 1 + 2.3)"));
-  return 0;
-}
-// int main(int argc, char *argv[])
+// int main(int argc, char **argv)
 // {
-
-//   //    allDatabaseRoot->next = NULL;
-//   allDatabaseRoot =  createDatabase("huzi");
-
-//     allDatabaseRoot->rootTable->next = createTable("  a int  , b float , noe, c text   ");
-//     allDatabaseRoot->rootTable->next->name = "a";
-//     nowUsedDatabase = allDatabaseRoot;
-//     insert("insert into a values (2 , 3.5 , , 'how')");
-//     insert("insert into a values ( 1 , 4.7, , 'foo')");
-//     insert("insert into a values (3, 2.4, , 'bar')");
-//     showTableContext(allDatabaseRoot->rootTable->next);
-//     //swap(allDatabaseRoot->rootTable->next, 0, 1);
-//     sort(allDatabaseRoot->rootTable->next, "b", 1);
-//     showTableContext(allDatabaseRoot->rootTable->next);
-//     //    insert("insert into a (b , c ) values (2.3, 'wuhan' )");
-//     //    alter_parse("alter table b drop column c ");
-//     if (argc > 1) {
-// 	if (memcpy(argv[1], "drop", strlen(argv[1])) == 0) {
-// 	    //    drop("huzi");
-// 	    printf("%p ***\n", allDatabaseRoot);
-// 	}
-// 	if (memcmp(argv[1], "createTable", strlen(argv[1])) == 0) {
-// 	    //allDatabaseRoot->rootTable = createTable(" int a , float b , noe  ");
-// 	}
-//     }
+//   printf("%f\n", calculate("2.4 * 1.3 + 4.7 / ( 1 + 2.3)"));
+//   return 0;
 // }
+
+int main(int argc, char *argv[])
+{
+
+  //    allDatabaseRoot->next = NULL;
+  allDatabaseRoot =  createDatabase("huzi");
+
+  allDatabaseRoot->rootTable->next = createTable("  a int  , b float , noe, c text   ");
+  allDatabaseRoot->rootTable->next->name = "a";
+  // allDatabaseRoot->rootTable->next = createTable("id int , name text , grade int , address text");
+  // allDatabaseRoot->rootTable->next->name = "person";
+  // nowUsedDatabase = allDatabaseRoot;
+  // insert("insert into person (id , name , address) values (1 , 'yaoq' , 'qiming702')");
+    nowUsedDatabase = allDatabaseRoot;
+       insert("insert into a values (2 , 3.5 ,, 'how')");
+       insert("insert into a values ( 1 , 4.7,, 'foo')");
+       insert("insert into a values (3, 2.4,, 'bar')");
+    showTableContext(allDatabaseRoot->rootTable->next);
+    //swap(allDatabaseRoot->rootTable->next, 0, 1);
+    sort(allDatabaseRoot->rootTable->next, "a", 1);
+    showTableContext(allDatabaseRoot->rootTable->next);
+    //    insert("insert into a (b , c ) values (2.3, 'wuhan' )");
+    //    alter_parse("alter table b drop column c ");
+    if (argc > 1) {
+	if (memcpy(argv[1], "drop", strlen(argv[1])) == 0) {
+	    //    drop("huzi");
+	    printf("%p ***\n", allDatabaseRoot);
+	}
+	if (memcmp(argv[1], "createTable", strlen(argv[1])) == 0) {
+	    //allDatabaseRoot->rootTable = createTable(" int a , float b , noe  ");
+	}
+    }
+}
