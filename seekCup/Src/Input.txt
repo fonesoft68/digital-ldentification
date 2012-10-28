@@ -8,6 +8,7 @@ create table person
  );
 
 insert into person values(1,'YaoQ',90);
+<<<<<<< HEAD
 insert into person values (2,'huzi',80);
 insert into person values(3, 'nimei', 456);
 
@@ -32,3 +33,32 @@ select name from person where id==1;
 #select * from unique;
 
 #select * from unique where  id==1;
+=======
+insert into person values (2,'huzi',1888);
+insert into person values(3, 'nimei', 80);
+delete from person where name=='YaoQ';
+select * from person;
+
+#create table unique
+(
+id int,
+name text,
+money float
+);
+
+select * from person;
+
+alter table person add adress text;
+show person column;
+insert into person values(3,'dsf',345,'sdf');
+
+select * from person;
+truncate table person;
+show person column;
+#insert into unique values(1,'kangle yu',324.3);
+#insert into unique values(2,'dengzhe',3.3);
+insert into person values(3,'zihao hu',3, 'sf');
+select * from person;
+
+show database;
+>>>>>>> 74cd0428f70d8b04338c66d5de1082cb62450207

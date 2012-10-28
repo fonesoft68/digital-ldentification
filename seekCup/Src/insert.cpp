@@ -39,19 +39,6 @@ col * find(table * tb, char * str)
     return NULL;
   }
 }
- 
-int isStr(char *str)
-{
-  int i;
-  for (i = 0;i < strlen(str); ++ i) {
-    if ((str[i] >= '0' && str[i] <= '9')|| (str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_' || str[i] == ' ');
-    else
-    {
-      return 0;
-    }
-  }
-  return 1;
-}
 
 int insert(const char *command)
 {
@@ -115,70 +102,70 @@ int insert(const char *command)
       strncpy(value[i], values[1] + result[i] + 1, result[i + 1] - result[i] - 1);
     }
   }
-  if (strlen(s) == 0 && n == tmp_table->colCnt) {
-    int count = n - 1;
-    col *tmp_col = tmp_table->rootCol->next;
-    while (tmp_col) {
-      item *tmp_item = tmp_col->rootItem->next;
-      item *tmp = (item *) calloc (1, sizeof(item));
-      value[count] = cut(value[count], '(', ')');
-      //value[count] = cut(value[count], '\'', '\'');
-      if (((tmp_col->type == Int) && (isNum(value[count]))) || ((tmp_col->type == Float) && (isFloat(value[count])))
-	  || ((tmp_col->type == Text) && (isText(value[count]))) || ((tmp_col->type == None) && strcmp(value[count], "") == 0));
-      else {
-	printf(ERROR);
-	return 0;
-      }
-      tmp->res = (char *) calloc (1, sizeof(char) * 256);
-      tmp->type = tmp_col->type;
-      strcpy(tmp->res, value[count]);
-      tmp_col->rootItem->next = tmp;
-      tmp->next = tmp_item;
-      -- count;
-      ++ (tmp_col->itemCnt);
-      tmp_col = tmp_col->next;
+  if (strlen(s) == 0) {
+    if (n != tmp_table->colCnt) {
+      printf(ERROR);
+      return 0;
     }
-  }
-  else if (1){
-    int *q = (int *) malloc (sizeof(int));
-    char **column = split(s, ",", q);
-    int i = -1;
-    int cnt = 0;
-    for (cnt = 0;cnt < *q;++cnt) {
-      value[cnt] = cut(value[cnt], '(', ')');
-      if (!find(tmp_table, column[cnt])) {
-	printf(ERROR);
-	return 0;
-      }
-      col *tmp_col = find(tmp_table, column[cnt]);
-      if (!(((tmp_col->type == Int) && (isNum(value[cnt]))) || ((tmp_col->type == Float) && (isFloat(value[cnt]))) || ((tmp_col->type == Text) && (isText(value[cnt]))) || ((tmp_col->type == None) && strcmp(value[cnt], "") == 0))) {
-	printf(ERROR);
-	return 0;
-      }
-    }
-    if (n == *q) {
+    else {
+      int count = n - 1;
       col *tmp_col = tmp_table->rootCol->next;
       while (tmp_col) {
 	item *tmp_item = tmp_col->rootItem->next;
 	item *tmp = (item *) calloc (1, sizeof(item));
-	tmp->res = (char *) calloc (1, sizeof(char) * 256);
-	for (int i = 0;i < *q;++ i) {
-	  if (strcmp(tmp_col->name, column[i]) == 0) {
-	    strcpy(tmp->res, value[i]);
-	    break;
-	  }
+	value[count] = cut(value[count], '(', ')');
+	//value[count] = cut(value[count], '\'', '\'');
+	if (((tmp_col->type == Int) && (isNum(value[count]))) || ((tmp_col->type == Float) && (isFloat(value[count])))
+	    || ((tmp_col->type == Text) && (isText(value[count]))) || ((tmp_col->type == None) && strcmp(value[count], "") == 0));
+	else {
+	  printf(ERROR);
+	  return 0;
 	}
+	tmp->res = (char *) calloc (1, sizeof(char) * 256);
 	tmp->type = tmp_col->type;
+	strcpy(tmp->res, value[count]);
 	tmp_col->rootItem->next = tmp;
-      tmp->next = tmp_item;
-      ++ (tmp_col->itemCnt);
-      tmp_col = tmp_col->next;
+	tmp->next = tmp_item;
+	-- count;
+	++ (tmp_col->itemCnt);
+	tmp_col = tmp_col->next;
       }
     }
   }
-  else {
-    printf(ERROR);
-    return 0;
+  int *q = (int *) malloc (sizeof(int));
+  char **column = split(s, ",", q);
+  int i = -1;
+  int cnt = 0;
+  for (cnt = 0;cnt < *q;++cnt) {
+    value[cnt] = cut(value[cnt], '(', ')');
+    if (!find(tmp_table, column[cnt])) {
+      printf(ERROR);
+      return 0;
+    }
+    col *tmp_col = find(tmp_table, column[cnt]);
+    if (!(((tmp_col->type == Int) && (isNum(value[cnt]))) || ((tmp_col->type == Float) && (isFloat(value[cnt]))) || ((tmp_col->type == Text) && (isText(value[cnt]))) || ((tmp_col->type == None) && strcmp(value[cnt], "") == 0))) {
+      printf(ERROR);
+      return 0;
+    }
+  }
+  if (n == *q) {
+    col *tmp_col = tmp_table->rootCol->next;
+    while (tmp_col) {
+      item *tmp_item = tmp_col->rootItem->next;
+      item *tmp = (item *) calloc (1, sizeof(item));
+      tmp->res = (char *) calloc (1, sizeof(char) * 256);
+      for (int i = 0;i < *q;++ i) {
+	if (strcmp(tmp_col->name, column[i]) == 0) {
+	  strcpy(tmp->res, value[i]);
+	  break;
+	}
+      }
+      tmp->type = tmp_col->type;
+      tmp_col->rootItem->next = tmp;
+      tmp->next = tmp_item;
+      ++ (tmp_col->itemCnt);
+      tmp_col = tmp_col->next;
+    }
   }
 }
 

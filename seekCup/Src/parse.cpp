@@ -202,10 +202,11 @@ int parseCommand(char * command)
 			return 0;
 		}
 	}
-	else if (result_select[0] == 1&& result_create_database[1] == begin_black) {
+	else if (result_select[0] == 1&& result_select[1] == begin_black) {
 #ifdef DEBUG
 		printf("$select:%s$\n", command);
 #endif
+<<<<<<< HEAD
 		printf("***********************\n");
 		int *cc = (int *) calloc (1, sizeof(int));
 		char **split_tmp = split(command, "select * from", cc);
@@ -214,6 +215,15 @@ int parseCommand(char * command)
 		// 	return 0;
 		// }
 
+=======
+//		printf("***********************\n");
+//		int *cc = (int *) calloc (1, sizeof(int));
+//		char **split_tmp = split(command, "select * from", cc);
+//		if (*cc = 1) {
+//			showTableContext(findTable(split_tmp[0]));
+//			return 0;
+//		}
+>>>>>>> 74cd0428f70d8b04338c66d5de1082cb62450207
 		select(command);
 	}
 	else if (result_updata[0] == 1&& result_create_database[1] == begin_black) {
