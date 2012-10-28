@@ -1,7 +1,9 @@
 seedcup
 now used seedcup
 grade,id,name, 
-id,name,grade,address, 
+1,YaoQ,90, 
 grade
-90
-id==1
+900
+grade between [200,1000]
+**********grade 900*******
+1,YaoQ,90, 
