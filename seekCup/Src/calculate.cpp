@@ -163,8 +163,3 @@ float calculate(char *s)
   }
   return ns[beg1 - 1];
 } 
-int main(int argc, char **argv)
-{
-  printf("%f\n", calculate("2.4 * 1.3 + 4.7/(1 + 2.3)"));
-  return 0;
-}

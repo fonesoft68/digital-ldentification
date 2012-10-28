@@ -7,7 +7,7 @@ table *Search(char *,char *,char *,char *,int);
 bool between(char *,char *);
 bool like(char *,char *);
 int Judge(table *,int ,char *);
-char *value(char *);
+
 int andoror(char *);
 int Complex_Judge(table *,int,char *);
 
@@ -35,7 +35,7 @@ table *select(const char* Select)
 
   if(strcmp(temp[0],SELECT)!=0){
     return NULL;
-    printf("error");
+    printf("error\n");
   }
 
 
@@ -45,7 +45,7 @@ table *select(const char* Select)
 
   if(strcmp(temp[2],FROM)!=0){
     return NULL;
-    printf("error");
+    printf("error\n");
   }
     
   table_name=(char *)calloc(1,strlen(temp[3])+1);
@@ -254,9 +254,9 @@ int Complex_Judge(table *now_tab,int row,char* complex_row_limit)
   int i;
 
   if(complex_row_limit==NULL) return 1;
+  if(strstr(complex_row_limit,"and")==NULL&&strstr(complex_row_limit,"or")==NULL) return Judge(now_tab,row,complex_row_limit);
   for(i=0;i<strlen(complex_row_limit);i++)
     {
-
       if(complex_row_limit[i]=='('){
 	left_paren[p]=i;
 	orandor[q]=3;
@@ -358,7 +358,7 @@ int Complex_Judge(table *now_tab,int row,char* complex_row_limit)
       }
     }
   if(left_paren[p-1]!=0){
-    printf("error");
+    printf("error\n");
     return 2;
   }
   /*do{
@@ -432,7 +432,7 @@ int Judge(table * now_tab,int row,char* row_limit)
       for(l=0;l<now_tab->colCnt;l++){                        //找出item内容
 	if(strcmp(temp_col->name,where_col)==0){
 	  if(temp_col->type==Text||temp_col->type==None){   //between的类型不对
-	    printf("error");      
+	    printf("error\n");      
 	    return 2;
 	  }
 	  temp_item=temp_col->rootItem->next;                //
@@ -457,7 +457,7 @@ int Judge(table * now_tab,int row,char* row_limit)
       for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
 	if(strcmp(temp_col->name,where_col)==0){
 	  if(temp_col->type!=Text){   //like的类型不对
-	    printf("error");      
+	    printf("error\n");      
 	    return 2;
 	  }
 	  temp_item=temp_col->rootItem->next;
@@ -470,18 +470,24 @@ int Judge(table * now_tab,int row,char* row_limit)
       area=(char *)calloc(1,sizeof(char)*(strlen(row_limit)-k-5));
       memcpy(area,row_limit+k+5,sizeof(char)*(strlen(row_limit)-k-6));
       a=like(where_item,area);
+
+
       //实现==/~=/>=/<=/>/<
     }else if(strstr(row_limit,"==")!=NULL){
       char **compare;
-      float *right=(float *)calloc(1,sizeof(float));
-      float *left =(float *)calloc(1,sizeof(float));
+ //     float *right=(float *)calloc(1,sizeof(float));
+ //   float *left =(float *)calloc(1,sizeof(float));
+      float right=NULL;
+	  float left=NULL;
       int *r=(int *)malloc(sizeof(int));
+      TYPE temp_type=None;
       compare=split(row_limit,"==",r); //将比较操作符两边分开，暂没考虑比较符两侧可能的空格
-      if(*r!=2){printf("error");return 2;}
+      if(*r!=2){printf("error\n");return 2;}
       for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
 	if(strcmp(temp_col->name,compare[0])==0){
-	  if(temp_col->type==Text||temp_col->type==None){   //类型不对
-	    printf("error");      
+	  temp_type = temp_col->type;
+	  if(temp_col->type==None){   //类型不对
+	    printf("error\n");      
 	    return 2;
 	  }
 	  temp_item=temp_col->rootItem->next;
@@ -490,23 +496,30 @@ int Judge(table * now_tab,int row,char* row_limit)
 	  break;
 	}
 	temp_col=temp_col->next;
-
       }
-      compare[1]=value(compare[1]);
-      sscanf(compare[0],"%f",left);
-      sscanf(compare[1],"%f",right);
-      if(*left==*right){a=true;}
-    }else if(strstr(row_limit,"~=")!=NULL){
+//      compare[1]=value(compare[1]);
+      if(temp_type==Text){
+	 if(strcmp(compare[0],compare[1])==0) a=true;
+      }
+      else{
+//         sscanf(compare[0],"%f",left);
+//         sscanf(compare[1],"%f",right);
+         left=calculate(compare[0]);
+         right=calculate(compare[1]);
+         if(left==right){a=true;}}
+    }else if(strstr(row_limit,"~=")!=NULL){                           //~=
       char **compare;
-      float *right=(float *)calloc(1,sizeof(float));
-      float *left =(float *)calloc(1,sizeof(float));
+//      float *right=(float *)calloc(1,sizeof(float));
+	  float right=NULL;
+	  float left=NULL;
+  //    float *left =(float *)calloc(1,sizeof(float));
       int *r=(int *)malloc(sizeof(int));
       compare=split(row_limit,"~=",r);
-      if(*r!=2){printf("error");return 2;}
+      if(*r!=2){printf("error\n");return 2;}
       for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
 	if(strcmp(temp_col->name,compare[0])==0){
 	  if(temp_col->type==Text||temp_col->type==None){   //类型不对
-	    printf("error");      
+	    printf("error\n");      
 	    return 2;
 	  }
 	  temp_item=temp_col->rootItem->next;
@@ -517,21 +530,25 @@ int Judge(table * now_tab,int row,char* row_limit)
 	temp_col=temp_col->next;
 
       }
-      compare[1]=value(compare[1]);
-      sscanf(compare[0],"%f",left);
-      sscanf(compare[1],"%f",right);
-      if(*left!=*right){a=true;}
-    }else if(strstr(row_limit,">=")!=NULL){
+//      compare[1]=value(compare[1]);
+//      sscanf(compare[0],"%f",left);
+//      sscanf(compare[1],"%f",right);
+       left=calculate(compare[0]);
+	   right=calculate(compare[1]);
+      if(left!=right){a=true;}
+    }else if(strstr(row_limit,">=")!=NULL){                    //>=
       char **compare;
-      float *right=(float *)calloc(1,sizeof(float));
-      float *left =(float *)calloc(1,sizeof(float));
+      //float *right=(float *)calloc(1,sizeof(float));
+      //float *left =(float *)calloc(1,sizeof(float));
+	  float left;
+	  float right;
       int *r=(int *)malloc(sizeof(int));
       compare=split(row_limit,">=",r);
-      if(*r!=2){printf("error");return 2;}
+      if(*r!=2){printf("error\n");return 2;}
       for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
 	if(strcmp(temp_col->name,compare[0])==0){
 	  if(temp_col->type==Text||temp_col->type==None){   //类型不对
-	    printf("error");      
+	    printf("error\n");      
 	    return 2;
 	  }
 	  temp_item=temp_col->rootItem->next;
@@ -542,21 +559,25 @@ int Judge(table * now_tab,int row,char* row_limit)
 	temp_col=temp_col->next;
 
       }
-      compare[1]=value(compare[1]);
-      sscanf(compare[0],"%f",left);
-      sscanf(compare[1],"%f",right);
-      if(*left>=*right){a=true;}
-    }else if(strstr(row_limit,"<=")!=NULL){
+      //compare[1]=value(compare[1]);
+      //sscanf(compare[0],"%f",left);
+      //sscanf(compare[1],"%f",right);
+	  left=calculate(compare[0]);
+	  right=calculate(compare[1]);
+      if(left>=right){a=true;}
+    }else if(strstr(row_limit,"<=")!=NULL){                   //<=
       char **compare;
-      float *right=(float *)calloc(1,sizeof(float));
-      float *left =(float *)calloc(1,sizeof(float));
+      //float *right=(float *)calloc(1,sizeof(float));
+      //float *left =(float *)calloc(1,sizeof(float));
+	  float left=NULL;
+	  float right=NULL;
       int *r=(int *)malloc(sizeof(int));
       compare=split(row_limit,"<=",r);
       if(*r!=2){printf("error");return 2;}
       for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
 	if(strcmp(temp_col->name,compare[0])==0){
 	  if(temp_col->type==Text||temp_col->type==None){   //类型不对
-	    printf("error");      
+	    printf("error\n");      
 	    return 2;
 	  }
 	  temp_item=temp_col->rootItem->next;
@@ -567,21 +588,25 @@ int Judge(table * now_tab,int row,char* row_limit)
 	temp_col=temp_col->next;
 
       }
-      compare[1]=value(compare[1]);
-      sscanf(compare[0],"%f",left);
-      sscanf(compare[1],"%f",right);
-      if(*left<=*right){a=true;}
-    }else if(strstr(row_limit,">")!=NULL){
+      //compare[1]=value(compare[1]);
+      //sscanf(compare[0],"%f",left);
+      //sscanf(compare[1],"%f",right);
+	  left=calculate(compare[0]);
+	  right=calculate(compare[1]);
+      if(left<=right){a=true;}
+    }else if(strstr(row_limit,">")!=NULL){                  //>
       char **compare;
-      float *right=(float *)calloc(1,sizeof(float));
-      float *left =(float *)calloc(1,sizeof(float));
+      //    float *right=(float *)calloc(1,sizeof(float));
+      //    float *left =(float *)calloc(1,sizeof(float));
+      float left;
+      float right;
       int *r=(int *)malloc(sizeof(int));
       compare=split(row_limit,">",r);
-      if(*r!=2){printf("error");return 2;}
+      if(*r!=2){printf("error\n");return 2;}
       for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
 	if(strcmp(temp_col->name,compare[0])==0){
 	  if(temp_col->type==Text||temp_col->type==None){   //类型不对
-	    printf("error");      
+	    printf("error\n");      
 	    return 2;
 	  }
 	  temp_item=temp_col->rootItem->next;
@@ -594,21 +619,25 @@ int Judge(table * now_tab,int row,char* row_limit)
 	temp_col=temp_col->next;
 
       }
-      compare[1]=value(compare[1]);
-      sscanf(compare[0],"%f",left);
-      sscanf(compare[1],"%f",right);
-      if(*left>*right){a=true;}
-    }else if(strstr(row_limit,"<")!=NULL){
+      //compare[1]=value(compare[1]);
+      //      sscanf(compare[0],"%f",left);
+      //     sscanf(compare[1],"%f",right);
+      left=calculate(compare[0]);
+      right=calculate(compare[1]);
+      if(left>right){a=true;}
+    }else if(strstr(row_limit,"<")!=NULL){                   //<
       char **compare;
-      float *right=(float *)calloc(1,sizeof(float));
-      float *left =(float *)calloc(1,sizeof(float));
+      //float *right=(float *)calloc(1,sizeof(float));
+      //float *left =(float *)calloc(1,sizeof(float));
+	  float left;
+	  float right;
       int *r=(int *)malloc(sizeof(int));
       compare=split(row_limit,"<",r);
-      if(*r!=2){printf("error");return 2;}
+      if(*r!=2){printf("error\n");return 2;}
       for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
 	if(strcmp(temp_col->name,compare[0])==0){
 	  if(temp_col->type==Text||temp_col->type==None){   //类型不对
-	    printf("error");      
+	    printf("error\n");      
 	    return 2;
 	  }
 	  temp_item=temp_col->rootItem->next;
@@ -619,10 +648,12 @@ int Judge(table * now_tab,int row,char* row_limit)
 	temp_col=temp_col->next;
 
       }
-      compare[1]=value(compare[1]);
-      sscanf(compare[0],"%f",left);
-      sscanf(compare[1],"%f",right);
-      if(*left<*right){a=true;}
+      //compare[1]=value(compare[1]);
+      //sscanf(compare[0],"%f",left);
+      //sscanf(compare[1],"%f",right);
+	  left=calculate(compare[0]);
+	  right=calculate(compare[1]);
+      if(left<right){a=true;}
     }
     if(a==true) return 1;
     else return 0;
@@ -634,21 +665,21 @@ bool between(char *a,char *b)
 {
   char *min;
   char *max;
-  float *x=(float *)malloc(sizeof(float));
-  float *y=(float *)malloc(sizeof(float));
-  float *z=(float *)malloc(sizeof(float));
+  float x=NULL;
+  float y=NULL;
+  float z=NULL;
   min = strtok(b,",");
   max = strtok(NULL,",");
   if(max==NULL||strtok(NULL,",")!=NULL){
-    printf("error");
+    printf("error\n");
     return NULL;
   }
-  min=value(min);
-  max=value(max);
-  sscanf(min,"%f",x);
-  sscanf(max,"%f",y);
-  sscanf(a,"%f",z);
-  if(*x<=*z&&*z<=*y){
+  //min=value(min);
+  //max=value(max);
+  x=calculate(min);
+  y=calculate(max);
+  z=calculate(a);
+  if(x<=z&&z<=y){
     return true;
   }
   else return false;
@@ -697,10 +728,4 @@ bool like(char *str_1,char *str_2)
   }
   if(Match_map[a*(b+1)+b]==1) return true;
   else return false;
-}
-
-//解决select嵌套，复杂数学运算等问题
-char *value(char *VALUE)
-{//暂时不实现
-  return VALUE;
 }
