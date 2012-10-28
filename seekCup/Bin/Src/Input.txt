@@ -20,8 +20,6 @@ money float
 );
 
 alter table person add adress text;
-insert into person values(3,'dsf',345,'sdf');
-select * from person;
 
 truncate table person;
 select * from person;
