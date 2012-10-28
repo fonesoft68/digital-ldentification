@@ -34,8 +34,8 @@ table *select(const char* Select)
   temp=split(selectn," ",p);
 
   if(strcmp(temp[0],SELECT)!=0){
-    return NULL;
     printf("error\n");
+    return NULL;
   }
 
 
@@ -44,8 +44,8 @@ table *select(const char* Select)
 
 
   if(strcmp(temp[2],FROM)!=0){
-    return NULL;
     printf("error\n");
+    return NULL;
   }
     
   table_name=(char *)calloc(1,strlen(temp[3])+1);
@@ -53,7 +53,7 @@ table *select(const char* Select)
 
 
   //判断是否有WHERE参数
-  if(strcmp(temp[4],WHERE)==0){
+  if(temp[4]!=NULL&&strcmp(temp[4],WHERE)==0){
     char *where=strstr(selectn,WHERE);
     //判断是否有参数ORDER BY
     if(strstr(selectn,"order by")!=0){
