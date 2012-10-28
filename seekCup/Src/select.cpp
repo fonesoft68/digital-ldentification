@@ -253,7 +253,7 @@ int Complex_Judge(table *now_tab,int row,char* complex_row_limit)
   char *temp_char;
   int i;
 
-  if(comlex_row_limit==NULL) return 1;
+  if(complex_row_limit==NULL) return 1;
   for(i=0;i<strlen(complex_row_limit);i++)
     {
 
