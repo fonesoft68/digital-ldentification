@@ -10,8 +10,21 @@ int databaseCnt = 0;
 
 int main(int argc, char *argv[])
 {
-	freopen("Src/Input.txt", "r", stdin);
-	freopen("Src/Output.txt", "w", stdout);
+	if (argc > 1) {
+		if (!freopen(argv[1], "r", stdin)) {
+			printf("invalid file path!\n");
+			return 0;
+		}
+	}
+	else { 
+		if (!freopen("Src/Input.txt", "r", stdin)) {
+			printf("invalid fiel path\n");
+			return 0;
+		}
+	}
+	if(!freopen("Output.txt", "w", stdout)) {
+		printf("error while read Output.txx\n");
+	}
 
 	char c;
 	int cnt = -1;
@@ -47,6 +60,38 @@ int main(int argc, char *argv[])
 
 	fclose(stdin);
 	fclose(stdout);
+	if (argc == 3) {
+		if(!freopen(argv[2], "w", stdout)) {
+			printf("invalid file Path\n");
+		}
+		if (!freopen("Output.txt", "r", stdin)) {
+			printf("invalid fiel path\n");
+		}
+		char a, b;
+		while (1) {
+			a = getchar();
+			if (a == EOF) {
+				fclose(stdin);
+				fclose(stdout);
+				return 0;
+			}
+			b = getchar();
+			if (b == EOF) {
+				putchar(a);
+				fclose(stdin);
+				fclose(stdout);
+				return 0;
+			}
+			if (b == '\b') {
+				a = getchar();
+				continue;
+			}
+			putchar(a);
+			putchar(b);
+		}
+	}
 	
+	fclose(stdin);
+	fclose(stdout);
 	return 0;
 }
