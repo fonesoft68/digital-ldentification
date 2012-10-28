@@ -542,7 +542,47 @@ char **getBetweenStr(char *query, char *left, char *right, int *cnt)
 	return result;
 }
 
+int initItemCnt(col *c)
+{
+	item *tmp_item = c->rootItem->next;
+	int cnt = 0;
+	while (tmp_item) {
+		++ cnt;
+		tmp_item = tmp_item->next; 
+	}
+	c->itemCnt = cnt;
+	return 0;
+}
 int initColCnt(table *t)
 {
-	
+	col *tmp_col = t->rootCol->next;
+	int cnt = 0;
+	while (tmp_col) {
+		initItemCnt(tmp_col);
+		++ cnt;
+		tmp_col = tmp_col->next;
+	}
+	t->colCnt = cnt;
+	return 0;
+}
+int initTableCnt(database *d)
+{
+	table *tmp_table = d->rootTable->next;
+	int cnt = 0;
+	while (tmp_table) {
+		initColCnt(tmp_table);
+		++ cnt;
+		tmp_table = tmp_table->next;
+	}
+	d->tableCnt = cnt;
+	return 0;
+}
+int initDatabaseCnt()
+{
+	database *tmp_database = allDatabaseRoot;
+	while(tmp_database) {
+		initTableCnt(tmp_database);
+		tmp_database = tmp_database->next;
+	}
+	return 0;
 }

@@ -145,6 +145,7 @@ int delete_parse(char *);
 
 float calculate(char *);
 
+int initDatabaseCnt();
 
 
 

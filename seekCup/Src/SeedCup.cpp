@@ -43,6 +43,7 @@ int main(int argc, char *argv[])
 		}
 		if (c == ';') {
 			command[cnt + 1] = '\0';
+			initDatabaseCnt();
 			parseCommand(command);
 			memset(command, 0, sizeof(char) * maxLenOfCmd);
 			cnt = -1;
