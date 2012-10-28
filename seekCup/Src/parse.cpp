@@ -209,10 +209,11 @@ int parseCommand(char * command)
 		printf("***********************\n");
 		int *cc = (int *) calloc (1, sizeof(int));
 		char **split_tmp = split(command, "select * from", cc);
-		if (*cc = 1) {
-			showTableContext(findTable(split_tmp[0]));
-			return 0;
-		}
+		// if (*cc = 1) {
+		// 	showTableContext(findTable(split_tmp[0]));
+		// 	return 0;
+		// }
+
 		select(command);
 	}
 	else if (result_updata[0] == 1&& result_create_database[1] == begin_black) {

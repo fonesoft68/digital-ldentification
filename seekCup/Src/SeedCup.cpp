@@ -3,8 +3,8 @@
 #include <string.h>
 #include "sql.h"
 
-database *allDatabaseRoot;
-database *nowUsedDatabase;
+database *allDatabaseRoot; //= (database *) calloc (1, sizeof(database));
+database *nowUsedDatabase; //= (database *) calloc (1, sizeof(database));;
 int databaseCnt = 0;
 
 
@@ -46,6 +46,7 @@ int main(int argc, char *argv[])
 			initDatabaseCnt();
 			parseCommand(command);
 			memset(command, 0, sizeof(char) * maxLenOfCmd);
+			//showTableContext(nowUsedDatabase->rootTable);
 			cnt = -1;
 		}
 		else if (c != '\n' && c != '\t'){
