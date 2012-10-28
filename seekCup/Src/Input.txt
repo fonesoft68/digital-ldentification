@@ -2,8 +2,45 @@ create database people;
 use people;
 create table stu
 (
+<<<<<<< HEAD
 	name text,
 	score int
 );
 insert into stu values ('yao', 99);
 select name from stu;
+=======
+	Id INT,
+	Name TEXT,
+	grade INT
+ );
+
+insert into person values(1,'YaoQ',90);
+insert into person values (2,'huzi',80);
+insert into person values(3, 'nimei', 456);
+
+select * from person;
+<<<<<<< HEAD
+#create table unique
+(
+id int,
+name text,
+money float
+);
+
+#alter table person add adress text;
+#insert into person values(3,'dsf',345,'sdf');
+
+#select * from person;
+
+#truncate table person;
+#select * from person;
+
+#insert into unique values(1,'kangle yu',324.3);
+#insert into unique values(2,'dengzhe',3.3);
+#insert into unique values(3,'zihao hu',24);
+#select * from unique;
+
+#select * from unique where  id==1;
+=======
+>>>>>>> 5b110b8320567d82b0b4d5872cac828f3f337569
+>>>>>>> d8fa717e9b7125381c552606c09359489cfaa6fb

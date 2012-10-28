@@ -47,7 +47,7 @@ int insert(const char *command)
     return 0;
   }
   
-  int *p = (int *) malloc (sizeof(int));
+  int *p = (int *) calloc (1, sizeof(int));
   char *command_copy = (char *) calloc (1, sizeof(char) * strlen(command) + 1);
   strcpy(command_copy, command);
   char **split_command = split(command_copy, INSERT, p);
@@ -132,7 +132,7 @@ int insert(const char *command)
       }
     }
   }
-  int *q = (int *) malloc (sizeof(int));
+  int *q = (int *) calloc (1, sizeof(int));
   char **column = split(s, ",", q);
   int i = -1;
   int cnt = 0;
