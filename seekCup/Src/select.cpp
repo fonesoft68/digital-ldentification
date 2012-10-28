@@ -252,6 +252,8 @@ int Complex_Judge(table *now_tab,int row,char* complex_row_limit)
   element *temp_ele;
   char *temp_char;
   int i;
+
+  if(comlex_row_limit==NULL) return 1;
   for(i=0;i<strlen(complex_row_limit);i++)
     {
 
@@ -416,7 +418,7 @@ int Judge(table * now_tab,int row,char* row_limit)
 
 
   if(row_limit==NULL){
-    return true;
+    return 1;
   }else{
     bool a=false;
     int k,l,m;
