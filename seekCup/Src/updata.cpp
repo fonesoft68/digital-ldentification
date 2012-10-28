@@ -161,7 +161,6 @@ int updata_parse(char *command)
 table *findTable(char *name)
 {
 	if(!nowUsedDatabase){
-		printf(ERROR);
 		return 0;
 	}
 	table *tmp_table = nowUsedDatabase->rootTable->next;
@@ -171,7 +170,6 @@ table *findTable(char *name)
 		}
 		tmp_table = tmp_table->next;
 	}
-	printf(ERROR);
 	return 0;
 }
 

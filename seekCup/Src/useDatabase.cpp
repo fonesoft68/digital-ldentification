@@ -19,5 +19,6 @@ int useDatabase(char *name)
 		tmp_database = tmp_database->next;
 	}
 	
+	printf(ERROR);
 	return -1;
 }

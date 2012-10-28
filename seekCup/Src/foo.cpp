@@ -591,3 +591,36 @@ int initDatabaseCnt()
 	}
 	return 0;
 }
+
+#define SELECT "selet "
+#define FROM " from "
+
+int foo(char *command) 
+{
+	int *cnt = (int *) calloc (1, sizeof(int));
+	char **split_command = split(command, SELECT, cnt);
+	if (*cnt != 1) {
+		printf(ERROR);
+		return 0;
+	}
+	split_command = split(split_command[0], FROM, cnt);
+	if (*cnt != 2) {
+		printf(ERROR);
+		return 0;
+	}
+	char *column_set = split_command[0];
+	split_command = split(split_command[1], " ", cnt);
+	char *name_table = split_command[0];
+	table *tmp_table = findTable(name_table);
+	table *new_table = tablecpy(tmp_table);
+	if (strcmp("*", column_set) == 0) {
+
+	} 
+	else {
+		int *c = (int *) calloc (1, sizeof(int));
+		//char **split_col = split();
+	}
+
+
+	return 0;
+}

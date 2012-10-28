@@ -66,6 +66,7 @@ table * createTable(char * str)
       }
       else {
 	printf(ERROR);
+	return 0;
       }
     }
     else {

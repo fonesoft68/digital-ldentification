@@ -4,7 +4,6 @@
 #include "sql.h"
 #include "test.h"
 
-#define ERROR "error\n"
 
 int truncateTable(char *name)
 {
