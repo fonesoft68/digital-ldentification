@@ -359,6 +359,7 @@ table *tablecpy(table *t)
 #define GREATE_THAN_EQUAL ">="
 #define LESS_THAN_EQUEL "<="
 #define BETWEEN " between"
+#define LIKE " like "
 
 int isSelect(TYPE type, char *res , char *condition)
 {
@@ -434,6 +435,10 @@ int isSelect(TYPE type, char *res , char *condition)
 	}
 	free(split_c);
 
+	split_c = split(condition, LIKE, cnt);
+	if (*cnt == 2) {
+		int *c = (int *) calloc (1, sizeof(int));
+	}
 }
 
 table *where(table *query_table, char *condition)

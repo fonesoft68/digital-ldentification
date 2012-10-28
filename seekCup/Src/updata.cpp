@@ -26,7 +26,6 @@ int updata_parse(char *command)
 		free(split_command[i]);
 	}
 	free(split_command);
-
 	split_command = split(command, " set", cnt);
 	if(*cnt!=2){
 		printf(ERROR);
@@ -155,7 +154,7 @@ int updata_parse(char *command)
 		}
 	}
 
-	showTableContext(tmp_table);
+	//showTableContext(tmp_table);
 	return 0;
 }
 
