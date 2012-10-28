@@ -254,7 +254,7 @@ int Complex_Judge(table *now_tab,int row,char* complex_row_limit)
   int i;
 
   if(complex_row_limit==NULL) return 1;
-  if(strstr(complex_row_limit,"(")==NULL||strstr(complex_row_limit,")")==NULL) return Judge(now_tab,row,complex_row_limit);
+  if(strstr(complex_row_limit,"and")==NULL&&strstr(complex_row_limit,"or")==NULL) return Judge(now_tab,row,complex_row_limit);
   for(i=0;i<strlen(complex_row_limit);i++)
     {
       if(complex_row_limit[i]=='('){
@@ -499,7 +499,7 @@ int Judge(table * now_tab,int row,char* row_limit)
       }
 //      compare[1]=value(compare[1]);
       if(temp_type==Text){
-	 if(strcmp(compare[0],compare[1])) a=true;
+	 if(strcmp(compare[0],compare[1])==0) a=true;
       }
       else{
 //         sscanf(compare[0],"%f",left);

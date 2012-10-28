@@ -15,16 +15,9 @@ int main()
   char b[8]="ak?o*l*";
   char c[5]="1234";
   char d[10]="1000,1893";
-   const char Select[]="select * from a where col_4>2+3/2";
+   const char Select[]="select * from a where col_1==B";
   // const char Select[]="select col_2,col_3 from a order by col_3 incr";
 
-//  if(like(a,b)){
-//    printf("a like b \n");
-//  }else printf("a dislike b  \n");
-//  if(between(c,d)){
-//    printf("c is between d  \n");
-// }else printf("c is not between d  \n");
-//
     allDatabaseRoot->rootTable->next = createTable(" col_1 text , col_2 text , col_3,col_4 float,col_5 int ");
 	allDatabaseRoot->rootTable->next->name = "a"; 
 	insert("insert into a values ('A', 'abcde', ,1.5,1)"); 
