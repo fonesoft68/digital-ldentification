@@ -75,6 +75,6 @@ table * createTable(char * str)
 	rootItem->type = t;
     ++(tb->colCnt);
   }
- 
+  ++ (nowUsedDatabase->tableCnt);
   return tb;
 }

@@ -13,4 +13,3 @@ insert into person values(3, 'nimei', 456);
 
 select name from person where id==1;
 select * from person;
-
