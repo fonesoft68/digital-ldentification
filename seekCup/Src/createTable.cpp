@@ -41,7 +41,16 @@ table * createTable(char * str)
   char * str2 = (char *)calloc(1, sizeof(char) * (strlen(str) + 1));
   
   strcpy(str2, str);
-   char ** ch = split(str2, "," , p);
+  char ** ch = split(str2, "," , p);
+  for (i = 0;i < *p;++ i) {
+    char c[256];
+    sscanf(ch[i], "%s", c);
+    if ((strstr(ch[i], "int") && isNum(c)) || (strstr(ch[i], "float") && isFloat(c)) || (strstr(ch[i], "text") && isText(c)) || (!strstr(ch[i], " "))) ;
+    else {
+      printf(ERROR);
+      return 0;
+    }
+  }
   for (i = 0;i < *p;++i) {
 	item *rootItem = (item *) calloc (1, sizeof(item));
 	rootItem->res = (char *) calloc (256, sizeof(item));
