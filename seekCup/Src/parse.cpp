@@ -20,7 +20,6 @@
 
 int parseCommand(char * command)
 {
-
 	toLowCase(command);
 #ifdef DEBUG
 	printf("%s\n", command);
@@ -206,13 +205,9 @@ int parseCommand(char * command)
 #ifdef DEBUG
 		printf("$select:%s$\n", command);
 #endif
-		printf("***********************\n");
 		int *cc = (int *) calloc (1, sizeof(int));
 		char **split_tmp = split(command, "select * from", cc);
-		// if (*cc = 1) {
-		// 	showTableContext(findTable(split_tmp[0]));
-		// 	return 0;
-		// }
+		 showTableContext(findTable(split_tmp[0]));
 
 //		printf("***********************\n");
 //		int *cc = (int *) calloc (1, sizeof(int));

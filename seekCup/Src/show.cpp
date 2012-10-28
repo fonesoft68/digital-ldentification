@@ -114,7 +114,6 @@ int showCol(char *n)
 int showTableContext(table *t)
 {
 	if (!t) {
-		printf(ERROR);
 		return 0;
 	}
 	int rowCnt = 0;

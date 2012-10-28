@@ -1,35 +1,9 @@
-create database seedcup;
-use seedcup;
-create table person
+create database people;
+use people;
+create table stu
 (
-	Id INT,
-	Name TEXT,
-	grade INT
- );
-
-insert into person values(1,'YaoQ',90);
-insert into person values (2,'huzi',80);
-insert into person values(3, 'nimei', 456);
-
-select name from person where id==1;
-select * from person;
-#create table unique
-(
-id int,
-name text,
-money float
+	name text,
+	score int
 );
-
-alter table person add adress text;
-insert into person values(3,'dsf',345,'sdf');
-select * from person;
-
-truncate table person;
-select * from person;
-
-#insert into unique values(1,'kangle yu',324.3);
-#insert into unique values(2,'dengzhe',3.3);
-#insert into unique values(3,'zihao hu',24);
-#select * from unique;
-
-#select * from unique where  id==1;
+insert into stu values ('yao', 99);
+select name from stu;
