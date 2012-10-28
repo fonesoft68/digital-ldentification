@@ -6,6 +6,7 @@ create table person
 	Name TEXT,
 	grade INT
  );
+<<<<<<< HEAD
 alter table person add address;
 show database;
 show table;
@@ -13,9 +14,13 @@ show  person column;
 show person column order by desc;
 insert into person(Id, Name,Address)values(1,'YaoQ', 'Qiming702');
 updata person set Grade=90 where Name=='YaoQ';
+=======
+
+insert into person values(1,'YaoQ',90);
+updata person set Grade=900 where grade between [200,1000];
+>>>>>>> a348229a4edf5ab0d600da65764d7758970ec761
 delete from person where Id==-1;
 drop person;
 drop seedcup;
-
 
 

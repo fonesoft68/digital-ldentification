@@ -1,6 +1,7 @@
 seedcup
 now used seedcup
 grade,id,name, 
+<<<<<<< HEAD
 id,name,grade,address, 
 seedcup, 
 person, 
@@ -9,3 +10,11 @@ name,id,grade,address,
 grade
 90
 name=='YaoQ'
+=======
+1,YaoQ,90, 
+grade
+900
+grade between [200,1000]
+**********grade 900*******
+1,YaoQ,90, 
+>>>>>>> a348229a4edf5ab0d600da65764d7758970ec761

@@ -138,5 +138,16 @@ int isNum(char *);
 int isFloat(char *);
 int isText(char *);
 void swap(table *, int i, int j);
+<<<<<<< HEAD
 int delete_parse(char *);
 void sort(table *, char *, int );
+=======
+void sort(table *, char *, int );
+<<<<<<< HEAD
+int delete_parse(char *);
+int delete_parse(char *);
+
+=======
+float calculate(char *);
+>>>>>>> 04e56b299ca86c826f31db923fa5ace4fa7207d2
+>>>>>>> a348229a4edf5ab0d600da65764d7758970ec761

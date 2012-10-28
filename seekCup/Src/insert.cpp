@@ -39,7 +39,20 @@ col * find(table * tb, char * str)
     return NULL;
   }
 }
-  
+ 
+int isStr(char *str)
+{
+  int i;
+  for (i = 0;i < strlen(str); ++ i) {
+    if ((str[i] >= '0' && str[i] <= '9')|| (str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_' || str[i] == ' ');
+    else
+    {
+      return 0;
+    }
+  }
+  return 1;
+}
+
 int insert(const char *command)
 {
   if (!nowUsedDatabase) {
@@ -92,6 +105,7 @@ int insert(const char *command)
   int *result = findString(values[1], ",", r);
   for (int i = 0;i < n;++ i) {
     if (i == 0) {
+      //      if (result[1] == 0) 
       strncpy(value[0], values[1], result[1]);
     }
     else if (i == n - 1) {
@@ -109,6 +123,12 @@ int insert(const char *command)
       item *tmp = (item *) calloc (1, sizeof(item));
       value[count] = cut(value[count], '(', ')');
       value[count] = cut(value[count], '\'', '\'');
+      if (((tmp_col->type == Int) && (isNum(value[count]))) || ((tmp_col->type == Float) && (isFloat(value[count])))
+	  || ((tmp_col->type == Text) && (isStr(value[count]))) || ((tmp_col->type == None) && strcmp(value[count], "") == 0));
+      else {
+	printf(ERROR);
+	return 0;
+      }
       tmp->res = (char *) calloc (1, sizeof(char) * 256);
       tmp->type = tmp_col->type;
       strcpy(tmp->res, value[count]);
@@ -129,22 +149,27 @@ int insert(const char *command)
 	return 0;
       }
     }
-    if (*p == *q) {
+    if (n == *q) {
       col *tmp_col = tmp_table->rootCol->next;
       while (tmp_col) {
 	item *tmp_item = tmp_col->rootItem->next;
 	item *tmp = (item *) calloc (1, sizeof(item));
 	tmp->res = (char *) calloc (1, sizeof(char) * 256);
-      for (int i = 0;i < *p;++ i) {
-	if (strcmp(tmp_col->name, column[i]) == 0) {
-	  value[i] = cut(value[i], '(', ')');
-	  value[i] = cut(value[i], '\'', '\'');
-	  strcpy(tmp->res, value[i]);
-	  break;
+	for (int i = 0;i < *q;++ i) {
+	  if (strcmp(tmp_col->name, column[i]) == 0) {
+	    value[i] = cut(value[i], '(', ')');
+	    value[i] = cut(value[i], '\'', '\'');
+	    if (((tmp_col->type == Int) && (isNum(value[i]))) || ((tmp_col->type == Float) && (isFloat(value[i]))) || ((tmp_col->type == Text) && (isStr(value[i]))) || ((tmp_col->type == None) && strcmp(value[i], "") == 0));	  
+	    else {
+	      printf(ERROR);
+	      return 0;
+	    }
+	    strcpy(tmp->res, value[i]);
+	    break;
+	  }
 	}
-      }
-      tmp->type = tmp_col->type;
-      tmp_col->rootItem->next = tmp;
+	tmp->type = tmp_col->type;
+	tmp_col->rootItem->next = tmp;
       tmp->next = tmp_item;
       ++ (tmp_col->itemCnt);
       tmp_col = tmp_col->next;
@@ -201,7 +226,7 @@ void sort(table *tmp_table, char *name, int rule)
 	tmp_item = tmp_item->next;
 	++ cnt;
       }
-      if ((rule == DESC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) > 0) || (rule == ASC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) < 0)) {
+      if ((rule == ASC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) > 0) || (rule == DESC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) < 0)) {
 	swap(tmp_table, k, k - 1);
       }
     }

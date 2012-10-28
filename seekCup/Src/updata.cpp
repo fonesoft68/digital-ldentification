@@ -12,7 +12,7 @@
 #define LESS_THAN "<"
 #define GREATE_THAN_EQUAL ">="
 #define LESS_THAN_EQUEL "<="
-#define BETWEEN "BETWEEN"
+#define BETWEEN " between"
 
 int updata_parse(char *command)
 {
@@ -111,8 +111,9 @@ int updata_parse(char *command)
 	int *cc  = (int *) calloc (1, sizeof(int));
 	char **split_column = split(column_set, ",", count);
 	char **split_value = split(value_set, ",", cc);
-	if (*c != *count) {
-		printf(ERROR);
+	printf("**********%s %s*******\n", column_set, value_set);
+	if (*cc != *count) {
+		printf("******%d  %d*************\n", *c, *count);
 		return 0;
 	}
 	int x;
