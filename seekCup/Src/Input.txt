@@ -6,13 +6,28 @@ create table person
 	Name TEXT,
 	grade INT
  );
-alter table person add address;
-insert into person(Id, Name,Address)values(1,'YaoQ', 'Qiming702');
-updata person set Grade=90 where id==1;
 
-delete from person where Id==-1;
-drop person;
-drop seedcup;
-
-
+insert into person values(1,'YaoQ',90000);
+insert into person values (2,'huzi',80);
+select * from person;
+insert into person(name,id,grade) values('ni',3,70);
+select * from person;
+create table unique
+(
+id int,
+name text,
+money float
+);
+insert into unique values(1,'kangle yu',324.3);
+insert into unique values(2,'dengzhe',3.3);
+insert into unique values(3,'zihao hu',24);
+select * from unique;
+select name from unique where id == 1;
+alter table person add address int;
+show person column;
+select * from unique;
+create database dan;
+use dan;
+create table person(id int, name text);
+show person column;
 

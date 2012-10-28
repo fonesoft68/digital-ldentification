@@ -89,9 +89,11 @@ int alterAdd(char *table_name, char *datatype)
 
 	//showColName(nowUsedDatabase->rootTable->next->rootCol->next);
 	//printf("\b \n");
+#ifdef DEBUG
 				int *c = (int *) calloc (1, sizeof(int));
 				char **str = showTableCol("person", c);
 				outputForOrder(str, c, 0);
+#endif
 
     return 0;
 }
@@ -269,8 +271,10 @@ int alter_parse(char *command)
 	char **name_datatype = split(split_command[0], DROP, cnt);
 	if (*cnt == 2) {
 	    alterDel(name_datatype[0], name_datatype[1]);
+#ifdef DEBUG
 		showColName(nowUsedDatabase->rootTable->next->rootCol->next);
 		printf("\b \n");
+#endif
 	    free(name_datatype[0]);
 	    free(name_datatype[1]);
 	    free(name_datatype);

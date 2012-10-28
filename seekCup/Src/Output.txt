@@ -1,7 +1,6 @@
-seedcup
-now used seedcup
-grade,id,name, 
-id,name,grade,address, 
-grade
-90
-id==1
+1,YaoQ,90, 
+2,huzi,80, 
+1,YaoQ,90, 
+2,huzi,80, 
+3,ni,70, 
+id,name,address, 

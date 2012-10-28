@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "sql.h"
+#include "test.h"
 
 #define CREATE_DATABASE "create database "
 #define CREATE_TABLE "create table "
@@ -81,7 +82,6 @@ int parseCommand(char * command)
 		}
 		free(split_command[0]);
 		free(split_command);
-		showDatabase();
 		return 0;
 
 	}
@@ -94,7 +94,6 @@ int parseCommand(char * command)
 			char **name_val = split(split_command[0], "(", cnt);
 			if (*cnt == 2) {
 				name_val[1][strlen(name_val[1]) - 1] = '\0';
-				//printf("%s\n %s\n", name_val[0], name_val[1]);
 				table *newTable = createTable(name_val[1]);
 				newTable->name = (char *) calloc (strlen(name_val[0]) + 1, sizeof(char));
 				strcpy(newTable->name, name_val[0]);
@@ -104,10 +103,11 @@ int parseCommand(char * command)
 				}
 				newTable->next = nowUsedDatabase->rootTable->next;
 				nowUsedDatabase->rootTable->next = newTable;
-				//showColName(newTable->rootCol->next);
 				int *c = (int *) calloc (1, sizeof(int));
+#ifdef DEBUG
 				char **str = showTableCol("person", c);
 				outputForOrder(str, c, -1);
+#endif
 			}
 			else {
 				printf(ERROR);
@@ -207,7 +207,15 @@ int parseCommand(char * command)
 #ifdef DEBUG
 		printf("$select:%s$\n", command);
 #endif
+		printf("********%s*\n", command);
 		select(command);
+		return 0;
+		int *cc = (int *) calloc (1, sizeof(int));
+		char **split_tmp = split(command, "select * from", cc);
+		if (*cc == 1) {
+			showTableContext(findTable(split_tmp[0]));
+			return 0;
+		}
 	}
 	else if (result_updata[0] == 1) {
 #ifdef DEBUG
@@ -228,7 +236,9 @@ int parseCommand(char * command)
 		printf("$insert into:%s$\n", command);
 #endif
 		insert(command);
+#ifdef DEBUG
 		showTableContext(nowUsedDatabase->rootTable->next);
+#endif
 	}
 	else if (result_show[0] == 1 && result_show[1] == begin_black) {
 #ifdef DEBUG

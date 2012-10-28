@@ -15,7 +15,7 @@ int main()
   char b[8]="ak?o*l*";
   char c[5]="1234";
   char d[10]="1000,1893";
-   const char Select[]="select col_1,col_3 from a where col_3 like[?c*ef*] order by col_5 incr";
+   const char Select[]="select col_1,col_3 from a where ((col_4>2) and (col_5<5)) order by col_5 incr";
   // const char Select[]="select col_2,col_3 from a order by col_3 incr";
 
 //  if(like(a,b)){

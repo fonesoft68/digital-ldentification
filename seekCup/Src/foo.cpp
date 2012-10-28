@@ -350,7 +350,7 @@ table *tablecpy(table *t)
 #define LESS_THAN "<"
 #define GREATE_THAN_EQUAL ">="
 #define LESS_THAN_EQUEL "<="
-#define BETWEEN "BETWEEN"
+#define BETWEEN " between"
 
 int isSelect(TYPE type, char *res , char *condition)
 {
@@ -415,7 +415,14 @@ int isSelect(TYPE type, char *res , char *condition)
 	
 	split_c = split(condition, BETWEEN, cnt);
 	if (*cnt == 2) {
-
+		int *c = (int *) calloc (1, sizeof(int));
+		char ** split_b = split(split_c[1], "[", c);
+		split_b = split(split_b[0], "]", c);
+		split_b = split(split_b[0], ",", c);
+		if (*c == 2 && resCmp(type,split_b[0], res)<=0 && resCmp(type, split_b[1], res)>=0) {
+			return 1;
+		}
+		return 0;
 	}
 	free(split_c);
 
@@ -526,5 +533,4 @@ char **getBetweenStr(char *query, char *left, char *right, int *cnt)
 
 	return result;
 }
-
 
