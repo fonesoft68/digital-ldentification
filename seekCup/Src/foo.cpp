@@ -151,25 +151,63 @@ int isFloat(char *str)
 	}
 	return 1;
 }
-
 int isText(char *str)
 {
-	int i;
-	if (str[0] != '\'' || str[strlen(str) - 1] != '\'') {
-		return 0;
-	}
-	for (i = 1; i < strlen(str) - 1; ++ i) {
-		if (!(str[i] >= 'a' && str[i] <= 'z') || !(str[i] >= 'A' && str[i] <= 'Z') || str[i] != '_' || str[i] != ' ') {
-			return 0;
-		}
-	}
-	char *tmp_str = (char *) calloc (strlen(str) - 1, sizeof(char));
-	for (int i = 1; i < strlen(str) - 1; ++ i) {
-		tmp_str[i - 1] = str[i];
-	}
-	strcpy(str, tmp_str);
-	return 1;
+  int i, x = 0 ,y = 0, z = 0, flag1 = 1, flag2 = 1, flag3 = 1;
+  if (str[0] != '\'' || str[strlen(str) - 1] != '\'') {
+    return 0;
+  }
+  for (i = 1;i < strlen(str) - 1;++ i) {
+    if ((str[i] >= '0' && str[i] <= '9') || (str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_' || str[i] == ' ') {
+      if (flag1 && ((str[i] >= '0' && str[i] <= '9'))) {
+	flag1 = 0;
+	x = i;
+	continue;
+      }
+      if (flag2 && ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z'))) {
+	flag2 = 0;
+	y = i;
+	continue;
+      }
+      if (flag3 && str[i] == '_') {
+	flag3 = 0;
+	z = i;
+	continue;
+      }
+    }
+    else {
+      return 0;
+    }
+  }
+  if (x < y && x < z) {
+    return 0;
+  }
+  char *tmp_str = (char *) calloc (strlen(str) - 1, sizeof(char));
+  for (int i = 1;i < strlen(str) - 1;++ i) {
+    tmp_str[i - 1] = str[i];
+  }
+  strcpy(str, tmp_str);
+  return 1;
 }
+
+// int isText(char *str)
+// {
+// 	int i;
+// 	if (str[0] != '\'' || str[strlen(str) - 1] != '\'') {
+// 		return 0;
+// 	}
+// 	for (i = 1; i < strlen(str) - 1; ++ i) {
+// 		if (!(str[i] >= 'a' && str[i] <= 'z') || !(str[i] >= 'A' && str[i] <= 'Z') || str[i] != '_' || str[i] != ' ') {
+// 			return 0;
+// 		}
+// 	}
+// 	char *tmp_str = (char *) calloc (strlen(str) - 1, sizeof(char));
+// 	for (int i = 1; i < strlen(str) - 1; ++ i) {
+// 		tmp_str[i - 1] = str[i];
+// 	}
+// 	strcpy(str, tmp_str);
+// 	return 1;
+// }
 
 //char *getRes(TYPE type, char *str)
 //{

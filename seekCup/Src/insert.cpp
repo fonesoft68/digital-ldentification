@@ -122,9 +122,9 @@ int insert(const char *command)
       item *tmp_item = tmp_col->rootItem->next;
       item *tmp = (item *) calloc (1, sizeof(item));
       value[count] = cut(value[count], '(', ')');
-      value[count] = cut(value[count], '\'', '\'');
+      //value[count] = cut(value[count], '\'', '\'');
       if (((tmp_col->type == Int) && (isNum(value[count]))) || ((tmp_col->type == Float) && (isFloat(value[count])))
-	  || ((tmp_col->type == Text) && (isStr(value[count]))) || ((tmp_col->type == None) && strcmp(value[count], "") == 0));
+	  || ((tmp_col->type == Text) && (isText(value[count]))) || ((tmp_col->type == None) && strcmp(value[count], "") == 0));
       else {
 	printf(ERROR);
 	return 0;
@@ -142,9 +142,16 @@ int insert(const char *command)
   else if (1){
     int *q = (int *) malloc (sizeof(int));
     char **column = split(s, ",", q);
+    int i = -1;
     int cnt = 0;
     for (cnt = 0;cnt < *q;++cnt) {
+      value[cnt] = cut(value[cnt], '(', ')');
       if (!find(tmp_table, column[cnt])) {
+	printf(ERROR);
+	return 0;
+      }
+      col *tmp_col = find(tmp_table, column[cnt]);
+      if (!(((tmp_col->type == Int) && (isNum(value[cnt]))) || ((tmp_col->type == Float) && (isFloat(value[cnt]))) || ((tmp_col->type == Text) && (isText(value[cnt]))) || ((tmp_col->type == None) && strcmp(value[cnt], "") == 0))) {
 	printf(ERROR);
 	return 0;
       }
@@ -157,13 +164,6 @@ int insert(const char *command)
 	tmp->res = (char *) calloc (1, sizeof(char) * 256);
 	for (int i = 0;i < *q;++ i) {
 	  if (strcmp(tmp_col->name, column[i]) == 0) {
-	    value[i] = cut(value[i], '(', ')');
-	    value[i] = cut(value[i], '\'', '\'');
-	    if (((tmp_col->type == Int) && (isNum(value[i]))) || ((tmp_col->type == Float) && (isFloat(value[i]))) || ((tmp_col->type == Text) && (isStr(value[i]))) || ((tmp_col->type == None) && strcmp(value[i], "") == 0));	  
-	    else {
-	      printf(ERROR);
-	      return 0;
-	    }
 	    strcpy(tmp->res, value[i]);
 	    break;
 	  }
