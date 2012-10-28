@@ -68,6 +68,14 @@ int * findString(char *query, char *module, int *go)
 
 int toLowCase(char *str)
 {
+	int left = 0;
+	int right = strlen(str) - 1;
+	while  (left < right && str[left]==' ') ++ left;
+	while (right > left && str[right]==' ') --right;
+	for (int i = left; i <= right; ++ i) {
+		str[i - left] = str[i];
+	}
+	str[right - left + 1] = '\0';
 	int i;
 	char *str_cpy = (char *) calloc (strlen(str) + 1, sizeof(char));
 	int cnt = -1;

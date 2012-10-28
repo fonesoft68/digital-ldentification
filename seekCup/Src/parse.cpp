@@ -130,8 +130,8 @@ int parseCommand(char * command)
 #endif
 		int *c = (int*) calloc (1, sizeof(int));
 		split_command = split(command, " ", c);
-		if (*c == 1) {
-			truncateTable(split_command[1]);
+		if (*c == 3) {
+			truncateTable(split_command[2]);
 		}
 		else {
 			printf(ERROR);
@@ -173,7 +173,6 @@ int parseCommand(char * command)
 			int *c = (int *) calloc (1, sizeof(int));
 			char **name = split(split_command[0], " ", c);
 			if (*c == 2) {
-				printf("%s %s\n", name[0], name[1]);
 				renameTable(name[0], name[1]);
 			}
 		}
@@ -203,27 +202,26 @@ int parseCommand(char * command)
 			return 0;
 		}
 	}
-	else if (result_select[0] == 1) {
+	else if (result_select[0] == 1&& result_create_database[1] == begin_black) {
 #ifdef DEBUG
 		printf("$select:%s$\n", command);
 #endif
-		select("select name from person where grade == 80");
-		printf("\n");
-		return 0;
-		int *cc = (int *) calloc (1, sizeof(int));
-		char **split_tmp = split(command, "select * from", cc);
-		if (*cc == 1) {
-			showTableContext(findTable(split_tmp[0]));
-			return 0;
-		}
+//		printf("***********************\n");
+//		int *cc = (int *) calloc (1, sizeof(int));
+//		char **split_tmp = split(command, "select * from", cc);
+//		if (*cc = 1) {
+//			showTableContext(findTable(split_tmp[0]));
+//			return 0;
+//		}
+		select(command);
 	}
-	else if (result_updata[0] == 1) {
+	else if (result_updata[0] == 1&& result_create_database[1] == begin_black) {
 #ifdef DEBUG
 		printf("$updata:%s$\n", command);
 #endif
 		updata_parse(command);
 	}
-	else if (result_delete[0] == 1) {
+	else if (result_delete[0] == 1&& result_create_database[1] == begin_black) {
 #ifdef DEBUG
 		printf("$delete:%s$\n", command);
 #endif
@@ -231,7 +229,7 @@ int parseCommand(char * command)
 		char **split_command = split(command, DELETE, cnt);
 		delete_parse(split_command[0]);
 	}
-	else if (result_insert_into[0] == 1) {
+	else if (result_insert_into[0] == 1&& result_create_database[1] == begin_black) {
 #ifdef DEBUG
 		printf("$insert into:%s$\n", command);
 #endif
@@ -245,6 +243,9 @@ int parseCommand(char * command)
 		printf("$show:%s$\n", command);
 #endif
 		show_parse(command);
+	}
+	else {
+
 	}
 
 	return 0;

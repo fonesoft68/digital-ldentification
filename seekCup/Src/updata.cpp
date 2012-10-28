@@ -42,9 +42,11 @@ int updata_parse(char *command)
 
 	table *tmp_table = findTable(table_name);
 
+#ifdef DEBUG
 	printf("%s\n", column_set);
 	printf("%s\n", value_set);
 	printf("%s\n", where_condition);
+#endif
 	int *c = (int *) calloc (1, sizeof(int));
 	char **split_c;
 	split_c = split(where_condition, EQUAL, c);
@@ -111,9 +113,13 @@ int updata_parse(char *command)
 	int *cc  = (int *) calloc (1, sizeof(int));
 	char **split_column = split(column_set, ",", count);
 	char **split_value = split(value_set, ",", cc);
+#ifdef DEBUG
 	printf("**********%s %s*******\n", column_set, value_set);
+#endif
 	if (*cc != *count) {
+#ifdef DUBUG
 		printf("******%d  %d*************\n", *c, *count);
+#endif
 		return 0;
 	}
 	int x;

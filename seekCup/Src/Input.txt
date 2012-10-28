@@ -7,26 +7,26 @@ create table person
 	grade INT
  );
 
-insert into person values(1,'YaoQ',90000);
+insert into person values(1,'YaoQ',90);
 insert into person values (2,'huzi',80);
-selectd * from person;
-insert into person(name,id,grade) values('ni',3,70);
-select * from person;
+insert into person values(3, 'nimei', 456);
+
+
 create table unique
 (
 id int,
 name text,
 money float
 );
+
+alter table person add adress text;
+
+truncate table person;
+select * from person;
+
 insert into unique values(1,'kangle yu',324.3);
 insert into unique values(2,'dengzhe',3.3);
 insert into unique values(3,'zihao hu',24);
-selesdfctd * from unique;
-alter table person add address int;
-show person column;
-selekct adf*asdfas from unique;
-create database dan;
-use dan;
-create table person(id int, name text);
-show person column;
+select * from unique;
 
+select * from unique where  id==1;
