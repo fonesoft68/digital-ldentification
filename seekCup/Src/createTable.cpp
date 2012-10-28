@@ -37,8 +37,8 @@ table * createTable(char * str)
 
 
   int i, j;
-  int * p = (int *)malloc(sizeof(int));
-  char * str2 = (char *)malloc(sizeof(char) * (strlen(str) + 1));
+  int * p = (int *)calloc(1, sizeof(int));
+  char * str2 = (char *)calloc(1, sizeof(char) * (strlen(str) + 1));
   
   strcpy(str2, str);
    char ** ch = split(str2, "," , p);
@@ -51,7 +51,7 @@ table * createTable(char * str)
     sscanf(ch[i], "%s", s);
     newCol->next = tb->rootCol->next;
     tb->rootCol->next = newCol;
-    newCol->name = (char *)malloc(sizeof(char) * 256);
+    newCol->name = (char *)calloc(1, sizeof(char) * 256);
 	newCol->rootItem = rootItem;
     strcpy(newCol->name, s);
     if (strrchr(ch[i], ' ')) {

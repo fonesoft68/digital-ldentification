@@ -37,7 +37,7 @@ database * createDatabase(char * name)
 	  tmp_database = tmp_database->next;
   }
 
-  db->name = (char *)malloc(sizeof(char) * (strlen(name) + 1));
+  db->name = (char *)calloc(1, sizeof(char) * (strlen(name) + 1));
   db->rootTable = rootTable;
   strcpy(db->name, name);
   db->next = allDatabaseRoot;

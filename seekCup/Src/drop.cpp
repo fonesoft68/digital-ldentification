@@ -6,8 +6,8 @@
 
 int drop(const char * str)
 {
-  int * p = (int *)malloc(sizeof(int));
-  char * s = (char *)malloc(sizeof(char) * (strlen(str) + 1));
+  int * p = (int *)calloc(1, sizeof(int));
+  char * s = (char *)calloc(1, sizeof(char) * (strlen(str) + 1));
   strcat(s, str);
   char ** ch = split(s, " ", p);
   if (strcmp(ch[0], "drop") == 0) {
