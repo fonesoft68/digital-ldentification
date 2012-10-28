@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "sql.h"
+#include "test.h"
 
 #define CREATE_DATABASE "create database "
 #define CREATE_TABLE "create table "
@@ -207,6 +208,7 @@ int parseCommand(char * command)
 #ifdef DEBUG
 		printf("$select:%s$\n", command);
 #endif
+		initTestDatabase();
 		select(command);
 	}
 	else if (result_updata[0] == 1) {

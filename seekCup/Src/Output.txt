@@ -2,6 +2,10 @@ seedcup
 now used seedcup
 grade,id,name, 
 id,name,grade,address, 
+seedcup, 
+person, 
+id,name,grade,address, 
+name,id,grade,address, 
 grade
 90
-id==1
+name=='YaoQ'
