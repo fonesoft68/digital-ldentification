@@ -254,9 +254,9 @@ int Complex_Judge(table *now_tab,int row,char* complex_row_limit)
   int i;
 
   if(complex_row_limit==NULL) return 1;
+  if(strstr(complex_row_limit,"(")==NULL||strstr(complex_row_limit,")")==NULL) return Judge(now_tab,row,complex_row_limit);
   for(i=0;i<strlen(complex_row_limit);i++)
     {
-
       if(complex_row_limit[i]=='('){
 	left_paren[p]=i;
 	orandor[q]=3;
