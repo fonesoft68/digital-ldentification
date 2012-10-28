@@ -9,7 +9,7 @@ create table person
 
 insert into person values(1,'YaoQ',90000);
 insert into person values (2,'huzi',80);
-select * from person;
+selectd * from person;
 insert into person(name,id,grade) values('ni',3,70);
 select * from person;
 create table unique
@@ -21,11 +21,10 @@ money float
 insert into unique values(1,'kangle yu',324.3);
 insert into unique values(2,'dengzhe',3.3);
 insert into unique values(3,'zihao hu',24);
-select * from unique;
-select name from unique where id == 1;
+selesdfctd * from unique;
 alter table person add address int;
 show person column;
-select * from unique;
+selekct adf*asdfas from unique;
 create database dan;
 use dan;
 create table person(id int, name text);

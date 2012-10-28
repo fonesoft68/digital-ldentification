@@ -496,3 +496,7 @@ char **getBetweenStr(char *query, char *left, char *right, int *cnt)
 	return result;
 }
 
+int initColCnt(table *t)
+{
+	
+}

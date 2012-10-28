@@ -207,8 +207,8 @@ int parseCommand(char * command)
 #ifdef DEBUG
 		printf("$select:%s$\n", command);
 #endif
-		printf("********%s*\n", command);
-		select(command);
+		select("select name from person where grade == 80");
+		printf("\n");
 		return 0;
 		int *cc = (int *) calloc (1, sizeof(int));
 		char **split_tmp = split(command, "select * from", cc);
