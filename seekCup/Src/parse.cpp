@@ -232,7 +232,7 @@ int parseCommand(char * command)
 		table *tmp_table = select(command);
 		if (tmp_table)
 			showTableContext_select(tmp_table);
-//		foo(command);
+		//foo(command);
 	}
 	else if (result_updata[0] == 1&& result_create_database[1] == begin_black) {
 #ifdef DEBUG
