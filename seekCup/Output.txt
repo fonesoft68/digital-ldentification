@@ -1,4 +1,5 @@
 seedcup, 
+<<<<<<< HEAD
 error
 name,age, 
 error
@@ -21,3 +22,10 @@ wtq,
 Yqm,13, 
 zyf,12, 
 ****************************
+=======
+id,name,money, 
+3,nimei,456, 
+2,huzi,80, 
+1,YaoQ,90, 
+3,nimei,456, 
+>>>>>>> 95af93c8f66999cc56cecfc56e07d9a0e64d62e2
