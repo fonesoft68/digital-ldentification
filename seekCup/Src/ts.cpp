@@ -88,6 +88,15 @@ int main(int argc, char *argv[])
 			printf("%s\n", a);
 			}
 		}
+		if (strcmp(argv[1], "pre") == 0) {
+			while (1) {
+				char *a = (char *) calloc (256, sizeof(char));
+				gets(a);
+				a = pre_process(a);
+				toLowCase(a);
+				printf("%s\n", a);
+			}
+		}
 		
 	}
 

@@ -128,3 +128,4 @@ char *cut(char*,char,char);
 int foo(char *);
 char *add_black(char *);
 int showTableContext_select(table *);
+char *pre_process (char *);

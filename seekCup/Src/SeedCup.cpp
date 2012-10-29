@@ -45,6 +45,7 @@ int main(int argc, char *argv[])
 			command[cnt + 1] = '\0';
 			initDatabaseCnt();
 			char *command_c = add_black(command);
+			command_c = pre_process(command_c);
 			parseCommand(command_c);
 			memset(command, 0, sizeof(char) * maxLenOfCmd);
 			//showTableContext(nowUsedDatabase->rootTable);

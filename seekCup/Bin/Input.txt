@@ -20,4 +20,4 @@ insert into person values(3, 'nimei', 456);
 
 select * from referee;
 
-select * from person where (((col1 > 1) or (col3 > 1) and (col3 > 2)) or (col2 == 'nimei'));
+select * from referee  where (((col1 > 1) or (col3 > 1) and (col3 > 2)) or (col2 == 'nimei'));

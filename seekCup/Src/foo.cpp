@@ -739,3 +739,53 @@ char *add_black(char * command)
 	command_cpy[n + result_xin[0] * 2] = '\0';
 	return command_cpy;
 }
+
+#define P_1 "> ="
+#define P_2 "< ="
+#define P_3 "~ ="
+#define P_4 "= ="
+
+char *pre_process(char *command)
+{
+	int *p_1 = go(P_1);
+	int *p_2 = go(P_2);
+	int *p_3 = go(P_3);
+	int *p_4 = go(P_4);
+
+	int *result_1 = findString(command, P_1, p_1);
+	int *result_2 = findString(command, P_2, p_2);
+	int *result_3 = findString(command, P_3, p_3);
+	int *result_4 = findString(command, P_4, p_3);
+
+	int flag = 0;
+	if (result_1[0] == 1) {
+		flag = result_1[1];
+	}
+	if (result_2[0] == 1) {
+		flag = result_2[1];
+	}
+	if (result_3[0] == 1) {
+		flag = result_3[1];
+	}
+	if (result_4[0] == 1) {
+		flag = result_4[1];
+	}
+
+	char *command_cpy = (char *) calloc (strlen(command) + 1, sizeof(char));
+	strcpy(command_cpy, command);
+	if (flag) {
+		int i = 0;
+		for (; i <= flag; ++ i) {
+			command_cpy[i] = command[i];
+		}
+
+		for (;i < strlen(command) - 1; ++ i) {
+			command_cpy[i] = command[i + 1];
+		}
+		command_cpy[i] = '\0';
+	}
+
+	return command_cpy;
+}
+
+

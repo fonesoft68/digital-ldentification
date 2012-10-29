@@ -15,8 +15,8 @@ int main()
   char b[8]="ak?o*l*";
   char c[5]="1234";
   char d[10]="1000,1893";
-//   const char Select[]="select col_2 from a where ((col_1==B)or(col_1==C))";
-  // const char Select[]="select col_2,col_3 from a order by col_3 incr";
+  const char Select[]="select col_2 from a where ((col_1==B)or(col_5>4))";
+ // const char Select[]="select col_2,col_3 from a order by col_3 incr";
 
     allDatabaseRoot->rootTable->next = createTable(" col_1 text , col_2 text , col_3,col_4 float,col_5 int ");
 	allDatabaseRoot->rootTable->next->name = "a"; 
@@ -29,13 +29,13 @@ int main()
 	showTableContext(allDatabaseRoot->rootTable->next);
 	nowUsedDatabase=allDatabaseRoot;
 //	initDatabaseCnt();
-	printf("tableCnt****%d***",nowUsedDatabase->tableCnt);
+//	printf("tableCnt****%d***",nowUsedDatabase->tableCnt);
 //	printf("colCnt********%d******",nowUsedDatabase->rootTable->next->colCnt);
 //	printf("itemCnt*****************%d*************",nowUsedDatabase->rootTable->next->rootCol->next->itemCnt);
  //       nowUsedDatabase->tableCnt=1;
 	//	nowUsedDatabase->rootTable->next->rootCol->next->itemCnt=6;
 
-//	showTableContext( select(Select));
+    showTableContext( select(Select));
   //if(Judge(now_tab,row,row_limit)){
     // printf("true");  
     // }else printf("false");

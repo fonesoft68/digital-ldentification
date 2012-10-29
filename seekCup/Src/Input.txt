@@ -1,0 +1,12 @@
+<<<<<<< HEAD
+=======
+creAte DataBase 
+seedCup ;
+uSe seedCup ;
+show databases;
+ creaTe table Referee 
+ (name text,age  int );
+ insert into Referee values('fy', 11);
+alter table Referee alter column age none;
+select * from Referee;
+>>>>>>> ad7ca6fe6fe9531d637a2536a4d338022aa34bea
