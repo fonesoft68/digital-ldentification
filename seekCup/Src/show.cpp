@@ -123,6 +123,10 @@ int showTableContext(table *t)
 		++ colCnt;
 		tmp_col = tmp_col->next;
 	}
+	if(!t->rootCol->next) {
+		printf("$\n");
+		return 0;
+	}
 	item *tmp_item = t->rootCol->next->rootItem->next;
 	while(tmp_item) {
 		++ rowCnt;
