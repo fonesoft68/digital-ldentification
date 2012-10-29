@@ -1,0 +1,55 @@
+creAte DataBase 
+   seedCup ;   
+  uSe seedCup ;
+show databases;
+ creaTe table RefereeWrong 
+(name text,age int age1 ); 
+creAte DataBase 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 5f0bf597938a4ed2c3e8b1c23aa691c91dec7ccb
+seedCup ;
+uSe seedCup ;
+creaTe table Referee
+(name text,age int );
+inSert into Referee values('Yqm',13);
+inSert into Referee values('zyf',12);
+insert into Referee values('fy' ,11 ); 
+insert into Referee values ('wtq', 17);
+<<<<<<< HEAD
+select name from Referee where age >= 15;  
+
+=======
+<<<<<<< HEAD
+select name from Referee where age > 11;
+select * from referee;
+select name from referee;
+select name from referee where age == 17;
+select * from referee where age == 17;
+
+=======
+select name from Referee where age >= 15;
+=======
+   seedCup ;   
+  uSe seedCup ;
+show databases;
+ creaTe table RefereeWrong 
+(name text,age int age1 ); 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 5f0bf597938a4ed2c3e8b1c23aa691c91dec7ccb
+
+show Referee column;
+
+
+insert into person values(1,'YaoQ',90);
+insert into person values (2,'huzi',80);
+insert into person values(3, 'nimei', 456);
+
+select * from person;
+
+select * from person where (((col1 > 1) or (col3 > 1) and (col3 > 2)) or (col2 == 'nimei'));

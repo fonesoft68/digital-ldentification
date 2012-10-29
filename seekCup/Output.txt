@@ -1,23 +1,6 @@
-<<<<<<< HEAD
-wtq, 
-name,age, 
+seedcup, 
+id,name,money, 
+3,nimei,456, 
+2,huzi,80, 
+1,YaoQ,90, 
 error
-error
-error
-$$
-=======
-Yqm, 
-zyf, 
-wtq, 
-********Yqm,13, 
-zyf,12, 
-fy,11, 
-wtq,17, 
-********Yqm, 
-zyf, 
-fy, 
-wtq, 
-********wtq, 
-********wtq,17, 
-********
->>>>>>> 5f0bf597938a4ed2c3e8b1c23aa691c91dec7ccb
