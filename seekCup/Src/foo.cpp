@@ -592,8 +592,52 @@ int initDatabaseCnt()
 	return 0;
 }
 
-#define SELECT "selet "
-#define FROM " from "
+col *findCol(table *t, char *name)
+{
+	col *tmp_col = t->rootCol->next;
+	while (tmp_col) {
+		if (strcmp(tmp_col->name, name) == 0) {
+			return tmp_col;
+		}
+		tmp_col = tmp_col->next;
+	}
+	return NULL;
+}
+
+item *findItem(col *c, int index)
+{
+	item *tmp_item = c->rootItem->next;
+	while (tmp_item) {
+		-- index;
+		if (index == 0) {
+			return tmp_item;
+		}
+		tmp_item = tmp_item->next;
+	}
+}
+
+int getItemNum(col *c)
+{
+	item *tmp_item = c->rootItem->next;
+	int cnt = 0;
+	while (tmp_item) {
+		++ cnt;
+		tmp_item = tmp_item->next;
+	}
+	return cnt;
+}
+int getColNum(table *t)
+{
+	col *tmp_col = t->rootCol->next;
+	int cnt = 0;
+	while(tmp_col) {
+		++ cnt;
+		tmp_col = tmp_col->next;
+	}
+	return cnt;
+}
+#define SELECT "select"
+#define FROM "from "
 
 int foo(char *command) 
 {
@@ -613,14 +657,36 @@ int foo(char *command)
 	char *name_table = split_command[0];
 	table *tmp_table = findTable(name_table);
 	table *new_table = tablecpy(tmp_table);
+	int colNum = getColNum(tmp_table);
 	if (strcmp("*", column_set) == 0) {
-
 	} 
 	else {
 		int *c = (int *) calloc (1, sizeof(int));
-		//char **split_col = split();
+		char **split_col = split(column_set, ",", c);
+		col *tmp_col = new_table->rootCol;
+		while (tmp_col) {
+			col *t_col = tmp_col->next;
+			while (t_col) {
+				int flag = 0;
+				for (int i = 0; i < *c; ++ i) {
+					if (strcmp(split_col[i], t_col->name) == 0) {
+						flag = 1;
+					}
+					if (flag) break;
+				}
+				if  (flag) break;
+				t_col = t_col->next;
+			}
+			tmp_col->next = t_col;
+			tmp_col = t_col;
+		}
 	}
-
-
+	char **where_condition = split(command, " where ", cnt);
+	if (*cnt == 2) {
+		where_condition = split(where_condition[1], " order by ", cnt);
+		new_table = where(new_table, where_condition[0]);
+	}
+	showTableContext(new_table);
+	printf("********");
 	return 0;
 }
