@@ -63,7 +63,7 @@ table *select(const char* Select)
 	memcpy(row_limit,where+6,strlen(where)-strlen(temp[*p-2])-21);
 	order=2;
 	odby=(char *)calloc(1,strlen(temp[*p-2])+1);
-	strcpy(odby,temp[*p-2]);	
+	strcpy(odby,temp[*p-2]);
       }
       else if(strcmp(temp[*p-1],INCR)==0){
 	row_limit=(char *)calloc(1,strlen(where)-strlen(temp[*p-2])-14);
@@ -170,8 +170,13 @@ table *Search(char *col_name,char *table_name,char *row_limit,char *odby,int ord
       bool  temp_bool=true;
       temp_col_1 = result->rootCol->next;               //
       temp_col_2 = now_tab->rootCol->next;              //
-      if(temp_col_2->type==None) continue;
+//      if(temp_col_2->type==None) continue;
       for(j = 0;j<now_tab->colCnt;j++){
+		  if(temp_col_2->type==None){
+			  temp_col_1=temp_col_1->next;
+			  temp_col_2=temp_col_2->next;
+			  continue;
+		  }
 	temp_item_2 = temp_col_2->rootItem->next;         //
 	for(k = 1;k<i+1;k++){
 	  temp_item_2 = temp_item_2->next;
