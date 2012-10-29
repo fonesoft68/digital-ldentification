@@ -194,8 +194,8 @@ void swap(table *tmp_table, int i, int j)
   }
 }
 
-#define ASC 1
-#define DESC 2
+#define ASC 2
+#define DESC 1
 
 void sort(table *tmp_table, char *name, int rule)
 {

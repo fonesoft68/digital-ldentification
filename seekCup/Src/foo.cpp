@@ -428,7 +428,7 @@ int isSelect(TYPE type, char *res , char *condition)
 		char ** split_b = split(split_c[1], "[", c);
 		split_b = split(split_b[0], "]", c);
 		split_b = split(split_b[0], ",", c);
-		if (*c == 2 && resCmp(type,split_b[0], res)<=0 && resCmp(type, split_b[1], res)>=0) {
+		if (*c == 2 && resCmp(type,split_b[0], res)<0 && resCmp(type, split_b[1], res)>0) {
 			return 1;
 		}
 		return 0;
@@ -714,4 +714,28 @@ int foo(char *command)
 	showTableContext(new_table);
 	printf("********");
 	return 0;
+}
+
+char *add_black(char * command) 
+{
+	int *go_xin =  go("*");
+	int *result_xin = findString(command, "*", go_xin);
+
+	int n = strlen(command);
+	int cnt = 0;
+	char *command_cpy = (char *) calloc (n + 1 + result_xin[0] * 2, sizeof(char));
+	for (int i = 0; i < result_xin[0] * 2 + n; ++ i) {
+		if(command[cnt] == '*') {
+			command_cpy[i] =' ';
+			command_cpy[++i] = '*';
+			command_cpy[++i] = ' ';
+			cnt ++;
+		}
+		else {
+			command_cpy[i] = command[cnt];
+			++ cnt;
+		}
+	}
+	command_cpy[n + result_xin[0] * 2] = '\0';
+	return command_cpy;
 }

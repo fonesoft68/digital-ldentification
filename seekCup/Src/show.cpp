@@ -33,7 +33,7 @@ int show_parse(char *command)
 			}
 		}
 	}
-	else if (strcmp(split_command[0], SHOW) == 0 && strcmp(split_command[1], "tables") == 0) {
+	else if (strcmp(split_command[0], SHOW) == 0 && strcmp(split_command[1], "table") == 0) {
 		int *c = (int *) calloc (1, sizeof(int));
 		char **str = showTable(nowUsedDatabase, c);
 		if (*cnt == 2) {
@@ -136,6 +136,47 @@ int showTableContext(table *t)
 	int i,j;
 	int r,c;
 	for (i = rowCnt; i > 0; -- i) {
+		for (j = colCnt; j > 0; -- j) {
+			col *tmp_col = t->rootCol;
+			for (r = 0; r < j; ++ r) {
+				tmp_col = tmp_col->next;
+			}
+			item *tmp_item = tmp_col->rootItem;
+			for (c = 0; c < i; ++ c) {
+				tmp_item = tmp_item->next;
+			}
+			printItem(tmp_item);
+		}
+		printf("\b \n");
+	}
+	
+	return 0;
+}
+int showTableContext_select(table *t)
+{
+	if (!t) {
+		return 0;
+	}
+	int rowCnt = 0;
+	int colCnt = 0;
+	col *tmp_col = t->rootCol->next;
+	while (tmp_col) {
+		++ colCnt;
+		tmp_col = tmp_col->next;
+	}
+	if(!t->rootCol->next) {
+		printf("$\n");
+		return 0;
+	}
+	item *tmp_item = t->rootCol->next->rootItem->next;
+	while(tmp_item) {
+		++ rowCnt;
+		tmp_item = tmp_item->next;
+	}
+
+	int i,j;
+	int r,c;
+	for (i = 1; i <= rowCnt; ++ i) {
 		for (j = colCnt; j > 0; -- j) {
 			col *tmp_col = t->rootCol;
 			for (r = 0; r < j; ++ r) {
