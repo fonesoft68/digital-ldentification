@@ -254,7 +254,10 @@ int Complex_Judge(table *now_tab,int row,char* complex_row_limit)
   int i;
 
   if(complex_row_limit==NULL) return 1;
-  if(complex_row_limit[0]=='(') return Judge(now_tab,row,complex_row_limit);
+  if(strstr(complex_row_limit,"and")==NULL&&strstr(complex_row_limit,"or")==NULL){ 
+	  complex_row_limit=cut(complex_row_limit,'(',')');
+	  return Judge(now_tab,row,complex_row_limit);
+  }
   for(i=0;i<strlen(complex_row_limit);i++)
     {
       if(complex_row_limit[i]=='('){
