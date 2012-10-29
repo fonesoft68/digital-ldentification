@@ -23,6 +23,7 @@ int main(int argc, char *argv[])
   showTableContext(tmp_table);
   tmp_table = select("select * from person");
   showTableContext(tmp_table);
+  
 }
   // //    allDatabaseRoot->next = NULL;
   // allDatabaseRoot =  createDatabase("huzi");
