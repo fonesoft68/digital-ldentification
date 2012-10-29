@@ -12,17 +12,19 @@ int main(int argc, char *argv[])
   //allDatabaseRoot = createDatabase("seedcup");
   createDatabase("seedcup");
   nowUsedDatabase = allDatabaseRoot;
-  allDatabaseRoot->rootTable->next = createTable(" id int , name text , grade int");
-  allDatabaseRoot->rootTable->next->name = "person";
-  insert("insert into person values (1, 'yaoq' , 90)");
-  insert("insert into person values (2, 'huzi' , 80)");
-  insert("insert into person values (3, 'nimei', 456)");
-  showTableContext(allDatabaseRoot->rootTable->next);
-  //  initDatabaseCnt();
-  table *tmp_table = select("select name from person where id==1");
-  showTableContext(tmp_table);
-  tmp_table = select("select * from person");
-  showTableContext(tmp_table);
+  allDatabaseRoot->rootTable->next = createTable("name text , age int age1");
+  // allDatabaseRoot->rootTable->next = createTable(" id int , name text , grade int");
+  // allDatabaseRoot->rootTable->next->name = "person";
+  // insert("insert into person values (1, 'yaoq' , 90)");
+  // insert("insert into person values (2, 'huzi' , 80)");
+  // insert("insert into person values (3, 'nimei', 456)");
+  // showTableContext(allDatabaseRoot->rootTable->next);
+  // //  initDatabaseCnt();
+  // table *tmp_table = select("select name from person where id==1");
+  // showTableContext(tmp_table);
+  // tmp_table = select("select * from person");
+  // showTableContext(tmp_table);
+  
 }
   // //    allDatabaseRoot->next = NULL;
   // allDatabaseRoot =  createDatabase("huzi");

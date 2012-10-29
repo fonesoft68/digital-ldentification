@@ -1,35 +1,23 @@
-create database seedcup;
-use seedcup;
-create table person
-(
-	Id INT,
-	Name TEXT,
-	grade INT
- );
+creAte DataBase 
+
+seedCup ;
+uSe seedCup ;
+creaTe table Referee
+(name text,age int );
+inSert into Referee values('Yqm',13);
+inSert into Referee values('zyf',12);
+insert into Referee values('fy' ,11 ); 
+insert into Referee values ('wtq', 17);
+select name from Referee where age >= 15;  
+
+
+show Referee column;
+
 
 insert into person values(1,'YaoQ',90);
 insert into person values (2,'huzi',80);
 insert into person values(3, 'nimei', 456);
 
+select * from referee;
 
-create table unique
-(
-id int,
-name text,
-money float
-);
-
-alter table person add adress text;
-
-truncate table person;
-select * from person;
-
-insert into unique values(1,'kangle yu',324.3);
-insert into unique values(2,'dengzhe',3.3);
-insert into unique values(3,'zihao hu',24);
-select * from unique;
-
-select * from unique where  id==1;
-
-
-select name from person where ((id>1)and(grade<400));
+select * from person where (((col1 > 1) or (col3 > 1) and (col3 > 2)) or (col2 == 'nimei'));
