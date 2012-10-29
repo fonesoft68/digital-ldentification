@@ -14,9 +14,10 @@ int Complex_Judge(table *,int,char *);
 
 table *select(const char* Select)
 {
+
   char *col_name=NULL;
   char *table_name=NULL;
-  char *row_limit;
+  char *row_limit=NULL;
   int order=1;
   char *odby=NULL;
   char **temp;
@@ -114,7 +115,7 @@ table *Search(char *col_name,char *table_name,char *row_limit,char *odby,int ord
   col *temp_col_2 = NULL;
   col *temp_col_3 = NULL;
   char **result_col;
-  int *p=(int *)calloc(1,sizeof(int));
+  int *p=(int *)malloc(sizeof(int));
   item *temp_item_1 = NULL;
   item *temp_item_2 = NULL;
   item *temp_item_3 = NULL;
@@ -201,7 +202,7 @@ table *Search(char *col_name,char *table_name,char *row_limit,char *odby,int ord
   if(strcmp(col_name,"*")==0) return result;              //如果所选列为*号
   bool a;//若存在，则a为true
   result_col=split(col_name,",",p);
-  fn_result=(table *)calloc(1,sizeof(table));
+  fn_result=(table *)malloc(sizeof(table));
   fn_result->name=(char *)calloc(1,sizeof(char)*strlen(result->name)+1);
   strcpy(fn_result->name,result->name);
   fn_result->rootCol=(col *)calloc(1,sizeof(col));
@@ -218,7 +219,7 @@ table *Search(char *col_name,char *table_name,char *row_limit,char *odby,int ord
 	{
 	  if(strcmp(result_col[i-1],temp_col_1->name)==0)
 	    {
-	      temp_col_2=(col *)calloc(1,sizeof(col));
+	      temp_col_2=(col *)malloc(sizeof(col));
 	      temp_col_2->name=(char *)calloc(1,sizeof(char)*strlen(temp_col_1->name));
 	      strcpy(temp_col_2->name,temp_col_1->name);
 	      temp_col_2->type=temp_col_1->type;
@@ -479,7 +480,7 @@ int Judge(table * now_tab,int row,char* row_limit)
  //   float *left =(float *)calloc(1,sizeof(float));
       float right=NULL;
 	  float left=NULL;
-      int *r=(int *)calloc(1,sizeof(int));
+      int *r=(int *)malloc(sizeof(int));
       TYPE temp_type=None;
       compare=split(row_limit,"==",r); //将比较操作符两边分开，暂没考虑比较符两侧可能的空格
       if(*r!=2){printf("error\n");return 2;}
@@ -513,7 +514,7 @@ int Judge(table * now_tab,int row,char* row_limit)
 	  float right=NULL;
 	  float left=NULL;
   //    float *left =(float *)calloc(1,sizeof(float));
-      int *r=(int *)calloc(1,sizeof(int));
+      int *r=(int *)malloc(sizeof(int));
       compare=split(row_limit,"~=",r);
       if(*r!=2){printf("error\n");return 2;}
       for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
@@ -542,7 +543,7 @@ int Judge(table * now_tab,int row,char* row_limit)
       //float *left =(float *)calloc(1,sizeof(float));
 	  float left;
 	  float right;
-      int *r=(int *)calloc(1,sizeof(int));
+      int *r=(int *)malloc(sizeof(int));
       compare=split(row_limit,">=",r);
       if(*r!=2){printf("error\n");return 2;}
       for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
@@ -571,7 +572,7 @@ int Judge(table * now_tab,int row,char* row_limit)
       //float *left =(float *)calloc(1,sizeof(float));
 	  float left=NULL;
 	  float right=NULL;
-      int *r=(int *)calloc(1,sizeof(int));
+      int *r=(int *)malloc(sizeof(int));
       compare=split(row_limit,"<=",r);
       if(*r!=2){printf("error");return 2;}
       for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
@@ -600,7 +601,7 @@ int Judge(table * now_tab,int row,char* row_limit)
       //    float *left =(float *)calloc(1,sizeof(float));
       float left;
       float right;
-      int *r=(int *)calloc(1,sizeof(int));
+      int *r=(int *)malloc(sizeof(int));
       compare=split(row_limit,">",r);
       if(*r!=2){printf("error\n");return 2;}
       for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
@@ -631,7 +632,7 @@ int Judge(table * now_tab,int row,char* row_limit)
       //float *left =(float *)calloc(1,sizeof(float));
 	  float left;
 	  float right;
-      int *r=(int *)calloc(1,sizeof(int));
+      int *r=(int *)malloc(sizeof(int));
       compare=split(row_limit,"<",r);
       if(*r!=2){printf("error\n");return 2;}
       for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
@@ -693,7 +694,7 @@ bool like(char *str_1,char *str_2)
   a=strlen(str_1);
   b=strlen(str_2);
   int *Match_map;
-  Match_map=(int *)calloc(1,sizeof(int)*(a+1)*(b+1));
+  Match_map=(int *)malloc(sizeof(int)*(a+1)*(b+1));
   memset(Match_map,0,(a+1)*(b+1));
   Match_map[0]=1;
   for(i=1;i<=a;i++){   //对目标item进行遍历
