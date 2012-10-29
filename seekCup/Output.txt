@@ -3,4 +3,4 @@ id,name,money,
 3,nimei,456, 
 2,huzi,80, 
 1,YaoQ,90, 
-error
+3,nimei,456, 

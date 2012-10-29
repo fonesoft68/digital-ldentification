@@ -79,6 +79,15 @@ int main(int argc, char *argv[])
 			showTableContext(nowUsedDatabase->rootTable->next);
 		
 		}
+		if (strcmp(argv[1], "xin") == 0) {
+			while(1){
+			char *a = (char *) calloc (256, sizeof(char));
+			gets(a);
+			a = add_black(a);
+			toLowCase(a);
+			printf("%s\n", a);
+			}
+		}
 		
 	}
 

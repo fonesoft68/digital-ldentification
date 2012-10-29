@@ -5,7 +5,7 @@
 
 #define INSERT "insert into"
 #define VALUES "values"
-#define ERROE "fuckdian"
+
 char * cut(char * str, char c1, char c2)
 {
   int start = 0, end = strlen(str) - 1;
@@ -194,8 +194,8 @@ void swap(table *tmp_table, int i, int j)
   }
 }
 
-#define ASC 1
-#define DESC 2
+#define ASC 2
+#define DESC 1
 
 void sort(table *tmp_table, char *name, int rule)
 {
@@ -213,7 +213,7 @@ void sort(table *tmp_table, char *name, int rule)
 	tmp_item = tmp_item->next;
 	++ cnt;
       }
-      if ((rule == ASC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) > 0) || (rule == DESC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) < 0)) {
+      if ((rule == DESC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) > 0) || (rule == ASC && resCmp(tmp_col->type, tmp_item->res, tmp_item->next->res) < 0)) {
 	swap(tmp_table, k, k - 1);
       }
     }

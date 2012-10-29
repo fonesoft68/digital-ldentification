@@ -5,6 +5,7 @@
 #include "test.h"
 
 #define WHERE "where"
+#define ERROR "funckyou!\n"
 
 #define EQUAL "=="
 #define NOT_EQUAL "~="
@@ -110,8 +111,12 @@ int updata_parse(char *command)
 	}
 	int *count = (int *) calloc (1, sizeof(int));
 	int *cc  = (int *) calloc (1, sizeof(int));
-	char **split_column = split(column_set, ",", count);
-	char **split_value = split(value_set, ",", cc);
+	char **split_column = split(column_set, "(", count);
+	split_column = split(split_column[0], ")", count);
+	split_column = split(split_column[0], ",", count);
+	char **split_value = split(value_set, "(", cc);
+	split_value = split(split_value[0], ")", cc);
+	split_value = split(split_value[0], ",", cc);
 #ifdef DEBUG
 	printf("**********%s %s*******\n", column_set, value_set);
 #endif
@@ -136,15 +141,15 @@ int updata_parse(char *command)
 		if (t == *count) {
 			continue;
 		}
-		tmp_item = tmp_col->rootItem;
 		for (j = index[0]; j > 0; -- j) {
+			tmp_item = tmp_col->rootItem;
 			for (x = 0; x < index[j]; ++ x) {
 				tmp_item = tmp_item->next;
 			}
 			if ((tmp_col->type == Int && isNum(split_value[t]))
 					|| (tmp_col->type == Text && isText(split_value[t]))
 					|| (tmp_col->type == Float && isFloat(split_value[t]))
-					) {
+					|| 1) {
 				strcpy(tmp_item->res, split_value[t]);
 			}
 			else {

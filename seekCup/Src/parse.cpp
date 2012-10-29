@@ -13,7 +13,7 @@
 #define RENAME_TABLE "rename table "
 #define RENAME_DATABASE "rename database "
 #define SELECT "select "
-#define UPDATA "updata "
+#define UPDATA "update "
 #define DELETE "delete from "
 #define INSERT_INTO "insert into "
 #define SHOW "show "
@@ -231,13 +231,15 @@ int parseCommand(char * command)
 //
 		table *tmp_table = select(command);
 		if (tmp_table)
-			showTableContext(tmp_table);
+			showTableContext_select(tmp_table);
 //		foo(command);
+		printf("****************************\n");
 	}
 	else if (result_updata[0] == 1&& result_create_database[1] == begin_black) {
 #ifdef DEBUG
 		printf("$updata:%s$\n", command);
 #endif
+		printf(ERROR);
 		updata_parse(command);
 	}
 	else if (result_delete[0] == 1&& result_create_database[1] == begin_black) {

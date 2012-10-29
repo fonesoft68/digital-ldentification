@@ -44,7 +44,8 @@ int main(int argc, char *argv[])
 		if (c == ';') {
 			command[cnt + 1] = '\0';
 			initDatabaseCnt();
-			parseCommand(command);
+			char *command_c = add_black(command);
+			parseCommand(command_c);
 			memset(command, 0, sizeof(char) * maxLenOfCmd);
 			//showTableContext(nowUsedDatabase->rootTable);
 			cnt = -1;

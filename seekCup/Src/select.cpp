@@ -254,7 +254,7 @@ int Complex_Judge(table *now_tab,int row,char* complex_row_limit)
   int i;
 
   if(complex_row_limit==NULL) return 1;
-  if(strstr(complex_row_limit,"and")==NULL&&strstr(complex_row_limit,"or")==NULL) return Judge(now_tab,row,complex_row_limit);
+  if(complex_row_limit[0]=='(') return Judge(now_tab,row,complex_row_limit);
   for(i=0;i<strlen(complex_row_limit);i++)
     {
       if(complex_row_limit[i]=='('){
@@ -528,20 +528,19 @@ int Judge(table * now_tab,int row,char* row_limit)
       compare=split(row_limit,"~=",r);
       if(*r!=2){printf("error\n");return 2;}
       for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
-	if(strcmp(temp_col->name,compare[0])==0){
-	  iscol=true;
-	  temp_type = temp_col->type;
-	  if(temp_col->type==None){   //类型不对
-	    printf("error\n");      
-	    return 2;
-	  }
-	  temp_item=temp_col->rootItem->next;
-	  for(m=1;m<row;m++){temp_item=temp_item->next;}
-	  compare[0]=temp_item->res;
-	  break;
-	}
-	temp_col=temp_col->next;
-
+	    if(strcmp(temp_col->name,compare[0])==0){
+	      iscol=true;
+	      temp_type = temp_col->type;
+	      if(temp_col->type==None){   //类型不对
+	        printf("error\n");      
+	        return 2;
+	      }
+	      temp_item=temp_col->rootItem->next;
+	      for(m=1;m<row;m++){temp_item=temp_item->next;}
+	      compare[0]=temp_item->res;
+	      break;
+	    }
+	    temp_col=temp_col->next;
       }
       if(iscol==false){printf("error\n");return 2;}
 //      compare[1]=value(compare[1]);
