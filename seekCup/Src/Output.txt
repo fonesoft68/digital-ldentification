@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 seedcup
 now used seedcup
 grade,id,name, 
@@ -23,3 +24,5 @@ error
 1,#,#, 
 2,#,#, 
 id,name,address, 
+=======
+>>>>>>> 02645f59857f59bfea0a919db4922bf91ede58d5

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 create database seedcup;
 use seedcup;
 create table person
@@ -27,3 +28,47 @@ alter table person add address int;
 alter table person alter column name int;
 insert into person values(2,,);
 show person column;
+=======
+creAte DataBase 
+<<<<<<< HEAD
+seedCup ;
+uSe seedCup ;
+show databases;
+creaTe table Referee
+(name text,age int age1 );
+ creaTe table Referee 
+ (name text,age  int );
+show Referee column;
+inSert into Referee values('zyf',12 20);
+inSert into Referee values('Yqm',13);
+select *from Referee;
+inSert into Referee values('zyf',12);
+select *from Referee order by name desc;
+create table uSe (name text,age int);
+=======
+   seedCup ;   
+  uSe seedCup ;
+show databases;
+ creaTe table RefereeWrong 
+(name text,age int age1 ); 
+  
+
+ creaTe table Referee 
+ (name text,age  int );
+show Referee column;
+inSert into Referee values('zyf',12 20); 
+  inSert into Referee values('Yqm',13);
+select *from Referee; 
+inSert into Referee values('zyf',12);
+select *from Referee order by name desc; 
+create table uSe (name text,age int);   
+ show table; 
+insert into Referee values('fy' ,11  );
+insert into tableNotExist values ('zzw', 16)   ; 
+insert into  Referee  values ('wtq', 17);
+select * from referee;
+  select name,age from  Referee where age >= 15; 
+update Referee set ( age) = (30) where name == 'fy';
+  select name from  Referee where age >= 29;
+>>>>>>> 531e774ed2b47dbe127c3df53487dc8383e0445b
+>>>>>>> 02645f59857f59bfea0a919db4922bf91ede58d5

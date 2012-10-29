@@ -4,34 +4,26 @@
 #include "sql.h"
 #include "test.h"
 
-#define ERROR "error\n"
 
 int truncateTable(char *name)
 {
-	table *tmp_table = (table *) calloc (1, sizeof(table));
 	if (nowUsedDatabase == NULL) {
 		printf(ERROR);
+		printf("sdf");
 		return 0;
 	}
-	tmp_table = nowUsedDatabase->rootTable->next;
+	table *tmp_table = findTable(name);
 	if (tmp_table == NULL) {
 		printf(ERROR);
+		printf("sdf");
 		return 0;
 	}
 
-	while (tmp_table) {
-		if (strcmp(tmp_table->name, name) == 0) {
-			col *tmp_col = tmp_table->rootCol->next;
-			while (tmp_col) {
-				freeItem(tmp_col->rootItem->next);
-				tmp_col->rootItem->next = 0;
-				tmp_col = tmp_col->next;
-			}
-			return 0;
-		}
+	col *tmp_col = tmp_table->rootCol->next;
+	while (tmp_col) {
+		tmp_col->rootItem->next = 0;
+		tmp_col = tmp_col->next;
 	}
-
-	printf(ERROR);
 	return 0;
 }
 

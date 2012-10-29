@@ -14,6 +14,7 @@ int renameTable(char *old_name, char *new_name)
 		if (strcmp(tmp_table->name, old_name) == 0) {
 			break;
 		}
+		tmp_table = tmp_table->next;
 	}
 	if (!tmp_table) {
 		printf(ERROR);

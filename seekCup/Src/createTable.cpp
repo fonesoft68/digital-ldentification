@@ -37,11 +37,24 @@ table * createTable(char * str)
 
 
   int i, j;
-  int * p = (int *)malloc(sizeof(int));
-  char * str2 = (char *)malloc(sizeof(char) * (strlen(str) + 1));
+  int * p = (int *)calloc(1, sizeof(int));
+  char * str2 = (char *)calloc(1, sizeof(char) * (strlen(str) + 1));
   
   strcpy(str2, str);
-   char ** ch = split(str2, "," , p);
+  char ** ch = split(str2, "," , p);
+  for (i = 0;i < *p;++ i) {
+    int *q = (int *) calloc (1, sizeof(int));
+    char **blank = split(ch[i], " ", q);
+    if (*q > 2) {
+      return 0;
+    }
+    char c[256];
+    sscanf(ch[i], "%s", c);
+    if ((strstr(ch[i], "int") && strcmp(c, "int")) || (strstr(ch[i], "float") && strcmp(c, "float")) || (strstr(ch[i], "text") && strcmp(c, "text")) || (!strstr(ch[i], " "))) ;
+    else {
+      return 0;
+    }
+  }
   for (i = 0;i < *p;++i) {
 	item *rootItem = (item *) calloc (1, sizeof(item));
 	rootItem->res = (char *) calloc (256, sizeof(item));
@@ -51,7 +64,7 @@ table * createTable(char * str)
     sscanf(ch[i], "%s", s);
     newCol->next = tb->rootCol->next;
     tb->rootCol->next = newCol;
-    newCol->name = (char *)malloc(sizeof(char) * 256);
+    newCol->name = (char *)calloc(1, sizeof(char) * 256);
 	newCol->rootItem = rootItem;
     strcpy(newCol->name, s);
     if (strrchr(ch[i], ' ')) {
@@ -66,6 +79,7 @@ table * createTable(char * str)
       }
       else {
 	printf(ERROR);
+	return 0;
       }
     }
     else {
@@ -75,6 +89,6 @@ table * createTable(char * str)
 	rootItem->type = t;
     ++(tb->colCnt);
   }
- 
+  ++ (nowUsedDatabase->tableCnt);
   return tb;
 }

@@ -13,14 +13,13 @@
 #define RENAME_TABLE "rename table "
 #define RENAME_DATABASE "rename database "
 #define SELECT "select "
-#define UPDATA "updata "
+#define UPDATA "update "
 #define DELETE "delete from "
 #define INSERT_INTO "insert into "
 #define SHOW "show "
 
 int parseCommand(char * command)
 {
-
 	toLowCase(command);
 #ifdef DEBUG
 	printf("%s\n", command);
@@ -82,7 +81,6 @@ int parseCommand(char * command)
 		}
 		free(split_command[0]);
 		free(split_command);
-		showDatabase();
 		return 0;
 
 	}
@@ -95,20 +93,28 @@ int parseCommand(char * command)
 			char **name_val = split(split_command[0], "(", cnt);
 			if (*cnt == 2) {
 				name_val[1][strlen(name_val[1]) - 1] = '\0';
-				//printf("%s\n %s\n", name_val[0], name_val[1]);
 				table *newTable = createTable(name_val[1]);
+				if(!newTable) {
+					printf(ERROR);
+					return 0;
+				}
 				newTable->name = (char *) calloc (strlen(name_val[0]) + 1, sizeof(char));
 				strcpy(newTable->name, name_val[0]);
+				if (!nameCheck(newTable->name)) {
+					printf(ERROR);
+					return 0;
+				}
 				if (!nowUsedDatabase) {
 					printf(ERROR);
 					return 0;
 				}
 				newTable->next = nowUsedDatabase->rootTable->next;
 				nowUsedDatabase->rootTable->next = newTable;
-				//showColName(newTable->rootCol->next);
 				int *c = (int *) calloc (1, sizeof(int));
+#ifdef DEBUG
 				char **str = showTableCol("person", c);
 				outputForOrder(str, c, -1);
+#endif
 			}
 			else {
 				printf(ERROR);
@@ -131,8 +137,8 @@ int parseCommand(char * command)
 #endif
 		int *c = (int*) calloc (1, sizeof(int));
 		split_command = split(command, " ", c);
-		if (*c == 1) {
-			truncateTable(split_command[1]);
+		if (*c == 3) {
+			truncateTable(split_command[2]);
 		}
 		else {
 			printf(ERROR);
@@ -174,7 +180,6 @@ int parseCommand(char * command)
 			int *c = (int *) calloc (1, sizeof(int));
 			char **name = split(split_command[0], " ", c);
 			if (*c == 2) {
-				printf("%s %s\n", name[0], name[1]);
 				renameTable(name[0], name[1]);
 			}
 		}
@@ -204,19 +209,40 @@ int parseCommand(char * command)
 			return 0;
 		}
 	}
-	else if (result_select[0] == 1) {
+	else if (result_select[0] == 1&& result_select[1] == begin_black) {
 #ifdef DEBUG
 		printf("$select:%s$\n", command);
 #endif
-		select(command);
+//		int *cc = (int *) calloc (1, sizeof(int));
+//		char **split_tmp = split(command, "select * from", cc);
+//		 showTableContext(findTable(split_tmp[0]));
+//		split_tmp = split(command, "select* from", cc);
+//		 showTableContext(findTable(split_tmp[0]));
+//		split_tmp = split(command, "select *from", cc);
+//		 showTableContext(findTable(split_tmp[0]));
+
+//		printf("***********************\n");
+//		int *cc = (int *) calloc (1, sizeof(int));
+//		char **split_tmp = split(command, "select * from", cc);
+//		if (*cc = 1) {
+//			showTableContext(findTable(split_tmp[0]));
+//			return 0;
+//		}
+//
+		table *tmp_table = select(command);
+		if (tmp_table)
+			showTableContext_select(tmp_table);
+//		foo(command);
+		printf("****************************\n");
 	}
-	else if (result_updata[0] == 1) {
+	else if (result_updata[0] == 1&& result_create_database[1] == begin_black) {
 #ifdef DEBUG
 		printf("$updata:%s$\n", command);
 #endif
+		printf(ERROR);
 		updata_parse(command);
 	}
-	else if (result_delete[0] == 1) {
+	else if (result_delete[0] == 1&& result_create_database[1] == begin_black) {
 #ifdef DEBUG
 		printf("$delete:%s$\n", command);
 #endif
@@ -224,18 +250,23 @@ int parseCommand(char * command)
 		char **split_command = split(command, DELETE, cnt);
 		delete_parse(split_command[0]);
 	}
-	else if (result_insert_into[0] == 1) {
+	else if (result_insert_into[0] == 1&& result_create_database[1] == begin_black) {
 #ifdef DEBUG
 		printf("$insert into:%s$\n", command);
 #endif
 		insert(command);
+#ifdef DEBUG
 		showTableContext(nowUsedDatabase->rootTable->next);
+#endif
 	}
 	else if (result_show[0] == 1 && result_show[1] == begin_black) {
 #ifdef DEBUG
 		printf("$show:%s$\n", command);
 #endif
 		show_parse(command);
+	}
+	else {
+
 	}
 
 	return 0;

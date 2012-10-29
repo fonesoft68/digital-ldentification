@@ -68,6 +68,14 @@ int * findString(char *query, char *module, int *go)
 
 int toLowCase(char *str)
 {
+	int left = 0;
+	int right = strlen(str) - 1;
+	while  (left < right && str[left]==' ') ++ left;
+	while (right > left && str[right]==' ') --right;
+	for (int i = left; i <= right; ++ i) {
+		str[i - left] = str[i];
+	}
+	str[right - left + 1] = '\0';
 	int i;
 	char *str_cpy = (char *) calloc (strlen(str) + 1, sizeof(char));
 	int cnt = -1;
@@ -151,25 +159,63 @@ int isFloat(char *str)
 	}
 	return 1;
 }
-
 int isText(char *str)
 {
-	int i;
-	if (str[0] != '\'' || str[strlen(str) - 1] != '\'') {
-		return 0;
-	}
-	for (i = 1; i < strlen(str) - 1; ++ i) {
-		if (!(str[i] >= 'a' && str[i] <= 'z') || !(str[i] >= 'A' && str[i] <= 'Z') || str[i] != '_' || str[i] != ' ') {
-			return 0;
-		}
-	}
-	char *tmp_str = (char *) calloc (strlen(str) - 1, sizeof(char));
-	for (int i = 1; i < strlen(str) - 1; ++ i) {
-		tmp_str[i - 1] = str[i];
-	}
-	strcpy(str, tmp_str);
-	return 1;
+  int i, x = 0 ,y = 0, z = 0, flag1 = 1, flag2 = 1, flag3 = 1;
+  if (str[0] != '\'' || str[strlen(str) - 1] != '\'') {
+    return 0;
+  }
+  for (i = 1;i < strlen(str) - 1;++ i) {
+    if ((str[i] >= '0' && str[i] <= '9') || (str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_' || str[i] == ' ') {
+      if (flag1 && ((str[i] >= '0' && str[i] <= '9'))) {
+	flag1 = 0;
+	x = i;
+	continue;
+      }
+      if (flag2 && ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z'))) {
+	flag2 = 0;
+	y = i;
+	continue;
+      }
+      if (flag3 && str[i] == '_') {
+	flag3 = 0;
+	z = i;
+	continue;
+      }
+    }
+    else {
+      return 0;
+    }
+  }
+  if (x < y && x < z) {
+    return 0;
+  }
+  char *tmp_str = (char *) calloc (strlen(str) - 1, sizeof(char));
+  for (int i = 1;i < strlen(str) - 1;++ i) {
+    tmp_str[i - 1] = str[i];
+  }
+  strcpy(str, tmp_str);
+  return 1;
 }
+
+// int isText(char *str)
+// {
+// 	int i;
+// 	if (str[0] != '\'' || str[strlen(str) - 1] != '\'') {
+// 		return 0;
+// 	}
+// 	for (i = 1; i < strlen(str) - 1; ++ i) {
+// 		if (!(str[i] >= 'a' && str[i] <= 'z') || !(str[i] >= 'A' && str[i] <= 'Z') || str[i] != '_' || str[i] != ' ') {
+// 			return 0;
+// 		}
+// 	}
+// 	char *tmp_str = (char *) calloc (strlen(str) - 1, sizeof(char));
+// 	for (int i = 1; i < strlen(str) - 1; ++ i) {
+// 		tmp_str[i - 1] = str[i];
+// 	}
+// 	strcpy(str, tmp_str);
+// 	return 1;
+// }
 
 //char *getRes(TYPE type, char *str)
 //{
@@ -313,6 +359,7 @@ table *tablecpy(table *t)
 #define GREATE_THAN_EQUAL ">="
 #define LESS_THAN_EQUEL "<="
 #define BETWEEN " between"
+#define LIKE " like "
 
 int isSelect(TYPE type, char *res , char *condition)
 {
@@ -381,13 +428,17 @@ int isSelect(TYPE type, char *res , char *condition)
 		char ** split_b = split(split_c[1], "[", c);
 		split_b = split(split_b[0], "]", c);
 		split_b = split(split_b[0], ",", c);
-		if (*c == 2 && resCmp(type,split_b[0], res)<=0 && resCmp(type, split_b[1], res)>=0) {
+		if (*c == 2 && resCmp(type,split_b[0], res)<0 && resCmp(type, split_b[1], res)>0) {
 			return 1;
 		}
 		return 0;
 	}
 	free(split_c);
 
+	split_c = split(condition, LIKE, cnt);
+	if (*cnt == 2) {
+		int *c = (int *) calloc (1, sizeof(int));
+	}
 }
 
 table *where(table *query_table, char *condition)
@@ -460,13 +511,15 @@ table *where(table *query_table, char *condition)
 	int x;
 	for (i = colCnt; i > 0; -- i) {
 		col *tmp_col = query_table->rootCol;
+		for (x = 0; x < i; ++ x) {
+			tmp_col = tmp_col->next;
+		}
 		item *newItem = (item *) calloc (1, sizeof(item));
 		newItem->res = (char *) calloc (256, sizeof(char));
 		col *newCol = (col*) calloc (1, sizeof(col));
 		newCol->rootItem = newItem;
-		for (x = 0; x < i; ++ x) {
-			tmp_col = tmp_col->next;
-		}
+		newCol->name = (char *) calloc (256, sizeof(char));
+		strcpy(newCol->name, tmp_col->name);
 		for (j = index[0]; j > 0; -- j) {
 			item *tmp_item = tmp_col->rootItem;
 			for (x = 0; x < index[j]; ++ x) {
@@ -496,4 +549,193 @@ char **getBetweenStr(char *query, char *left, char *right, int *cnt)
 	return result;
 }
 
+int initItemCnt(col *c)
+{
+	item *tmp_item = c->rootItem->next;
+	int cnt = 0;
+	while (tmp_item) {
+		++ cnt;
+		tmp_item = tmp_item->next; 
+	}
+	c->itemCnt = cnt;
+	return 0;
+}
+int initColCnt(table *t)
+{
+	col *tmp_col = t->rootCol->next;
+	int cnt = 0;
+	while (tmp_col) {
+		initItemCnt(tmp_col);
+		++ cnt;
+		tmp_col = tmp_col->next;
+	}
+	t->colCnt = cnt;
+	return 0;
+}
+int initTableCnt(database *d)
+{
+	table *tmp_table = d->rootTable->next;
+	int cnt = 0;
+	while (tmp_table) {
+		initColCnt(tmp_table);
+		++ cnt;
+		tmp_table = tmp_table->next;
+	}
+	d->tableCnt = cnt;
+	return 0;
+}
+int initDatabaseCnt()
+{
+	database *tmp_database = allDatabaseRoot;
+	while(tmp_database) {
+		initTableCnt(tmp_database);
+		tmp_database = tmp_database->next;
+	}
+	return 0;
+}
 
+col *findCol(table *t, char *name)
+{
+	col *tmp_col = t->rootCol->next;
+	while (tmp_col) {
+		if (strcmp(tmp_col->name, name) == 0) {
+			return tmp_col;
+		}
+		tmp_col = tmp_col->next;
+	}
+	return NULL;
+}
+
+item *findItem(col *c, int index)
+{
+	item *tmp_item = c->rootItem->next;
+	while (tmp_item) {
+		-- index;
+		if (index == 0) {
+			return tmp_item;
+		}
+		tmp_item = tmp_item->next;
+	}
+}
+
+int getItemNum(col *c)
+{
+	item *tmp_item = c->rootItem->next;
+	int cnt = 0;
+	while (tmp_item) {
+		++ cnt;
+		tmp_item = tmp_item->next;
+	}
+	return cnt;
+}
+int getColNum(table *t)
+{
+	col *tmp_col = t->rootCol->next;
+	int cnt = 0;
+	while(tmp_col) {
+		++ cnt;
+		tmp_col = tmp_col->next;
+	}
+	return cnt;
+}
+#define SELECT "select"
+#define FROM "from "
+
+int foo(char *command) 
+{
+	int *cnt = (int *) calloc (1, sizeof(int));
+	char **split_command = split(command, SELECT, cnt);
+	if (*cnt != 1) {
+		printf(ERROR);
+		return 0;
+	}
+	split_command = split(split_command[0], FROM, cnt);
+	if (*cnt != 2) {
+		printf(ERROR);
+		return 0;
+	}
+	char *column_set = split_command[0];
+	split_command = split(split_command[1], " ", cnt);
+	char *name_table = split_command[0];
+	table *tmp_table = findTable(name_table);
+	table *new_table = tablecpy(tmp_table);
+	int colNum = getColNum(tmp_table);
+//	if (strcmp("*", column_set) == 0) {
+//	} 
+//	else {
+//		int *c = (int *) calloc (1, sizeof(int));
+//		char **split_col = split(column_set, ",", c);
+//		col *tmp_col = new_table->rootCol;
+//		while (tmp_col) {
+//			col *t_col = tmp_col->next;
+//			while (t_col) {
+//				int flag = 0;
+//				for (int i = 0; i < *c; ++ i) {
+//					if (strcmp(split_col[i], t_col->name) == 0) {
+//						flag = 1;
+//					}
+//					if (flag) break;
+//				}
+//				if  (flag) break;
+//				t_col = t_col->next;
+//			}
+//			tmp_col->next = t_col;
+//			tmp_col = t_col;
+//		}
+//	}
+	char **where_condition = split(command, " where ", cnt);
+	if (*cnt == 2) {
+		where_condition = split(where_condition[1], " order by ", cnt);
+		new_table = where(new_table, where_condition[0]);
+	}
+	if (strcmp("*", column_set) == 0) {
+	} 
+	else {
+		int *c = (int *) calloc (1, sizeof(int));
+		char **split_col = split(column_set, ",", c);
+		col *tmp_col = new_table->rootCol;
+		while (tmp_col) {
+			col *t_col = tmp_col->next;
+			while (t_col) {
+				int flag = 0;
+				for (int i = 0; i < *c; ++ i) {
+					if (strcmp(split_col[i], t_col->name) == 0) {
+						flag = 1;
+					}
+					if (flag) break;
+				}
+				if  (flag) break;
+				t_col = t_col->next;
+			}
+			tmp_col->next = t_col;
+			tmp_col = t_col;
+		}
+	}
+	showTableContext(new_table);
+	printf("********");
+	return 0;
+}
+
+char *add_black(char * command) 
+{
+	int *go_xin =  go("*");
+	int *result_xin = findString(command, "*", go_xin);
+
+	int n = strlen(command);
+	int cnt = 0;
+	char *command_cpy = (char *) calloc (n + 1 + result_xin[0] * 2, sizeof(char));
+	for (int i = 0; i < result_xin[0] * 2 + n; ++ i) {
+		if(command[cnt] == '*') {
+			command_cpy[i] =' ';
+			command_cpy[++i] = '*';
+			command_cpy[++i] = ' ';
+			cnt ++;
+		}
+		else {
+			command_cpy[i] = command[cnt];
+			++ cnt;
+		}
+	}
+	command_cpy[n + result_xin[0] * 2] = '\0';
+	return command_cpy;
+}

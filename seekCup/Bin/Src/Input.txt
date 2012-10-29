@@ -1,0 +1,15 @@
+creAte DataBase 
+seedCup ;
+uSe seedCup ;
+show databases;
+creaTe table Referee
+(name text,age int age1 );
+ creaTe table Referee 
+ (name text,age  int );
+show Referee column;
+inSert into Referee values('zyf',12 20);
+inSert into Referee values('Yqm',13);
+select *from Referee;
+inSert into Referee values('zyf',12);
+select *from Referee order by name desc;
+create table uSe (name text,age int);
