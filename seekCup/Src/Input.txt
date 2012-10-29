@@ -10,17 +10,16 @@ show databases;
  (name text,age  int );
 show Referee column;
 
-<<<<<<< HEAD
-=======
+
 insert into person values(1,'YaoQ',90);
 insert into person values (2,'huzi',80);
 insert into person values(3, 'nimei', 456);
 
 select * from person;
-<<<<<<< HEAD
+
 select * from person where (((col1 > 1) or (col3 > 1) and (col3 > 2)) or (col2 == 'nimei'));
-=======
-<<<<<<< HEAD
+
+
 #create table unique
 (
 id int,
@@ -42,8 +41,4 @@ money float
 #select * from unique;
 
 #select * from unique where  id==1;
-=======
->>>>>>> 5b110b8320567d82b0b4d5872cac828f3f337569
->>>>>>> d8fa717e9b7125381c552606c09359489cfaa6fb
->>>>>>> 9c44e5395af65e30b7303ba655035f61229b9a66
->>>>>>> c2dd3e44e5949ea29e29cc2a38418b16fdc73478
+

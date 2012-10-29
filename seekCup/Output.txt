@@ -1,9 +1,0 @@
-seedcup, 
-name,age, 
-error
-error
-error
-$error
-error
-error
-error
