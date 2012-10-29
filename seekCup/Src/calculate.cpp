@@ -42,33 +42,35 @@ char Precede(char a, char b) { //判断运算符优先级
     return Table[j][i];
 
 }
-bool Calcu_temp(float a, char theta, float b, float *r) { //计算二元表达式的值
-  float tmp = 0;
-    if(theta=='+')
-      tmp = (a + b);
-    else if(theta=='-')
-      tmp = (a - b);
-    else if(theta=='*')
-      tmp = (a * b);
-    else {
-        if(fabs(b-0.0)<1e-8)  //如果除数为0，返回错误信息
-            return false;
-        else
-	  tmp = (a / b);
-    }
-    r = &tmp;
-    return true;
-}
-
-bool IsOper(char ch) { //判断字符ch是否为运算符
+int IsOper(char ch) { //判断字符ch是否为运算符
 
     char ptr[10] = {'+', '-', '*', '/', '(', ')', '='};
     int i;
     for(i=0; i<7; i++) {
         if(ch==ptr[i])
-            return true;
+          return 1;
     }
-    return false;
+    return 0;
+}
+int check(char * s) 
+{
+  int flag1 = 0, flag2 = 0;
+  int i;
+  for (i = 0;i < strlen(s);++ i){
+    if (*(s + i) == '(') {
+      ++ flag1;
+    }
+    if (*(s + i) == ')') {
+      -- flag1;
+    }
+    if (IsOper(s[i]) && IsOper(s[i + 1])) {
+      flag2 = 1;
+    }
+  }
+  if (flag1 && flag2) {
+    return 0;
+  }
+  return 1;
 }
 
 float calculate(char *s)
@@ -89,6 +91,10 @@ float calculate(char *s)
       ++ k;
     }
     ++ i;
+  }
+  if (!check(str)) {
+    printf(ERROR);
+    return 0;
   }
   *(str + k) = '=';
   i = 0;

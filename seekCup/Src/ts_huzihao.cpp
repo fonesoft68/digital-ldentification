@@ -9,10 +9,11 @@ database * nowUsedDatabase = (database *) calloc (1, sizeof(table));
 int databaseCnt;
 int main(int argc, char *argv[])
 {
+  printf("%f", calculate("(6/(1-1))"));
   //allDatabaseRoot = createDatabase("seedcup");
-  createDatabase("seedcup");
-  nowUsedDatabase = allDatabaseRoot;
-  allDatabaseRoot->rootTable->next = createTable("name text , age int age1");
+  //  createDatabase("seedcup");
+  //  nowUsedDatabase = allDatabaseRoot;
+  //  allDatabaseRoot->rootTable->next = createTable("name text , age int age1");
   // allDatabaseRoot->rootTable->next = createTable(" id int , name text , grade int");
   // allDatabaseRoot->rootTable->next->name = "person";
   // insert("insert into person values (1, 'yaoq' , 90)");

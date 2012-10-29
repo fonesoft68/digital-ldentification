@@ -1,0 +1,10 @@
+seedcup, 
+error
+name,age, 
+error
+Yqm,13, 
+********Yqm,13,#, 
+zyf,12,#, 
+fy,11,#, 
+wtq,17,#, 
+********
