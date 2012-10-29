@@ -147,3 +147,4 @@ float calculate(char *);
 
 int initDatabaseCnt();
 char *cut(char*,char,char);
+int foo(char *);

@@ -94,8 +94,16 @@ int parseCommand(char * command)
 			if (*cnt == 2) {
 				name_val[1][strlen(name_val[1]) - 1] = '\0';
 				table *newTable = createTable(name_val[1]);
+				if(!newTable) {
+					printf(ERROR);
+					return 0;
+				}
 				newTable->name = (char *) calloc (strlen(name_val[0]) + 1, sizeof(char));
 				strcpy(newTable->name, name_val[0]);
+				if (!nameCheck(newTable->name)) {
+					printf(ERROR);
+					return 0;
+				}
 				if (!nowUsedDatabase) {
 					printf(ERROR);
 					return 0;
@@ -205,9 +213,13 @@ int parseCommand(char * command)
 #ifdef DEBUG
 		printf("$select:%s$\n", command);
 #endif
-		int *cc = (int *) calloc (1, sizeof(int));
-		char **split_tmp = split(command, "select * from", cc);
-		 showTableContext(findTable(split_tmp[0]));
+//		int *cc = (int *) calloc (1, sizeof(int));
+//		char **split_tmp = split(command, "select * from", cc);
+//		 showTableContext(findTable(split_tmp[0]));
+//		split_tmp = split(command, "select* from", cc);
+//		 showTableContext(findTable(split_tmp[0]));
+//		split_tmp = split(command, "select *from", cc);
+//		 showTableContext(findTable(split_tmp[0]));
 
 //		printf("***********************\n");
 //		int *cc = (int *) calloc (1, sizeof(int));
@@ -217,9 +229,10 @@ int parseCommand(char * command)
 //			return 0;
 //		}
 //
-		table *tmp_table = select(command);
-		if (tmp_table)
-			showTableContext(tmp_table);
+//		table *tmp_table = select(command);
+//		if (tmp_table)
+//			showTableContext(tmp_table);
+		foo(command);
 	}
 	else if (result_updata[0] == 1&& result_create_database[1] == begin_black) {
 #ifdef DEBUG

@@ -33,7 +33,7 @@ int show_parse(char *command)
 			}
 		}
 	}
-	else if (strcmp(split_command[0], SHOW) == 0 && strcmp(split_command[1], TABLE) == 0) {
+	else if (strcmp(split_command[0], SHOW) == 0 && strcmp(split_command[1], "tables") == 0) {
 		int *c = (int *) calloc (1, sizeof(int));
 		char **str = showTable(nowUsedDatabase, c);
 		if (*cnt == 2) {
