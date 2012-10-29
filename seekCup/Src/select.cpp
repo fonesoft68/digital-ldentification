@@ -46,6 +46,7 @@ table *select(const char* Select)
   if(strcmp(temp[2],FROM)!=0){
     printf(ERROR);
     return NULL;
+
   }
     
   table_name=(char *)calloc(1,strlen(temp[3])+1);
@@ -255,12 +256,13 @@ int Complex_Judge(table *now_tab,int row,char* complex_row_limit)
 
   if(complex_row_limit==NULL) return 1;
   if(strstr(complex_row_limit,"and")==NULL&&strstr(complex_row_limit,"or")==NULL){
-    	    char * fd=(char *)calloc(1,strlen(complex_row_limit));
 	 if(complex_row_limit[0]=='('){
-
-		strncpy(fd,complex_row_limit+1,strlen(complex_row_limit)-2);
+	   char * fd=(char *)calloc(1,strlen(complex_row_limit));
+	   strncpy(fd,complex_row_limit+1,strlen(complex_row_limit)-2);
+	   return Judge(now_tab,row,fd);
 	 } 
-	  return Judge(now_tab,row,fd);
+	 else
+	 return Judge(now_tab,row,complex_row_limit);
   }
   for(i=0;i<strlen(complex_row_limit);i++)
     {
