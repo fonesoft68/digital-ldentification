@@ -511,13 +511,15 @@ table *where(table *query_table, char *condition)
 	int x;
 	for (i = colCnt; i > 0; -- i) {
 		col *tmp_col = query_table->rootCol;
+		for (x = 0; x < i; ++ x) {
+			tmp_col = tmp_col->next;
+		}
 		item *newItem = (item *) calloc (1, sizeof(item));
 		newItem->res = (char *) calloc (256, sizeof(char));
 		col *newCol = (col*) calloc (1, sizeof(col));
 		newCol->rootItem = newItem;
-		for (x = 0; x < i; ++ x) {
-			tmp_col = tmp_col->next;
-		}
+		newCol->name = (char *) calloc (256, sizeof(char));
+		strcpy(newCol->name, tmp_col->name);
 		for (j = index[0]; j > 0; -- j) {
 			item *tmp_item = tmp_col->rootItem;
 			for (x = 0; x < index[j]; ++ x) {
@@ -658,6 +660,34 @@ int foo(char *command)
 	table *tmp_table = findTable(name_table);
 	table *new_table = tablecpy(tmp_table);
 	int colNum = getColNum(tmp_table);
+//	if (strcmp("*", column_set) == 0) {
+//	} 
+//	else {
+//		int *c = (int *) calloc (1, sizeof(int));
+//		char **split_col = split(column_set, ",", c);
+//		col *tmp_col = new_table->rootCol;
+//		while (tmp_col) {
+//			col *t_col = tmp_col->next;
+//			while (t_col) {
+//				int flag = 0;
+//				for (int i = 0; i < *c; ++ i) {
+//					if (strcmp(split_col[i], t_col->name) == 0) {
+//						flag = 1;
+//					}
+//					if (flag) break;
+//				}
+//				if  (flag) break;
+//				t_col = t_col->next;
+//			}
+//			tmp_col->next = t_col;
+//			tmp_col = t_col;
+//		}
+//	}
+	char **where_condition = split(command, " where ", cnt);
+	if (*cnt == 2) {
+		where_condition = split(where_condition[1], " order by ", cnt);
+		new_table = where(new_table, where_condition[0]);
+	}
 	if (strcmp("*", column_set) == 0) {
 	} 
 	else {
@@ -680,11 +710,6 @@ int foo(char *command)
 			tmp_col->next = t_col;
 			tmp_col = t_col;
 		}
-	}
-	char **where_condition = split(command, " where ", cnt);
-	if (*cnt == 2) {
-		where_condition = split(where_condition[1], " order by ", cnt);
-		new_table = where(new_table, where_condition[0]);
 	}
 	showTableContext(new_table);
 	printf("********");
