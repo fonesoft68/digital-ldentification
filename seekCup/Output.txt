@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 seedcup, 
 error
 name,age, 
@@ -8,3 +9,28 @@ zyf,12,#,
 fy,11,#, 
 wtq,17,#, 
 ********
+=======
+<<<<<<< HEAD
+wtq, 
+name,age, 
+error
+error
+error
+$$
+=======
+Yqm, 
+zyf, 
+wtq, 
+********Yqm,13, 
+zyf,12, 
+fy,11, 
+wtq,17, 
+********Yqm, 
+zyf, 
+fy, 
+wtq, 
+********wtq, 
+********wtq,17, 
+********
+>>>>>>> 5f0bf597938a4ed2c3e8b1c23aa691c91dec7ccb
+>>>>>>> b3dd37e83718a65d98e115e6df9fc96380b83c88

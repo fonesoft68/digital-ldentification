@@ -1,4 +1,5 @@
 creAte DataBase 
+<<<<<<< HEAD
 seedCup ;
 uSe seedCup ;
 show databases;
@@ -16,3 +17,90 @@ insert into  Referee  values ('wtq', 17);
 alter table Referee  add address int;
 alter table Referee alter column address text;
 select *from Referee;
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> 5f0bf597938a4ed2c3e8b1c23aa691c91dec7ccb
+seedCup ;
+uSe seedCup ;
+creaTe table Referee
+(name text,age int );
+inSert into Referee values('Yqm',13);
+inSert into Referee values('zyf',12);
+insert into Referee values('fy' ,11 ); 
+insert into Referee values ('wtq', 17);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+select name from Referee where age >= 15;  
+
+=======
+<<<<<<< HEAD
+>>>>>>> d42f9f8831cad3a799021b46ad36c043f4929366
+select name from Referee where age > 11;
+select * from referee;
+select name from referee;
+select name from referee where age == 17;
+select * from referee where age == 17;
+
+<<<<<<< HEAD
+=======
+=======
+select name from Referee where age >= 15;
+=======
+   seedCup ;   
+  uSe seedCup ;
+show databases;
+ creaTe table RefereeWrong 
+(name text,age int age1 ); 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 5f0bf597938a4ed2c3e8b1c23aa691c91dec7ccb
+
+show Referee column;
+
+
+insert into person values(1,'YaoQ',90);
+insert into person values (2,'huzi',80);
+insert into person values(3, 'nimei', 456);
+
+select * from person;
+
+select * from person where (((col1 > 1) or (col3 > 1) and (col3 > 2)) or (col2 == 'nimei'));
+<<<<<<< HEAD
+=======
+
+
+#create table unique
+(
+id int,
+name text,
+money float
+);
+
+#alter table person add adress text;
+#insert into person values(3,'dsf',345,'sdf');
+
+#select * from person;
+
+#truncate table person;
+#select * from person;
+
+#insert into unique values(1,'kangle yu',324.3);
+#insert into unique values(2,'dengzhe',3.3);
+#insert into unique values(3,'zihao hu',24);
+#select * from unique;
+
+#select * from unique where  id==1;
+
+>>>>>>> 8316d732d7ef928b1b389de417837c3d57bcdec6
+>>>>>>> f1d5e5bba0a4074a6fae5ba717d895faea6e9138
+>>>>>>> 097c4219b94e7856a5690a71dc898900d808efe9
+>>>>>>> 5af92dc8a8a2028f3f57c3ee606b6977baefd7c2
+>>>>>>> 5f0bf597938a4ed2c3e8b1c23aa691c91dec7ccb
+>>>>>>> d42f9f8831cad3a799021b46ad36c043f4929366
+>>>>>>> b3dd37e83718a65d98e115e6df9fc96380b83c88

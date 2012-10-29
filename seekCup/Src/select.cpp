@@ -16,7 +16,7 @@ table *select(const char* Select)
 {
   char *col_name=NULL;
   char *table_name=NULL;
-  char *row_limit;
+  char *row_limit=NULL;
   int order=1;
   char *odby=NULL;
   char **temp;
