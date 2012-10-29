@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+wtq, 
+name,age, 
+error
+error
+error
+$$
+=======
 Yqm, 
 zyf, 
 wtq, 
@@ -12,3 +20,4 @@ wtq,
 ********wtq, 
 ********wtq,17, 
 ********
+>>>>>>> 5f0bf597938a4ed2c3e8b1c23aa691c91dec7ccb
