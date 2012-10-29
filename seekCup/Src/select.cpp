@@ -134,7 +134,7 @@ table *Search(char *col_name,char *table_name,char *row_limit,char *odby,int ord
     now_tab=now_tab->next;
   }
   if(result==NULL){
-    printf("error/n");
+    printf(ERROR);
     return NULL;
   }
 

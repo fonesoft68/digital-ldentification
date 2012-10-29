@@ -2,22 +2,8 @@ creAte DataBase
 seedCup ;
 uSe seedCup ;
 show databases;
-creaTe table Referee
-(name text,age int age1 );
  creaTe table Referee 
  (name text,age  int );
-show Referee column;
-inSert into Referee values('zyf',12 20);
-inSert into Referee values('Yqm',13);
-select *from Referee;
-inSert into Referee values('zyf',12);
-select *from Referee order by name desc;
-create table uSe (name text,age int);
-show table;
-insert into Referee values('fy' ,11  );
-insert into tableNotExist values ('zzw', 16);
-insert into  Referee  values ('wtq', 17);
-
-  select name,age from  Referee where age >= 15;
-update Referee set ( age) = (30) where name == 'fy';
-select *from Referee where age < (10+2*3);
+ insert into Referee values('fy', 11);
+alter table Referee alter column age none;
+select * from Referee;

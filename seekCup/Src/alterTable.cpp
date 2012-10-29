@@ -132,6 +132,7 @@ int alterRename(char * table_name, char * datatype) {
     col *tmp_col = tmp_table->rootCol->next;
     while (tmp_col) {
 	if (strcmp(tmp_col->name, split_datatype[0]) == 0) {
+
       
 	    TYPE s = tmp_col->type;
 	    if (strcmp(split_datatype[1], "int") == 0 && tmp_col->type == Float) {
@@ -178,6 +179,16 @@ int alterRename(char * table_name, char * datatype) {
 		}
 		return 0;
 	    }
+            else if (strcmp(split_datatype[1], "none") == 0) {
+              tmp_col->type = None;
+              item *tmp_item = tmp_col->rootItem->next;
+              while (tmp_item) {
+                tmp_item->res = "";
+                tmp_item->type = None;
+                tmp_item = tmp_item->next;
+              }
+              return 0;
+            }
 	    else {
 		printf(ERROR);
 		return 0;
