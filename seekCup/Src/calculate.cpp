@@ -67,7 +67,7 @@ int check(char * s)
       flag2 = 1;
     }
   }
-  if (flag1 && flag2) {
+  if (flag1 || flag2) {
     return 0;
   }
   return 1;
@@ -94,7 +94,7 @@ float calculate(char *s)
   }
   if (!check(str)) {
     printf(ERROR);
-    return 0;
+    return 1/0.0;
   }
   *(str + k) = '=';
   i = 0;
@@ -155,13 +155,8 @@ float calculate(char *s)
 	  ns[beg1] = a * b;
 	}
 	else if (ch == '/') {
-	  if ((b - 0.0) < 1e-8) {
-	    return 0;
-	  }
-	  else {
-	    ns[beg1] = a / b;
-	  }
-	}
+          ns[beg1] = a / b;
+        }
 	++ beg1;
 	break;
       }

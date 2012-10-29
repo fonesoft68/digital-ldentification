@@ -9,7 +9,10 @@ database * nowUsedDatabase = (database *) calloc (1, sizeof(table));
 int databaseCnt;
 int main(int argc, char *argv[])
 {
-  printf("%f", calculate("(6/(1-1))"));
+  //printf("%f", calculate("(6/(1-1))"));
+  //printf("%f\n", calculate("(-1+2+)"));
+  printf("%f\n", calculate("1/0"));
+  //printf("%f\n", calculate("(-1+2"));
   //allDatabaseRoot = createDatabase("seedcup");
   //  createDatabase("seedcup");
   //  nowUsedDatabase = allDatabaseRoot;
