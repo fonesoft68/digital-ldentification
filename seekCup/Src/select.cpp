@@ -481,7 +481,7 @@ int Judge(table * now_tab,int row,char* row_limit)
 	  float left=NULL;
       int *r=(int *)calloc(1,sizeof(int));
       TYPE temp_type=None;
-      compare=split(row_limit,"==",r); //将比较操作符两边分开，暂没考虑比较符两侧可能的空格
+      compare=split(row_limit,"==",r); //将比较操作符两边分开
       if(*r!=2){printf("error\n");return 2;}
       for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
 	if(strcmp(temp_col->name,compare[0])==0){
@@ -499,14 +499,15 @@ int Judge(table * now_tab,int row,char* row_limit)
       }
 //      compare[1]=value(compare[1]);
       if(temp_type==Text){
-	 if(strcmp(compare[0],compare[1])==0) a=true;
-      }
-      else{
+		  compare[0]=cut(compare[0],'\'','\'');
+		  if(strcmp(compare[0],compare[1])==0) a=true;
+      }else{
 //         sscanf(compare[0],"%f",left);
 //         sscanf(compare[1],"%f",right);
          left=calculate(compare[0]);
          right=calculate(compare[1]);
-         if(left==right){a=true;}}
+         if(left==right){a=true;}
+	  }
     }else if(strstr(row_limit,"~=")!=NULL){                           //~=
       char **compare;
 //      float *right=(float *)calloc(1,sizeof(float));
@@ -514,11 +515,13 @@ int Judge(table * now_tab,int row,char* row_limit)
 	  float left=NULL;
   //    float *left =(float *)calloc(1,sizeof(float));
       int *r=(int *)calloc(1,sizeof(int));
+      TYPE temp_type=None;
       compare=split(row_limit,"~=",r);
       if(*r!=2){printf("error\n");return 2;}
       for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
 	if(strcmp(temp_col->name,compare[0])==0){
-	  if(temp_col->type==Text||temp_col->type==None){   //类型不对
+	  temp_type = temp_col->type;
+	  if(temp_col->type==None){   //类型不对
 	    printf("error\n");      
 	    return 2;
 	  }
@@ -533,9 +536,14 @@ int Judge(table * now_tab,int row,char* row_limit)
 //      compare[1]=value(compare[1]);
 //      sscanf(compare[0],"%f",left);
 //      sscanf(compare[1],"%f",right);
+       if(temp_type==Text){
+		  compare[0]=cut(compare[0],'\'','\'');
+		  if(strcmp(compare[0],compare[1])==0) a=true;
+	   }else{
        left=calculate(compare[0]);
 	   right=calculate(compare[1]);
-      if(left!=right){a=true;}
+       if(left!=right){a=true;}
+	   }
     }else if(strstr(row_limit,">=")!=NULL){                    //>=
       char **compare;
       //float *right=(float *)calloc(1,sizeof(float));
