@@ -11,8 +11,14 @@ insert into person values(1,'YaoQ',90);
 insert into person values (2,'huzi',80);
 insert into person values(3, 'nimei', 456);
 
+<<<<<<< HEAD
 
 create table unique
+=======
+select name from person where id==1;
+select * from person;
+#create table unique
+>>>>>>> 06127273573536335d0a2ad871388ff3e75416d1
 (
 id int,
 name text,
@@ -21,11 +27,15 @@ money float
 
 alter table person add adress text;
 insert into person values(3,'dsf',345,'sdf');
-
 select * from person;
 
+<<<<<<< HEAD
 #truncate table person;
 #select * from person;
+=======
+truncate table person;
+select * from person;
+>>>>>>> 06127273573536335d0a2ad871388ff3e75416d1
 
 #insert into unique values(1,'kangle yu',324.3);
 #insert into unique values(2,'dengzhe',3.3);

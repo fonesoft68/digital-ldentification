@@ -221,7 +221,10 @@ int parseCommand(char * command)
 //			showTableContext(findTable(split_tmp[0]));
 //			return 0;
 //		}
-		select(command);
+//
+		table *tmp_table = select(command);
+		if (tmp_table)
+			showTableContext(tmp_table);
 	}
 	else if (result_updata[0] == 1&& result_create_database[1] == begin_black) {
 #ifdef DEBUG
