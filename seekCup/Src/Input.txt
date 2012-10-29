@@ -1,4 +1,57 @@
 creAte DataBase 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+seedCup ;
+uSe seedCup ;
+show databases;
+creaTe table Referee
+(name text,age int age1 );
+ creaTe table Referee 
+ (name text,age  int );
+show Referee column;
+inSert into Referee values('zyf',12 20);
+inSert into Referee values('Yqm',13);
+select *from Referee;
+inSert into Referee values('zyf',12);
+insert into Referee values('fy' ,11  );
+insert into  Referee  values ('wtq', 17);
+alter table Referee  add address int;
+alter table Referee alter column address text;
+select *from Referee;
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> 5f0bf597938a4ed2c3e8b1c23aa691c91dec7ccb
+seedCup ;
+uSe seedCup ;
+creaTe table Referee
+(name text,age int );
+inSert into Referee values('Yqm',13);
+inSert into Referee values('zyf',12);
+insert into Referee values('fy' ,11 ); 
+insert into Referee values ('wtq', 17);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+select name from Referee where age >= 15;  
+
+=======
+<<<<<<< HEAD
+>>>>>>> d42f9f8831cad3a799021b46ad36c043f4929366
+select name from Referee where age > 11;
+select * from referee;
+select name from referee;
+select name from referee where age == 17;
+select * from referee where age == 17;
+
+<<<<<<< HEAD
+=======
+=======
+select name from Referee where age >= 15;
+=======
+>>>>>>> 71aa1ecf47159558198b3682033f2710d13ff3e0
    seedCup ;   
   uSe seedCup ;
 show databases;
@@ -14,3 +67,13 @@ show Referee column;
 
 
 
+<<<<<<< HEAD
+=======
+>>>>>>> 8316d732d7ef928b1b389de417837c3d57bcdec6
+>>>>>>> f1d5e5bba0a4074a6fae5ba717d895faea6e9138
+>>>>>>> 097c4219b94e7856a5690a71dc898900d808efe9
+>>>>>>> 5af92dc8a8a2028f3f57c3ee606b6977baefd7c2
+>>>>>>> 5f0bf597938a4ed2c3e8b1c23aa691c91dec7ccb
+>>>>>>> d42f9f8831cad3a799021b46ad36c043f4929366
+>>>>>>> b3dd37e83718a65d98e115e6df9fc96380b83c88
+>>>>>>> 71aa1ecf47159558198b3682033f2710d13ff3e0

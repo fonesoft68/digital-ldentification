@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -223,7 +224,7 @@ int alterDel(char * table_name, char * column_name)
 #define ALTER_TABLE "alter table "
 #define ADD "add "
 #define DROP "drop column "
-#define ALTER_COLUMN "column"
+#define ALTER_COLUMN "alter column"
 
 int alter_parse(char *command)
 {
