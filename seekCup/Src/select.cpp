@@ -200,11 +200,11 @@ table *Search(char *col_name,char *table_name,char *row_limit,char *odby,int ord
   }
 
 
-  //将result以orderby的要求排列
+  //将result以orderby的要求排�?
   if(odby!=NULL) sort(result,odby,order);
 	
   //将result中的所选列输出，若所选列不存在则输出error
-  if(strcmp(col_name,"*")==0) return result;              //如果所选列为*号
+  if(strcmp(col_name,"*")==0) return result;              //如果所选列�?�?
   bool a;//若存在，则a为true
   result_col=split(col_name,",",p);
   fn_result=(table *)calloc(1,sizeof(table));
@@ -246,7 +246,7 @@ table *Search(char *col_name,char *table_name,char *row_limit,char *odby,int ord
 int Complex_Judge(table *now_tab,int row,char* complex_row_limit)
 {
   int *left_paren=(int *)calloc(100,sizeof(int));  //当作一个栈用，压入左括号的位置
-  int *orandor=(int *)calloc(100,sizeof(int));     //当作一个栈用，压入or,and，(,)其中or为1,and为2,(为3,)为4
+  int *orandor=(int *)calloc(100,sizeof(int));     //当作一个栈用，压入or,and�?,)其中or�?,and�?,(�?,)�?
   int p=0,q=0;                                     //用来标记栈顶
   typedef struct element{
     char *res;
@@ -420,7 +420,7 @@ int andoror(char *a){
   return 0;
 }
 
-//根据Complex_Judge传入的简单row_limit判断某行是否满足Select where的条件
+//根据Complex_Judge传入的简单row_limit判断某行是否满足Select where的条�?
 int Judge(table * now_tab,int row,char* row_limit)
 {
   //    char AND[4]="and";
@@ -439,7 +439,7 @@ int Judge(table * now_tab,int row,char* row_limit)
     if(strstr(row_limit,BETWEEN)!=NULL){//判断是否是between语句
       char *where_col;//where选定的行
       char *where_item;//被比较的item内容
-      char *area;     //【】内的内容
+      char *area;     //【】内的内�?
       bool iscol=false;
       for(k=1;k<=strlen(row_limit);k++){if(row_limit[k-1]==' ')break;}//找出第一次出现空格的位子存入k
       where_col=(char *)calloc(1,sizeof(char)*k);
@@ -447,7 +447,7 @@ int Judge(table * now_tab,int row,char* row_limit)
       for(l=0;l<now_tab->colCnt;l++){                        //找出item内容
 	if(strcmp(temp_col->name,where_col)==0){
 	   iscol=true;
-	  if(temp_col->type==Text||temp_col->type==None){   //between的类型不对
+	  if(temp_col->type==Text||temp_col->type==None){   //between的类型不�?
 	    printf(ERROR);      
 	    return 2;
 	  }
@@ -466,7 +466,7 @@ int Judge(table * now_tab,int row,char* row_limit)
     }else if(strstr(row_limit,LIKE)!=NULL){//判断是否为like语句
       char *where_col;//like选定的行
       char *where_item;//被比较的item内容
-      char *area;     //【】内的内容
+      char *area;     //【】内的内�?
       bool iscol=false;
       for(k=1;k<=strlen(row_limit);k++){if(row_limit[k-1]==' ')break;}//找出第一次出现空格的位子存入k
       where_col=(char *)calloc(1,sizeof(char)*k);
@@ -474,7 +474,7 @@ int Judge(table * now_tab,int row,char* row_limit)
       for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
 	if(strcmp(temp_col->name,where_col)==0){
 	  iscol=true;
-	  if(temp_col->type!=Text){   //like的类型不对
+	  if(temp_col->type!=Text){   //like的类型不�?
 	    printf(ERROR);      
 	    return 2;
 	  }
@@ -737,20 +737,20 @@ int like(char *str_1,char *str_2)
   memset(Match_map,0,(a+1)*(b+1));
   Match_map[0]=1;
   for(i=1;i<=a;i++){   //对目标item进行遍历
-    for(j=1;j<=b;j++){//对匹配内容进行遍历
+    for(j=1;j<=b;j++){//对匹配内容进行遍�?
       if(Match_map[(i-1)*(b+1)+j-1]==1){
 	if(str_1[i-1]==str_2[j-1]||str_2[j-1]=='?'){
 	  Match_map[i*(b+1)+j]=1;
 	  if(i==a&&j<b){                           
 	    for(k=j+1;k<=b;k++){
-	      if(str_2[k-1]=='*'||str_2[k-1]=='?'){    //考虑*与？结尾的情况
+	      if(str_2[k-1]=='*'||str_2[k-1]=='?'){    //考虑*与？结尾的情�?
 		Match_map[i*(b+1)+k]=1;
 	      }
 	      else break;
 	    }
 	  }
 	}
-	else if(str_2[j-1]=='*'){   //*可以和一切字符匹配
+	else if(str_2[j-1]=='*'){   //*可以和一切字符匹�?
 	  for(k=i-1;k<=a;k++){
 	    Match_map[k*(b+1)+j]=1;
 	  }

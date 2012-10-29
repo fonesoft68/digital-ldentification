@@ -12,6 +12,7 @@ show Referee column;
 inSert into Referee values('zyf',12 20); 
   inSert into Referee values('Yqm',13);
 select *from Referee; 
+<<<<<<< HEAD
 inSert into Referee values('zyf',12);
 select *from Referee order by name desc; 
 create table uSe (name text,age int);   
@@ -23,3 +24,5 @@ select * from referee;
   select name,age from  Referee where age >= 15; 
 update Referee set ( age) = (30) where name == 'fy';
   select name from  Referee where age >= 29;
+=======
+>>>>>>> 30265009e3e272fe163dd799872e3ac3beca8fc5

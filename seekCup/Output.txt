@@ -3,6 +3,7 @@ error
 name,age, 
 error
 Yqm,13, 
+<<<<<<< HEAD
 zyf,12, 
 Yqm,13, 
 error
@@ -15,3 +16,6 @@ wtq,17,
 17,wtq, 
 error
 fy, 
+=======
+********
+>>>>>>> 30265009e3e272fe163dd799872e3ac3beca8fc5
