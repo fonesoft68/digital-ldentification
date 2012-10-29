@@ -20,8 +20,6 @@ int delete_parse(char *command)
 	if (*cnt != 2) {
 		printf(ERROR);
 		return 0;
-<<<<<<< HEAD
-=======
 	}
 	table *tmp_table = findTable(split_command[0]);
 	char *where_condition = split_command[1];
@@ -103,10 +101,9 @@ int delete_parse(char *command)
 			}
 			tmp_item->next = tmp_item->next->next;
 		}
->>>>>>> 02645f59857f59bfea0a919db4922bf91ede58d5
 	}
 
-	showTableContext(findTable("person"));
+	//showTableContext(findTable("person"));
 
 
 	return 0;

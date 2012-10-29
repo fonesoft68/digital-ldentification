@@ -117,12 +117,10 @@ int isFloat(char *);
 int isText(char *);
 void swap(table *, int i, int j);
 void sort(table *, char *, int );
-<<<<<<< HEAD
 int delete_parse(char *);
 int delete_parse(char *);
 
 float calculate(char *);
-=======
 int delete_parse(char *);
 float calculate(char *);
 int initDatabaseCnt();
@@ -130,4 +128,3 @@ char *cut(char*,char,char);
 int foo(char *);
 char *add_black(char *);
 int showTableContext_select(table *);
->>>>>>> 02645f59857f59bfea0a919db4922bf91ede58d5
