@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include"sql.h"
-
+#define ERROR "fuckdian\n"
 table *Search(char *,char *,char *,char *,int);
 int between(char *,char *);
 int like(char *,char *);
@@ -34,7 +34,7 @@ table *select(const char* Select)
   temp=split(selectn," ",p);
 
   if(strcmp(temp[0],SELECT)!=0){
-    printf("error\n");
+    printf(ERROR);
     return NULL;
   }
 
@@ -44,7 +44,7 @@ table *select(const char* Select)
 
 
   if(strcmp(temp[2],FROM)!=0){
-    printf("error\n");
+    printf(ERROR);
     return NULL;
   }
     
@@ -254,9 +254,13 @@ int Complex_Judge(table *now_tab,int row,char* complex_row_limit)
   int i;
 
   if(complex_row_limit==NULL) return 1;
-  if(strstr(complex_row_limit,"and")==NULL&&strstr(complex_row_limit,"or")==NULL){ 
-	  complex_row_limit=cut(complex_row_limit,'(',')');
-	  return Judge(now_tab,row,complex_row_limit);
+  if(strstr(complex_row_limit,"and")==NULL&&strstr(complex_row_limit,"or")==NULL){
+    	    char * fd=(char *)calloc(1,strlen(complex_row_limit));
+	 if(complex_row_limit[0]=='('){
+
+		strncpy(fd,complex_row_limit+1,strlen(complex_row_limit)-2);
+	 } 
+	  return Judge(now_tab,row,fd);
   }
   for(i=0;i<strlen(complex_row_limit);i++)
     {
@@ -361,7 +365,7 @@ int Complex_Judge(table *now_tab,int row,char* complex_row_limit)
       }
     }
   if(left_paren[p-1]!=0){
-    printf("error\n");
+    printf(ERROR);
     return 2;
   }
   /*do{
@@ -437,7 +441,7 @@ int Judge(table * now_tab,int row,char* row_limit)
 	if(strcmp(temp_col->name,where_col)==0){
 	   iscol=true;
 	  if(temp_col->type==Text||temp_col->type==None){   //between的类型不对
-	    printf("error\n");      
+	    printf(ERROR);      
 	    return 2;
 	  }
 	  temp_item=temp_col->rootItem->next;                //
@@ -448,7 +452,7 @@ int Judge(table * now_tab,int row,char* row_limit)
 	}
 	temp_col=temp_col->next;
       }
-      if(iscol==false){printf("error\n");return 2;}
+      if(iscol==false){printf(ERROR);return 2;}
       area=(char *)calloc(1,sizeof(char)*(strlen(row_limit)-k-8));
       memcpy(area,row_limit+k+8,sizeof(char)*(strlen(row_limit)-k-9));
       a=between(where_item,area);
@@ -464,7 +468,7 @@ int Judge(table * now_tab,int row,char* row_limit)
 	if(strcmp(temp_col->name,where_col)==0){
 	  iscol=true;
 	  if(temp_col->type!=Text){   //like的类型不对
-	    printf("error\n");      
+	    printf(ERROR);      
 	    return 2;
 	  }
 	  temp_item=temp_col->rootItem->next;
@@ -474,7 +478,7 @@ int Judge(table * now_tab,int row,char* row_limit)
 	}
 	temp_col=temp_col->next;
       }
-      if(iscol==false){printf("error\n");return 2;}
+      if(iscol==false){printf(ERROR);return 2;}
       area=(char *)calloc(1,sizeof(char)*(strlen(row_limit)-k-5));
       memcpy(area,row_limit+k+5,sizeof(char)*(strlen(row_limit)-k-6));
       a=like(where_item,area);
@@ -491,13 +495,13 @@ int Judge(table * now_tab,int row,char* row_limit)
       bool iscol=false;
       TYPE temp_type=None;
       compare=split(row_limit,"==",r); //将比较操作符两边分开
-      if(*r!=2){printf("error\n");return 2;}
+      if(*r!=2){printf(ERROR);return 2;}
       for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
 	if(strcmp(temp_col->name,compare[0])==0){
 	  iscol=true;
 	  temp_type = temp_col->type;
 	  if(temp_col->type==None){   //类型不对
-	    printf("error\n");      
+	    printf(ERROR);      
 	    return 2;
 	  }
 	  temp_item=temp_col->rootItem->next;
@@ -507,7 +511,7 @@ int Judge(table * now_tab,int row,char* row_limit)
 	}
 	temp_col=temp_col->next;
       }
-      if(iscol==false){printf("error\n");return 2;}
+      if(iscol==false){printf(ERROR);return 2;}
 //      compare[1]=value(compare[1]);
       if(temp_type==Text){
 		  compare[0]=cut(compare[0],'\'','\'');
@@ -529,13 +533,13 @@ int Judge(table * now_tab,int row,char* row_limit)
       TYPE temp_type=None;
       bool iscol=false;
       compare=split(row_limit,"~=",r);
-      if(*r!=2){printf("error\n");return 2;}
+      if(*r!=2){printf(ERROR);return 2;}
       for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
 	    if(strcmp(temp_col->name,compare[0])==0){
 	      iscol=true;
 	      temp_type = temp_col->type;
 	      if(temp_col->type==None){   //类型不对
-	        printf("error\n");      
+	        printf(ERROR);      
 	        return 2;
 	      }
 	      temp_item=temp_col->rootItem->next;
@@ -545,7 +549,7 @@ int Judge(table * now_tab,int row,char* row_limit)
 	    }
 	    temp_col=temp_col->next;
       }
-      if(iscol==false){printf("error\n");return 2;}
+      if(iscol==false){printf(ERROR);return 2;}
 //      compare[1]=value(compare[1]);
 //      sscanf(compare[0],"%f",left);
 //      sscanf(compare[1],"%f",right);
@@ -566,12 +570,12 @@ int Judge(table * now_tab,int row,char* row_limit)
       int *r=(int *)calloc(1,sizeof(int));
       bool iscol=false;
       compare=split(row_limit,">=",r);
-      if(*r!=2){printf("error\n");return 2;}
+      if(*r!=2){printf(ERROR);return 2;}
       for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
 	if(strcmp(temp_col->name,compare[0])==0){
 	  iscol=true;
 	  if(temp_col->type==Text||temp_col->type==None){   //类型不对
-	    printf("error\n");      
+	    printf(ERROR);      
 	    return 2;
 	  }
 	  temp_item=temp_col->rootItem->next;
@@ -581,7 +585,7 @@ int Judge(table * now_tab,int row,char* row_limit)
 	}
 	temp_col=temp_col->next;
       }
-      if(iscol==false){printf("error\n");return 2;}
+      if(iscol==false){printf(ERROR);return 2;}
       //compare[1]=value(compare[1]);
       //sscanf(compare[0],"%f",left);
       //sscanf(compare[1],"%f",right);
@@ -602,7 +606,7 @@ int Judge(table * now_tab,int row,char* row_limit)
 	if(strcmp(temp_col->name,compare[0])==0){
 	  iscol=true;
 	  if(temp_col->type==Text||temp_col->type==None){   //类型不对
-	    printf("error\n");      
+	    printf(ERROR);      
 	    return 2;
 	  }
 	  temp_item=temp_col->rootItem->next;
@@ -612,7 +616,7 @@ int Judge(table * now_tab,int row,char* row_limit)
 	}
 	temp_col=temp_col->next;
       }
-      if(iscol==false){printf("error\n");return 2;}
+      if(iscol==false){printf(ERROR);return 2;}
       //compare[1]=value(compare[1]);
       //sscanf(compare[0],"%f",left);
       //sscanf(compare[1],"%f",right);
@@ -628,12 +632,12 @@ int Judge(table * now_tab,int row,char* row_limit)
       int *r=(int *)calloc(1,sizeof(int));
       bool iscol=false;
       compare=split(row_limit,">",r);
-      if(*r!=2){printf("error\n");return 2;}
+      if(*r!=2){printf(ERROR);return 2;}
       for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
 	if(strcmp(temp_col->name,compare[0])==0){
           iscol=true;
 	  if(temp_col->type==Text||temp_col->type==None){   //类型不对
-	    printf("error\n");      
+	    printf(ERROR);      
 	    return 2;
 	  }
 	  temp_item=temp_col->rootItem->next;
@@ -645,7 +649,7 @@ int Judge(table * now_tab,int row,char* row_limit)
 	}
 	temp_col=temp_col->next;
       }
-      if(iscol==false){printf("error\n"); return 2;}
+      if(iscol==false){printf(ERROR); return 2;}
       //compare[1]=value(compare[1]);
       //      sscanf(compare[0],"%f",left);
       //     sscanf(compare[1],"%f",right);
@@ -661,12 +665,12 @@ int Judge(table * now_tab,int row,char* row_limit)
       int *r=(int *)calloc(1,sizeof(int));
       bool iscol=false;
       compare=split(row_limit,"<",r);
-      if(*r!=2){printf("error\n");return 2;}
+      if(*r!=2){printf(ERROR);return 2;}
       for(l=0;l<now_tab->colCnt;l++){     //从表中取出item
 	if(strcmp(temp_col->name,compare[0])==0){
 	  iscol=true;
 	  if(temp_col->type==Text||temp_col->type==None){   //类型不对
-	    printf("error\n");      
+	    printf(ERROR);      
 	    return 2;
 	  }
 	  temp_item=temp_col->rootItem->next;
@@ -676,7 +680,7 @@ int Judge(table * now_tab,int row,char* row_limit)
 	}
 	temp_col=temp_col->next;
       }
-      if(iscol==false){printf("error\n");return 2;}
+      if(iscol==false){printf(ERROR);return 2;}
       //compare[1]=value(compare[1]);
       //sscanf(compare[0],"%f",left);
       //sscanf(compare[1],"%f",right);
@@ -700,7 +704,7 @@ int between(char *a,char *b)
   min = strtok(b,",");
   max = strtok(NULL,",");
   if(max==NULL||strtok(NULL,",")!=NULL){
-    printf("error\n");
+    printf(ERROR);
     return 2;
   }
   //min=value(min);

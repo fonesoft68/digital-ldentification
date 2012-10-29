@@ -20,3 +20,4 @@ insert into  Referee  values ('wtq', 17);
 
   select name,age from  Referee where age >= 15;
 update Referee set ( age) = (30) where name == 'fy';
+select *from Referee where age >(10+2*3);
