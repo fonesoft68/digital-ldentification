@@ -5,7 +5,7 @@
 
 #define INSERT "insert into"
 #define VALUES "values"
-
+#define ERROE "fuckdian"
 char * cut(char * str, char c1, char c2)
 {
   int start = 0, end = strlen(str) - 1;

@@ -72,9 +72,9 @@ int renameDatabase(char *, char *);
 table * select(const char *);
 
 //LIKE匹配
-bool like(char *,char *);
+int like(char *,char *);
 //BETWEEN
-bool between(char *,char *);
+int between(char *,char *);
 //Judge判断某行是否合要求
 int Judge(table *,int,char *);
 

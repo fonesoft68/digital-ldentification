@@ -4,8 +4,8 @@
 #include"sql.h"
 
 table *Search(char *,char *,char *,char *,int);
-bool between(char *,char *);
-bool like(char *,char *);
+int between(char *,char *);
+int like(char *,char *);
 int Judge(table *,int ,char *);
 
 int andoror(char *);
@@ -420,7 +420,7 @@ int Judge(table * now_tab,int row,char* row_limit)
   if(row_limit==NULL){
     return 1;
   }else{
-    bool a=false;
+    int a=0;
     int k,l,m;
     if(strstr(row_limit,BETWEEN)!=NULL){//判断是否是between语句
       char *where_col;//where选定的行
@@ -446,7 +446,6 @@ int Judge(table * now_tab,int row,char* row_limit)
       area=(char *)calloc(1,sizeof(char)*(strlen(row_limit)-k-8));
       memcpy(area,row_limit+k+8,sizeof(char)*(strlen(row_limit)-k-9));
       a=between(where_item,area);
-
     }else if(strstr(row_limit,LIKE)!=NULL){//判断是否为like语句
       char *where_col;//like选定的行
       char *where_item;//被比较的item内容
@@ -500,13 +499,13 @@ int Judge(table * now_tab,int row,char* row_limit)
 //      compare[1]=value(compare[1]);
       if(temp_type==Text){
 		  compare[0]=cut(compare[0],'\'','\'');
-		  if(strcmp(compare[0],compare[1])==0) a=true;
+		  if(strcmp(compare[0],compare[1])==0) a=1;
       }else{
 //         sscanf(compare[0],"%f",left);
 //         sscanf(compare[1],"%f",right);
          left=calculate(compare[0]);
          right=calculate(compare[1]);
-         if(left==right){a=true;}
+         if(left==right){a=1;}
 	  }
     }else if(strstr(row_limit,"~=")!=NULL){                           //~=
       char **compare;
@@ -538,11 +537,11 @@ int Judge(table * now_tab,int row,char* row_limit)
 //      sscanf(compare[1],"%f",right);
        if(temp_type==Text){
 		  compare[0]=cut(compare[0],'\'','\'');
-		  if(strcmp(compare[0],compare[1])==0) a=true;
+		  if(strcmp(compare[0],compare[1])==0) a=1;
 	   }else{
        left=calculate(compare[0]);
 	   right=calculate(compare[1]);
-       if(left!=right){a=true;}
+       if(left!=right){a=1;}
 	   }
     }else if(strstr(row_limit,">=")!=NULL){                    //>=
       char **compare;
@@ -572,7 +571,7 @@ int Judge(table * now_tab,int row,char* row_limit)
       //sscanf(compare[1],"%f",right);
 	  left=calculate(compare[0]);
 	  right=calculate(compare[1]);
-      if(left>=right){a=true;}
+      if(left>=right){a=1;}
     }else if(strstr(row_limit,"<=")!=NULL){                   //<=
       char **compare;
       //float *right=(float *)calloc(1,sizeof(float));
@@ -601,7 +600,7 @@ int Judge(table * now_tab,int row,char* row_limit)
       //sscanf(compare[1],"%f",right);
 	  left=calculate(compare[0]);
 	  right=calculate(compare[1]);
-      if(left<=right){a=true;}
+      if(left<=right){a=1;}
     }else if(strstr(row_limit,">")!=NULL){                  //>
       char **compare;
       //    float *right=(float *)calloc(1,sizeof(float));
@@ -632,7 +631,7 @@ int Judge(table * now_tab,int row,char* row_limit)
       //     sscanf(compare[1],"%f",right);
       left=calculate(compare[0]);
       right=calculate(compare[1]);
-      if(left>right){a=true;}
+      if(left>right){a=1;}
     }else if(strstr(row_limit,"<")!=NULL){                   //<
       char **compare;
       //float *right=(float *)calloc(1,sizeof(float));
@@ -661,15 +660,14 @@ int Judge(table * now_tab,int row,char* row_limit)
       //sscanf(compare[1],"%f",right);
 	  left=calculate(compare[0]);
 	  right=calculate(compare[1]);
-      if(left<right){a=true;}
+      if(left<right){a=1;}
     }
-    if(a==true) return 1;
-    else return 0;
+    return a;
   }
 }
 
 //判断between[,],a为需判断的item，b为【，】中内容
-bool between(char *a,char *b)
+int between(char *a,char *b)
 {
   char *min;
   char *max;
@@ -680,7 +678,7 @@ bool between(char *a,char *b)
   max = strtok(NULL,",");
   if(max==NULL||strtok(NULL,",")!=NULL){
     printf("error\n");
-    return NULL;
+    return 2;
   }
   //min=value(min);
   //max=value(max);
@@ -688,13 +686,13 @@ bool between(char *a,char *b)
   y=calculate(max);
   z=calculate(a);
   if(x<=z&&z<=y){
-    return true;
+    return 1;
   }
-  else return false;
+  else return 0;
 }
 
 //判断like[]  str_1为需判别的item str_2为【】中内容
-bool like(char *str_1,char *str_2)
+int like(char *str_1,char *str_2)
 {
   int a,b;
   int i,j,k;
@@ -731,9 +729,9 @@ bool like(char *str_1,char *str_2)
       }
     }
     if(k>b+1){
-      return false;
+      return 0;
     }
   }
-  if(Match_map[a*(b+1)+b]==1) return true;
-  else return false;
+  if(Match_map[a*(b+1)+b]==1) return 1;
+  else return 0;
 }
