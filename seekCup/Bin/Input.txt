@@ -30,3 +30,6 @@ insert into unique values(3,'zihao hu',24);
 select * from unique;
 
 select * from unique where  id==1;
+
+
+select name from person where ((id>1)and(grade<400));
