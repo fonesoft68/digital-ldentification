@@ -12,6 +12,7 @@ insert into person values (2,'huzi',80);
 insert into person values(3, 'nimei', 456);
 
 select * from person;
+<<<<<<< HEAD
 #create table unique
 (
 id int,
@@ -33,3 +34,5 @@ money float
 #select * from unique;
 
 #select * from unique where  id==1;
+=======
+>>>>>>> 5b110b8320567d82b0b4d5872cac828f3f337569

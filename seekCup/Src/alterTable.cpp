@@ -22,7 +22,7 @@ int alterAdd(char *table_name, char *datatype)
 		printf(ERROR);
 		return 0;
     }
-    int *cnt = (int *) malloc (sizeof(int));
+    int *cnt = (int *) calloc (1, sizeof(int));
     char **split_datatype = split(datatype, " ", cnt);
     if(*cnt != 1 && *cnt != 2) {
 		printf(ERROR);
@@ -78,7 +78,7 @@ int alterAdd(char *table_name, char *datatype)
 		rootItem->next = tmp_item;
     }
     col *newCol = (col *) calloc (1, sizeof(col));
-    newCol->name  = (char *) malloc (sizeof(char) * (strlen(split_datatype[0]) + 1));
+    newCol->name  = (char *) calloc (1, sizeof(char) * (strlen(split_datatype[0]) + 1));
     strcpy(newCol->name, split_datatype[0]);
     newCol->type = type;
     newCol->rootItem = rootItem;
@@ -121,7 +121,7 @@ int alterRename(char * table_name, char * datatype) {
 	return 0;
     }
 
-    int *count = (int *) malloc (sizeof(int));
+    int *count = (int *) calloc (1, sizeof(int));
     char **split_datatype = split(datatype, " ", count);
     if (*count != 2) {
 	printf(ERROR);
@@ -227,7 +227,7 @@ int alterDel(char * table_name, char * column_name)
 
 int alter_parse(char *command)
 {
-    int *cnt = (int *) malloc (sizeof(int));
+  int *cnt = (int *) calloc (1, sizeof(int));
     char **split_command = split(command, ALTER_TABLE, cnt);
     if (*cnt != 1) {
 	printf(ERROR);
