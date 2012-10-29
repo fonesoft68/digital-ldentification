@@ -293,12 +293,12 @@ char ** split(char *str, char *split, int *cnt)
 		split = " ";
 	}
 
-	char **result;
+	char **result=NULL;
 	int *p = go(split);
 	int *sp = findString(str, split, p);
 	int i,j,k;
 
-	result = (char **) malloc (sizeof(char *) * sp[0] + 1);
+	result = (char **) calloc (sp[0] + 1,sizeof(char *));
 
 	int begin = 0;
 	char *tmp_str;

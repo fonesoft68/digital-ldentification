@@ -8,9 +8,22 @@ create table person
  );
 
 insert into person values(1,'YaoQ',90);
-updata person set Grade=900 where grade between [200,1000];
-delete from person where Id==-1;
-drop person;
-drop seedcup;
+insert into person values (2,'huzi',80);
+insert into person(name,id,grade) values('ni',3,70);
+create table unique
+(
+id int,
+name text,
+money float
+);
+insert into unique values(1,'kangle yu',324.3);
+insert into unique values(2,'dengzhe',3.3);insert into unique values(3,'zihao hu',24);
 
-
+create database dan;
+use dan;
+create table person(id int, name,);
+insert into person values(1,);
+alter table person add address int;
+alter table person alter column name int;
+insert into person values(2,,);
+show person column;

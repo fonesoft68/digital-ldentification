@@ -139,10 +139,7 @@ int isFloat(char *);
 int isText(char *);
 void swap(table *, int i, int j);
 void sort(table *, char *, int );
-<<<<<<< HEAD
 int delete_parse(char *);
 int delete_parse(char *);
 
-=======
 float calculate(char *);
->>>>>>> 04e56b299ca86c826f31db923fa5ace4fa7207d2

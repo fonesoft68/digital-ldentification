@@ -169,5 +169,76 @@ table *findTable(char *name)
 	printf(ERROR);
 	return 0;
 }
+#define INSERT "insert into "
+#define VALUE " values"
+
+char **insert_parse_col(char *str)
+{
+	char **result = NULL;
+	if (str == NULL)
+		return result;
+	int *p_split = go(",");
+	int *result_split = findString(str, ",", p_split);
+	result = (char **) calloc (result_split[0] + 1, sizeof(char *));
+	int i;
+	int size;
+	size = result_split[0] == 0 ? strlen(str) + 1: result_split[1] + 1;
+	char *tmp = (char *) calloc (size, sizeof(char));
+	if (result_split[0] == 0) {
+		result[0] = str;
+	}
+	else {
+		for (i = 1; i < size; ++ i) {
+		
+		}
+	}
+	for (i = 1; i < result_split[0]; ++ i) {
+		size = result_split[i + 1] - result_split[i];
+		tmp = (char *) calloc (size, sizeof(char));
+		int j;
+		for (j = 1; j < size; ++j) {
+			tmp[j] = str[result_split[i] + j];
+		}
+		result[i] = tmp;
+	}
+
+}
+
+int insert(char *command)
+{
+	int *cnt = (int *) calloc (1, sizeof(int));
+	char **split_c = split(command, " ", cnt);
+	char *table_name;
+	if (*cnt > 2) {
+		table_name = split_c[2];
+	}
+	split_c = split(command, INSERT, cnt);
+
+	if (*cnt == 1) {
+		split_c = split(split_c[0], VALUE, cnt);
+		if (*cnt == 2) {
+			char **split_name = split(split_c[0], table_name, cnt);
+			char *name = split_name[0];
+			char **column_set = insert_parse_col(name);
+			char **value_set = insert_parse_col(split_c[1]);
+		}
+	}
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

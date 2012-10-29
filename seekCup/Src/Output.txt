@@ -2,8 +2,24 @@ seedcup
 now used seedcup
 grade,id,name, 
 1,YaoQ,90, 
-grade
-900
-grade between [200,1000]
-**********grade 900*******
 1,YaoQ,90, 
+2,huzi,80, 
+1,YaoQ,90, 
+2,huzi,80, 
+3,ni,70, 
+grade,id,name, 
+1,kangle yu,324.3, 
+1,kangle yu,324.3, 
+2,dengzhe,3.3, 
+1,kangle yu,324.3, 
+2,dengzhe,3.3, 
+3,zihao hu,24, 
+dan,seedcup
+now used dan
+id,name, 
+1,#, 
+id,name,address, 
+error
+1,#,#, 
+2,#,#, 
+id,name,address, 
