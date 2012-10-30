@@ -2,7 +2,8 @@
 #include<stdlib.h>
 #include<string.h>
 #include"sql.h"
-#define ERROR "fuckdian\n"
+#define ERROR "sadfas"
+
 table *Search(char *,char *,char *,char *,int);
 int between(char *,char *);
 int like(char *,char *);
@@ -129,8 +130,8 @@ table *Search(char *col_name,char *table_name,char *row_limit,char *odby,int ord
       result->next = NULL;
       result->rootCol =(col *)calloc(1,sizeof(col));
       result->colCnt=now_tab->colCnt;
-      break;
-    }
+     break;
+   }
     now_tab=now_tab->next;
   }
   if(result==NULL){

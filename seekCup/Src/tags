@@ -1,0 +1,200 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ADD	alterTable.cpp	236;"	d	file:
+ALTER_COLUMN	alterTable.cpp	238;"	d	file:
+ALTER_TABLE	alterTable.cpp	235;"	d	file:
+ALTER_TABLE	parse.cpp	9;"	d	file:
+ASC	insert.cpp	197;"	d	file:
+BETWEEN	delete.cpp	14;"	d	file:
+BETWEEN	foo.cpp	361;"	d	file:
+BETWEEN	updata.cpp	16;"	d	file:
+BY	show.cpp	12;"	d	file:
+COLUMN	show.cpp	10;"	d	file:
+CREATE_DATABASE	parse.cpp	7;"	d	file:
+CREATE_TABLE	parse.cpp	8;"	d	file:
+Complex_Judge	select.cpp	/^int Complex_Judge(table *now_tab,int row,char* complex_row_limit)$/;"	f
+DATABASE	show.cpp	7;"	d	file:
+DEBU	sql.h	2;"	d
+DELETE	parse.cpp	17;"	d	file:
+DESC	insert.cpp	198;"	d	file:
+DESC	show.cpp	13;"	d	file:
+DROP	alterTable.cpp	237;"	d	file:
+DROP	parse.cpp	12;"	d	file:
+EQUAL	delete.cpp	8;"	d	file:
+EQUAL	foo.cpp	355;"	d	file:
+EQUAL	updata.cpp	10;"	d	file:
+ERROR	select.cpp	5;"	d	file:
+ERROR	sql.h	1;"	d
+ERROR	updata.cpp	8;"	d	file:
+FROM	foo.cpp	642;"	d	file:
+Float	sql.h	/^	Float = 2,$/;"	e	enum:__anon1
+GREATE_THAN	delete.cpp	10;"	d	file:
+GREATE_THAN	foo.cpp	357;"	d	file:
+GREATE_THAN	updata.cpp	12;"	d	file:
+GREATE_THAN_EQUAL	delete.cpp	12;"	d	file:
+GREATE_THAN_EQUAL	foo.cpp	359;"	d	file:
+GREATE_THAN_EQUAL	updata.cpp	14;"	d	file:
+INCR	show.cpp	14;"	d	file:
+INSERT	insert.cpp	6;"	d	file:
+INSERT	updata.cpp	180;"	d	file:
+INSERT_INTO	parse.cpp	18;"	d	file:
+Int	sql.h	/^	Int = 1,$/;"	e	enum:__anon1
+IsOper	calculate.cpp	/^int IsOper(char ch) { \/\/判断字符ch是否为运算符$/;"	f
+Judge	select.cpp	/^int Judge(table * now_tab,int row,char* row_limit)$/;"	f
+LESS_THAN	delete.cpp	11;"	d	file:
+LESS_THAN	foo.cpp	358;"	d	file:
+LESS_THAN	updata.cpp	13;"	d	file:
+LESS_THAN_EQUEL	delete.cpp	13;"	d	file:
+LESS_THAN_EQUEL	foo.cpp	360;"	d	file:
+LESS_THAN_EQUEL	updata.cpp	15;"	d	file:
+LIKE	foo.cpp	362;"	d	file:
+NOT_EQUAL	delete.cpp	9;"	d	file:
+NOT_EQUAL	foo.cpp	356;"	d	file:
+NOT_EQUAL	updata.cpp	11;"	d	file:
+None	sql.h	/^	None = 4$/;"	e	enum:__anon1
+ORDER	show.cpp	11;"	d	file:
+P_1	foo.cpp	743;"	d	file:
+P_2	foo.cpp	744;"	d	file:
+P_3	foo.cpp	745;"	d	file:
+P_4	foo.cpp	746;"	d	file:
+Precede	calculate.cpp	/^char Precede(char a, char b) { \/\/判断运算符优先级$/;"	f
+RENAME_DATABASE	parse.cpp	14;"	d	file:
+RENAME_TABLE	parse.cpp	13;"	d	file:
+SELECT	foo.cpp	641;"	d	file:
+SELECT	parse.cpp	15;"	d	file:
+SHOW	parse.cpp	19;"	d	file:
+SHOW	show.cpp	9;"	d	file:
+Search	select.cpp	/^table *Search(char *col_name,char *table_name,char *row_limit,char *odby,int order)$/;"	f
+TABLE	show.cpp	8;"	d	file:
+TRUNCATE_TABLE	parse.cpp	10;"	d	file:
+TYPE	sql.h	/^}TYPE;$/;"	t	typeref:enum:__anon1
+Text	sql.h	/^	Text = 3,$/;"	e	enum:__anon1
+UPDATA	parse.cpp	16;"	d	file:
+USE	parse.cpp	11;"	d	file:
+VALUE	updata.cpp	181;"	d	file:
+VALUES	insert.cpp	7;"	d	file:
+WHERE	delete.cpp	6;"	d	file:
+WHERE	updata.cpp	7;"	d	file:
+add_black	foo.cpp	/^char *add_black(char * command) $/;"	f
+allDatabaseRoot	SeedCup.cpp	/^database *allDatabaseRoot; \/\/= (database *) calloc (1, sizeof(database));$/;"	v
+allDatabaseRoot	ts.cpp	/^database *allDatabaseRoot;$/;"	v
+allDatabaseRoot	ts_dengzhe.cpp	/^database *allDatabaseRoot = (database *)calloc(1, sizeof(database));$/;"	v
+allDatabaseRoot	ts_huzihao.cpp	/^database* allDatabaseRoot = (database *) calloc (1, sizeof(table));$/;"	v
+alterAdd	alterTable.cpp	/^int alterAdd(char *table_name, char *datatype)$/;"	f
+alterDel	alterTable.cpp	/^int alterDel(char * table_name, char * column_name)$/;"	f
+alterRename	alterTable.cpp	/^int alterRename(char * table_name, char * datatype) {$/;"	f
+alter_parse	alterTable.cpp	/^int alter_parse(char *command)$/;"	f
+andoror	select.cpp	/^int andoror(char *a){$/;"	f
+between	select.cpp	/^int between(char *a,char *b)$/;"	f
+calculate	calculate.cpp	/^float calculate(char *s)$/;"	f
+check	calculate.cpp	/^int check(char * s) $/;"	f
+col	sql.h	/^typedef struct col{$/;"	s
+col	sql.h	/^}col;$/;"	t	typeref:struct:col
+colCnt	sql.h	/^	int colCnt;$/;"	m	struct:table
+colcpy	foo.cpp	/^col *colcpy(col *c)$/;"	f
+createDatabase	createDatabase.cpp	/^database * createDatabase(char * name)$/;"	f
+createTable	createTable.cpp	/^table * createTable(char * str)$/;"	f
+cut	insert.cpp	/^char * cut(char * str, char c1, char c2)$/;"	f
+database	sql.h	/^typedef struct database{$/;"	s
+database	sql.h	/^}database;$/;"	t	typeref:struct:database
+databaseCnt	SeedCup.cpp	/^int databaseCnt = 0;$/;"	v
+databaseCnt	ts.cpp	/^int databaseCnt = 0;$/;"	v
+databaseCnt	ts_dengzhe.cpp	/^int databaseCnt = 0;$/;"	v
+databaseCnt	ts_huzihao.cpp	/^int databaseCnt;$/;"	v
+delete_parse	delete.cpp	/^int delete_parse(char *command)$/;"	f
+drop	drop.cpp	/^int drop(const char * str)$/;"	f
+find	insert.cpp	/^col * find(table * tb, char * str)$/;"	f
+findCol	foo.cpp	/^col *findCol(table *t, char *name)$/;"	f
+findItem	foo.cpp	/^item *findItem(col *c, int index)$/;"	f
+findString	foo.cpp	/^int * findString(char *query, char *module, int *go)$/;"	f
+findTable	updata.cpp	/^table *findTable(char *name)$/;"	f
+foo	foo.cpp	/^int foo(char *command) $/;"	f
+freeCol	truncateTable.cpp	/^int freeCol(col *c) {$/;"	f
+freeDatabase	truncateTable.cpp	/^int freeDatabase(database *d)$/;"	f
+freeItem	truncateTable.cpp	/^int freeItem(item *i)$/;"	f
+freeTable	truncateTable.cpp	/^int freeTable(table *t)$/;"	f
+getBetweenStr	foo.cpp	/^char **getBetweenStr(char *query, char *left, char *right, int *cnt)$/;"	f
+getColNum	foo.cpp	/^int getColNum(table *t)$/;"	f
+getItemNum	foo.cpp	/^int getItemNum(col *c)$/;"	f
+go	foo.cpp	/^int* go(char *module)$/;"	f
+initColCnt	foo.cpp	/^int initColCnt(table *t)$/;"	f
+initDatabaseCnt	foo.cpp	/^int initDatabaseCnt()$/;"	f
+initItemCnt	foo.cpp	/^int initItemCnt(col *c)$/;"	f
+initTableCnt	foo.cpp	/^int initTableCnt(database *d)$/;"	f
+initTestDatabase	showDatabase.cpp	/^int initTestDatabase()$/;"	f
+insert	insert.cpp	/^int insert(const char *command)$/;"	f
+insert	updata.cpp	/^int insert(char *command)$/;"	f
+insert_parse_col	updata.cpp	/^char **insert_parse_col(char *str)$/;"	f
+isFloat	foo.cpp	/^int isFloat(char *str)$/;"	f
+isNum	foo.cpp	/^int isNum(char *str)$/;"	f
+isSelect	foo.cpp	/^int isSelect(TYPE type, char *res , char *condition)$/;"	f
+isText	foo.cpp	/^int isText(char *str)$/;"	f
+item	sql.h	/^typedef struct item{$/;"	s
+item	sql.h	/^}item;$/;"	t	typeref:struct:item
+itemCnt	sql.h	/^	int itemCnt;$/;"	m	struct:col
+itemcpy	foo.cpp	/^item *itemcpy(item *i)$/;"	f
+like	select.cpp	/^int like(char *str_1,char *str_2)$/;"	f
+main	SeedCup.cpp	/^int main(int argc, char *argv[])$/;"	f
+main	ts.cpp	/^int main(int argc, char *argv[])$/;"	f
+main	ts_dengzhe.cpp	/^int main()$/;"	f
+main	ts_huzihao.cpp	/^int main(int argc, char *argv[])$/;"	f
+min	foo.cpp	/^int min(int a, int b){$/;"	f
+name	sql.h	/^	char *name; $/;"	m	struct:col
+name	sql.h	/^	char *name;$/;"	m	struct:database
+name	sql.h	/^	char *name;$/;"	m	struct:table
+nameCheck	show.cpp	/^int nameCheck(char *name) $/;"	f
+next	sql.h	/^	col *next;$/;"	m	struct:col
+next	sql.h	/^	database *next;$/;"	m	struct:database
+next	sql.h	/^	item *next;$/;"	m	struct:item
+next	sql.h	/^	table *next;$/;"	m	struct:table
+nowUsedDatabase	SeedCup.cpp	/^database *nowUsedDatabase; \/\/= (database *) calloc (1, sizeof(database));;$/;"	v
+nowUsedDatabase	ts.cpp	/^database *nowUsedDatabase;$/;"	v
+nowUsedDatabase	ts_dengzhe.cpp	/^database *nowUsedDatabase = (database *)calloc(1, sizeof(database));$/;"	v
+nowUsedDatabase	ts_huzihao.cpp	/^database * nowUsedDatabase = (database *) calloc (1, sizeof(table));$/;"	v
+outputForOrder	show.cpp	/^int outputForOrder(char ** str, int *cnt, int order)$/;"	f
+parseCommand	parse.cpp	/^int parseCommand(char * command)$/;"	f
+pre_process	foo.cpp	/^char *pre_process(char *command)$/;"	f
+printItem	show.cpp	/^int printItem(item *i)$/;"	f
+renameDatabase	renameDatabase.cpp	/^int renameDatabase(char * oldName, char *newName)$/;"	f
+renameTable	renameTable.cpp	/^int renameTable(char *old_name, char *new_name)$/;"	f
+res	sql.h	/^	char *res;$/;"	m	struct:item
+resCmp	foo.cpp	/^int resCmp(TYPE type, char *a, char *b)$/;"	f
+rootCol	sql.h	/^	col *rootCol;$/;"	m	struct:table
+rootItem	sql.h	/^	item *rootItem;$/;"	m	struct:col
+rootTable	sql.h	/^	table *rootTable;$/;"	m	struct:database
+select	select.cpp	/^table *select(const char* Select)$/;"	f
+showCol	show.cpp	/^int showCol(char *n)$/;"	f
+showColName	show.cpp	/^int showColName(col *c)$/;"	f
+showDatabase	show.cpp	/^char **showDatabase(int *cnt)$/;"	f
+showDatabase	showDatabase.cpp	/^int showDatabase()$/;"	f
+showDatabaseTable	show.cpp	/^char **showDatabaseTable(char *name, int *cnt)$/;"	f
+showItem	show.cpp	/^int showItem(item *i)$/;"	f
+showTable	show.cpp	/^char **showTable(database *db, int *cnt)$/;"	f
+showTableCol	show.cpp	/^char **showTableCol(char *name, int *cnt)$/;"	f
+showTableContext	show.cpp	/^int showTableContext(table *t)$/;"	f
+showTableContext_select	show.cpp	/^int showTableContext_select(table *t)$/;"	f
+showTableN	show.cpp	/^int showTableN(char *tableName)$/;"	f
+showTableName	showDatabase.cpp	/^int showTableName(char *name)$/;"	f
+showTestDatabase	showDatabase.cpp	/^int showTestDatabase()$/;"	f
+show_parse	show.cpp	/^int show_parse(char *command)$/;"	f
+sort	insert.cpp	/^void sort(table *tmp_table, char *name, int rule)$/;"	f
+split	parse.cpp	/^char ** split(char *str, char *split, int *cnt)$/;"	f
+strCmp	foo.cpp	/^int strCmp(char *str_1, char *str_2)$/;"	f
+string_cut	parse.cpp	/^int string_cut(char **str)$/;"	f
+swap	insert.cpp	/^void swap(table *tmp_table, int i, int j)$/;"	f
+table	sql.h	/^typedef struct table{$/;"	s
+table	sql.h	/^}table;$/;"	t	typeref:struct:table
+tableCnt	sql.h	/^	int tableCnt;$/;"	m	struct:database
+tablecpy	foo.cpp	/^table *tablecpy(table *t)$/;"	f
+testDatabase	showDatabase.cpp	/^database *testDatabase;$/;"	v
+toLowCase	foo.cpp	/^int toLowCase(char *str)$/;"	f
+truncateTable	truncateTable.cpp	/^int truncateTable(char *name)$/;"	f
+type	sql.h	/^	TYPE type;$/;"	m	struct:col
+type	sql.h	/^	TYPE type;$/;"	m	struct:item
+updata_parse	updata.cpp	/^int updata_parse(char *command)$/;"	f
+useDatabase	useDatabase.cpp	/^int useDatabase(char *name)$/;"	f
+where	foo.cpp	/^table *where(table *query_table, char *condition)$/;"	f
