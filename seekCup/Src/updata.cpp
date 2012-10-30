@@ -5,7 +5,6 @@
 #include "test.h"
 
 #define WHERE "where"
-#define ERROR "funckyou!\n"
 
 #define EQUAL "=="
 #define NOT_EQUAL "~="

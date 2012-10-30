@@ -88,7 +88,7 @@ int show_parse(char *command)
 
 int printItem(item *i)
 {
-	if (!i || i->type == None || !i->res || strcmp(i->res, "") == 0) {
+	if (!i || i->type == None || !i->res || strcmp(i->res, "") == 0 || strcmp(i->res,"error") == 0) {
 		printf("#,");
 	}
 	else {

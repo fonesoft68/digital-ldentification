@@ -2,7 +2,6 @@
 #include<stdlib.h>
 #include<string.h>
 #include"sql.h"
-#define ERROR "sadfas"
 
 table *Search(char *,char *,char *,char *,int);
 int between(char *,char *);
@@ -130,9 +129,9 @@ table *Search(char *col_name,char *table_name,char *row_limit,char *odby,int ord
       result->next = NULL;
       result->rootCol =(col *)calloc(1,sizeof(col));
       result->colCnt=now_tab->colCnt;
-     break;
-   }
-    now_tab=now_tab->next;
+      break;
+    }
+   now_tab=now_tab->next;
   }
   if(result==NULL){
     printf(ERROR);
@@ -173,9 +172,9 @@ table *Search(char *col_name,char *table_name,char *row_limit,char *odby,int ord
       temp_col_2 = now_tab->rootCol->next;              //
 //      if(temp_col_2->type==None) continue;
       for(j = 0;j<now_tab->colCnt;j++){
-		  if(temp_col_2->type==None){
+		  	  if(temp_col_2->type==None){
 			  temp_col_1=temp_col_1->next;
-			  temp_col_2=temp_col_2->next;
+		  temp_col_2=temp_col_2->next;
 			  continue;
 		  }
 	temp_item_2 = temp_col_2->rootItem->next;         //
@@ -217,7 +216,7 @@ table *Search(char *col_name,char *table_name,char *row_limit,char *odby,int ord
   temp_col_1=(col *)calloc(1,sizeof(col));
   temp_col_2=(col *)calloc(1,sizeof(col));
   temp_col_3=(col *)calloc(1,sizeof(col));
-  for(i=*p;i>0;i--)
+  for(i=1;i<=*p;i++)
     {
       temp_col_1=result->rootCol->next;
       a=false;
